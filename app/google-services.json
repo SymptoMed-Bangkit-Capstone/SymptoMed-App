@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137109371711",
+    "project_id": "symptomed-bf727",
+    "storage_bucket": "symptomed-bf727.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137109371711:android:8eb7fa24fc32c5acc5f18a",
+        "android_client_info": {
+          "package_name": "com.uberalles.symptomed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKV7aR0RBoWsDIM-1DAQDvWSDBGqtBQ2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
