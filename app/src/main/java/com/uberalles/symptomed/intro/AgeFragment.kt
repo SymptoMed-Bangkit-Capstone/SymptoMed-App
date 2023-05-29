@@ -38,7 +38,10 @@ class AgeFragment : Fragment() {
         helloUser()
         ageResult()
         nextButton()
+
     }
+
+
 
     private fun nextButton() {
         binding.apply {
@@ -119,5 +122,10 @@ class AgeFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+
+    }
 
 }

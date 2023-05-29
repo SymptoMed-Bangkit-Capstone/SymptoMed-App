@@ -1,11 +1,13 @@
 package com.uberalles.symptomed.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -29,6 +31,13 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         formatError()
         signIn()
@@ -70,7 +79,16 @@ class SignInFragment : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+
+                            val sharedPref = activity?.getSharedPreferences("user", 0)
+                            val editor = sharedPref?.edit()
+                            editor?.putString("email", email)
+                            editor?.putString("password", password)
+                            editor?.apply()
+
+
                             findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                            Log.d("SignInFragment", "$email $password")
                         } else {
                             Toast.makeText(
                                 requireContext(),

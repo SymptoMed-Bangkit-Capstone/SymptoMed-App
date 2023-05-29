@@ -1,12 +1,13 @@
 package com.uberalles.symptomed.ui
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.uberalles.symptomed.R
@@ -28,12 +29,25 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //splashfragment to namefragment after 3 seconds
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
-        }, 3000)
+        checkUserStatus()
+    }
 
+    private fun checkUserStatus() {
+        val sharedPreferences = requireActivity().getSharedPreferences("user", MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "")
+        val password = sharedPreferences.getString("password", "")
 
+        if (email != "" && password != "") {
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(R.id.action_splashFragment_to_nameFragment)
+                Log.d("SplashFragment", "$email $password")
+            }, 3000)
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+                Log.d("SplashFragment", "$email $password")
+            }, 3000)
+        }
     }
 
     override fun onDestroyView() {
