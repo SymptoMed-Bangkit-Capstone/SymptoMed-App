@@ -18,22 +18,16 @@ class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         _binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //if password is less than 6 characters show error
-        //if email is not valid show error
 
         formatError()
         signIn()
@@ -66,17 +60,26 @@ class SignUpFragment : Fragment() {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
-            firebaseAuth = FirebaseAuth.getInstance()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(context, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                firebaseAuth = FirebaseAuth.getInstance()
 
-            firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(context, "Signed Up Successfully", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
-                    } else {
-                        Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(context, "Signed Up Successfully", Toast.LENGTH_SHORT)
+                                .show()
+                            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+                        } else {
+                            Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
-                }
+            }
+
+
         }
     }
 

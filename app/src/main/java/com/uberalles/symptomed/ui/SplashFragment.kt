@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSplashBinding
 
@@ -33,21 +35,32 @@ class SplashFragment : Fragment() {
     }
 
     private fun checkUserStatus() {
-        val sharedPreferences = requireActivity().getSharedPreferences("user", MODE_PRIVATE)
-        val email = sharedPreferences.getString("email", "")
-        val password = sharedPreferences.getString("password", "")
-
-        if (email != "" && password != "") {
+        val user = Firebase.auth.currentUser
+        if (user != null) {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(R.id.action_splashFragment_to_nameFragment)
-                Log.d("SplashFragment", "$email $password")
             }, 3000)
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
-                Log.d("SplashFragment", "$email $password")
             }, 3000)
         }
+
+//        val sharedPreferences = requireActivity().getSharedPreferences("user", MODE_PRIVATE)
+//        val email = sharedPreferences.getString("email", "")
+//        val password = sharedPreferences.getString("password", "")
+
+//        if (email != "" && password != "") {
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                findNavController().navigate(R.id.action_splashFragment_to_nameFragment)
+//                Log.d("SplashFragment", "$email $password")
+//            }, 3000)
+//        } else {
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+//                Log.d("SplashFragment", "$email $password")
+//            }, 3000)
+//        }
     }
 
     override fun onDestroyView() {

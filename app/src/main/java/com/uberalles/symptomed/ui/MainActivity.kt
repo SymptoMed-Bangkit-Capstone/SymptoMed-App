@@ -1,7 +1,13 @@
 package com.uberalles.symptomed.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import com.google.firebase.auth.FirebaseAuth
+import com.uberalles.symptomed.R
+import com.uberalles.symptomed.auth.AuthActivity
+import com.uberalles.symptomed.auth.SignInFragment
 import com.uberalles.symptomed.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +18,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        logoutButton()
         toolbarText()
+    }
+
+    private fun logoutButton() {
+        binding.apply {
+            btnLogout.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(this@MainActivity, AuthActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun toolbarText() {

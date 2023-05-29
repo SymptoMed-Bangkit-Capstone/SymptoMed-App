@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.databinding.FragmentAgeBinding
 import com.uberalles.symptomed.ui.MainActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {
+    private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentAgeBinding? = null
     private val binding get() = _binding!!
     private lateinit var fragmentArguments: Bundle
@@ -34,6 +38,7 @@ class AgeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentArguments = Bundle()
+        firebaseAuth = FirebaseAuth.getInstance()
 
         helloUser()
         ageResult()
@@ -46,11 +51,14 @@ class AgeFragment : Fragment() {
     private fun nextButton() {
         binding.apply {
             btnNext.setOnClickListener {
+                val database = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                val ageDatabase = database.reference.child("userId").child(firebaseAuth.currentUser!!.uid).child("age")
 
                 val name = arguments?.getString(NameFragment.EXTRA_NAME)
                 val gender = arguments?.getString(GenderFragment.EXTRA_GENDER)
                 val age = fragmentArguments.getInt(EXTRA_AGE,0)
 
+                ageDatabase.setValue(age)
 
                 val intent = Intent(context, MainActivity::class.java)
                 intent.putExtra(EXTRA_AGE, age)
@@ -115,7 +123,6 @@ class AgeFragment : Fragment() {
                         animate().alpha(1f).setDuration(1000).setListener(null)
                     }
                     binding.btnCalendar.text = "$cDay/${cMonth + 1}/$cYear"
-
                 }, cYear, cMonth, cDay
             ).show()
         }

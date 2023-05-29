@@ -83,4 +83,13 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/logOutFragment"
+        android:name="com.uberalles.symptomed.auth.LogOutFragment"
+        android:label="fragment_log_out"
+        tools:layout="@layout/fragment_log_out" >
+        <action
+            android:id="@+id/action_logOutFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
 </navigation>
