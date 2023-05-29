@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.ui.intro
+package com.uberalles.symptomed.intro
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.uberalles.symptomed.databinding.FragmentAgeBinding
-import com.uberalles.symptomed.ui.ui.MainActivity
+import com.uberalles.symptomed.ui.MainActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {

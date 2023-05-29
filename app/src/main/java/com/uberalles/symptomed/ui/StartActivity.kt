@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.ui
+package com.uberalles.symptomed.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

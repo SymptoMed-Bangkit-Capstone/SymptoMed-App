@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.ui.intro
+package com.uberalles.symptomed.intro
 
 import android.os.Bundle
 import android.view.LayoutInflater

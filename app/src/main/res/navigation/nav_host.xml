@@ -6,7 +6,7 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.uberalles.symptomed.ui.ui.SplashFragment"
+        android:name="com.uberalles.symptomed.ui.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.uberalles.symptomed.ui.ui.intro.NameFragment"
+        android:name="com.uberalles.symptomed.intro.NameFragment"
         android:label="fragment_name"
         tools:layout="@layout/fragment_name" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/ageFragment"
-        android:name="com.uberalles.symptomed.ui.ui.intro.AgeFragment"
+        android:name="com.uberalles.symptomed.intro.AgeFragment"
         android:label="fragment_age"
         tools:layout="@layout/fragment_age" >
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.uberalles.symptomed.ui.ui.intro.GenderFragment"
+        android:name="com.uberalles.symptomed.intro.GenderFragment"
         android:label="fragment_gender"
         tools:layout="@layout/fragment_gender" >
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.uberalles.symptomed.ui.ui.MainActivity"
+        android:name="com.uberalles.symptomed.ui.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
 </navigation>
