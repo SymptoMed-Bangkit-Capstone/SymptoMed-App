@@ -46,8 +46,8 @@ class SignUpFragment : Fragment() {
                 }
             }
             password.addTextChangedListener {
-                if (it.toString().length < 8) {
-                    password.error = "Password must be at least 8 characters"
+                if (it.toString().length < 6) {
+                    password.error = "Password must be at least 6 characters"
                 } else {
                     password.error = null
                 }
