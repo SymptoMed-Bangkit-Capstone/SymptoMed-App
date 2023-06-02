@@ -1,11 +1,14 @@
 package com.uberalles.symptomed.intro
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
@@ -15,6 +18,7 @@ import com.uberalles.symptomed.ui.MainActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentAgeBinding? = null
     private val binding get() = _binding!!
@@ -32,6 +36,7 @@ class AgeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAgeBinding.inflate(layoutInflater, container, false)
+        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -58,6 +63,17 @@ class AgeFragment : Fragment() {
                 val gender = arguments?.getString(GenderFragment.EXTRA_GENDER)
                 val age = fragmentArguments.getInt(EXTRA_AGE,0)
 
+                //save to shared preferences
+                val editor = sharedPreferences.edit()
+                editor.putString("age", age.toString())
+                editor.apply()
+                Toast.makeText(
+                    requireContext(),
+                    sharedPreferences.getString("age", ""),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                //save to firebase
                 ageDatabase.setValue(age)
 
                 val intent = Intent(context, MainActivity::class.java)

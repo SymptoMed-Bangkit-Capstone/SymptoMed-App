@@ -1,5 +1,7 @@
 package com.uberalles.symptomed.intro
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +19,11 @@ import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentNameBinding
 
 class NameFragment : Fragment() {
+
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentNameBinding? = null
+
     private val binding get() = _binding!!
     private lateinit var bundle: Bundle
 
@@ -32,6 +37,8 @@ class NameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentNameBinding.inflate(layoutInflater, container, false)
+        sharedPreferences =
+            requireActivity().getPreferences(Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -46,21 +53,23 @@ class NameFragment : Fragment() {
     }
 
     private fun backButton() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Are you sure?")
-                    .setMessage("Do you want to exit the app?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        activity?.finish()
-                    }
-                    .setNegativeButton("No") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .create()
-                    .show()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Are you sure?")
+                        .setMessage("Do you want to exit the app?")
+                        .setPositiveButton("Yes") { _, _ ->
+                            activity?.finish()
+                        }
+                        .setNegativeButton("No") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create()
+                        .show()
+                }
+            })
     }
 
 
@@ -85,9 +94,24 @@ class NameFragment : Fragment() {
     private fun nextButton() {
         binding.apply {
             button.setOnClickListener {
-                val database = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                val name = database.reference.child("userId").child(firebaseAuth.currentUser!!.uid).child("name")
-                name.setValue(binding.tvName.text.toString())
+                val fullname = binding.tvName.text.toString()
+                //save to shared preferences
+                val editor = sharedPreferences.edit()
+                editor.putString("fullname", fullname)
+                editor.apply()
+                Toast.makeText(
+                    requireContext(),
+                    sharedPreferences.getString("fullname", ""),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                //save to firebase
+                val database =
+                    Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                val nameDb =
+                    database.reference.child("userId").child(firebaseAuth.currentUser!!.uid)
+                        .child("name")
+                nameDb.setValue(fullname)
 
                 bundle.putString(EXTRA_NAME, binding.tvName.text.toString())
                 findNavController().navigate(R.id.action_nameFragment_to_genderFragment, bundle)
