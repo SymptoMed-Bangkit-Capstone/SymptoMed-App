@@ -90,6 +90,15 @@ class AgeFragment : Fragment() {
 
     private fun helloUser() {
         val name = arguments?.getString(GenderFragment.EXTRA_NAME)
+        val database =
+            Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        val nameDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("name")
+
+        nameDb.get().addOnSuccessListener {
+            if (it.exists()) {
+                binding.tvHello.setText("Hello, ${it.value}!")
+            }
+        }
 
         binding.tvHello.apply {
             text = "Hello, $name!"
@@ -112,6 +121,11 @@ class AgeFragment : Fragment() {
         var cMonth = calendar.get(Calendar.MONTH)
         var cYear = calendar.get(Calendar.YEAR)
 
+        val database =
+            Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        val genderDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("gender")
+
+
         activity?.let {
             DatePickerDialog(
                 it,
@@ -127,13 +141,26 @@ class AgeFragment : Fragment() {
 
                     fragmentArguments.putInt(EXTRA_AGE, age)
 
-                    binding.ageResult.apply {
-                        visibility = View.VISIBLE
-                        text = "You are $age years old $gender!"
-                        alpha = 0f
-                        visibility = View.VISIBLE
-                        animate().alpha(1f).setDuration(1000).setListener(null)
-                        //put age in bundle
+                    genderDb.get().addOnSuccessListener {
+                        if (it.exists()) {
+                            binding.ageResult.apply {
+                                visibility = View.VISIBLE
+                                text = "You are $age years old ${it.value}!"
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate().alpha(1f).setDuration(1000).setListener(null)
+                                //put age in bundle
+                            }
+                        } else {
+                            binding.ageResult.apply {
+                                visibility = View.VISIBLE
+                                text = "You are $age years old $gender!"
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate().alpha(1f).setDuration(1000).setListener(null)
+                                //put age in bundle
+                            }
+                        }
                     }
                     binding.btnNext.apply {
                         alpha = 0f

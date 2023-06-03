@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //onbackbuttonpressed exit app
     override fun onBackPressed() {
         alertBuilder = AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("Alert")

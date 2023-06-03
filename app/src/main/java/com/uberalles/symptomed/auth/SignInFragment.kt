@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignInBinding
@@ -65,14 +64,7 @@ class SignInFragment : Fragment() {
 
     private fun signIn() {
         binding.btnSignIn.setOnClickListener {
-            val user = firebaseAuth.currentUser
-            val reference = user?.let {
-                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/").reference.child(
-                    "userId"
-                ).child(
-                    it.uid
-                )
-            }
+
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
@@ -80,21 +72,58 @@ class SignInFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please fill out all fields", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                firebaseAuth = FirebaseAuth.getInstance()
 
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+                            val user = Firebase.auth.currentUser
+                            val reference =
+                                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
+                                    user?.uid.toString()
+                                )
 
-//                            val database =
-//                                Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-//                            val userId = database.reference.child("userId")
-//                                .child(firebaseAuth.currentUser!!.uid)
-//                            userId.setValue(firebaseAuth.currentUser!!.uid)
+                            reference.child("name").get().addOnCompleteListener { nameTask ->
+                                val name = nameTask.result?.value?.toString()
+                                if (name.isNullOrEmpty()) {
+                                    findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                                    Log.d("SignInFragment", "Name is empty")
+                                    return@addOnCompleteListener
+                                }
 
-                            findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                                reference.child("gender").get()
+                                    .addOnCompleteListener { genderTask ->
+                                        val gender = genderTask.result?.value?.toString()
+                                        if (gender.isNullOrEmpty()) {
+                                            findNavController().navigate(R.id.action_signInFragment_to_genderFragment)
+                                            Log.d("SignInFragment", "Gender is empty")
+                                            return@addOnCompleteListener
+                                        }
 
-                            Log.d("SignInFragment", "$email $password")
+                                        reference.child("age").get()
+                                            .addOnCompleteListener { ageTask ->
+                                                val age = ageTask.result?.value?.toString()
+                                                if (age.isNullOrEmpty()) {
+                                                    findNavController().navigate(R.id.action_signInFragment_to_ageFragment)
+                                                    Log.d("SignInFragment", "Age is empty")
+                                                    return@addOnCompleteListener
+                                                }
+
+                                                // All fields are present
+                                                Log.d(
+                                                    "Firebase",
+                                                    "Name: $name, gender: $gender, age: $age"
+                                                )
+                                                if (user != null) {
+                                                    findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+                                                    Log.d("SignInFragment", "User data is not null")
+                                                } else {
+                                                    findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                                                    Log.d("SignInFragment", "User data is null")
+                                                }
+                                                Log.d("SignInFragment", "$email $password")
+                                            }
+                                    }
+                            }
                         } else {
                             Toast.makeText(
                                 requireContext(),
@@ -102,6 +131,35 @@ class SignInFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
+
+//                        if (task.isSuccessful) {
+//                            val user = Firebase.auth.currentUser
+//                            val reference =
+//                                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
+//                                    user?.uid.toString()
+//                                )
+//
+//                            val name = reference.child("name").get()
+//                            val gender = reference.child("gender").get()
+//                            val age = reference.child("age").get()
+//
+//                            Log.d("Firebase", "Name: $name, gender: $gender, age: $age")
+//
+//                            if (user != null) {
+//
+//                                Log.d("SignInFragment", "User data is not null")
+//                            } else {
+//                                findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+//                                Log.d("SignInFragment", "User data is null")
+//                            }
+//                            Log.d("SignInFragment", "$email $password")
+//                        } else {
+//                            Toast.makeText(
+//                                requireContext(),
+//                                "Sign in failed. Please try again.",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
                     }
             }
         }

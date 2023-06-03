@@ -84,6 +84,15 @@
         <action
             android:id="@+id/action_signInFragment_to_nameFragment"
             app:destination="@id/nameFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_genderFragment"
+            app:destination="@id/genderFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_ageFragment"
+            app:destination="@id/ageFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

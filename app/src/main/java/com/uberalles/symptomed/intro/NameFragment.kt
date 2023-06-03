@@ -12,14 +12,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentNameBinding
-import com.uberalles.symptomed.viewmodel.UserViewModel
 
 class NameFragment : Fragment() {
 
@@ -35,8 +33,7 @@ class NameFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentNameBinding.inflate(layoutInflater, container, false)
@@ -50,28 +47,22 @@ class NameFragment : Fragment() {
         bundle = Bundle()
         firebaseAuth = FirebaseAuth.getInstance()
 
-
         nameResult()
         nextButton()
         backButton()
     }
 
     private fun backButton() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    AlertDialog.Builder(requireContext())
-                        .setTitle("Are you sure?")
+                    AlertDialog.Builder(requireContext()).setTitle("Are you sure?")
                         .setMessage("Do you want to exit the app?")
                         .setPositiveButton("Yes") { _, _ ->
                             activity?.finish()
-                        }
-                        .setNegativeButton("No") { dialog, _ ->
+                        }.setNegativeButton("No") { dialog, _ ->
                             dialog.dismiss()
-                        }
-                        .create()
-                        .show()
+                        }.create().show()
                 }
             })
     }
@@ -104,17 +95,13 @@ class NameFragment : Fragment() {
                 editor.putString("name", name)
                 editor.apply()
                 Toast.makeText(
-                    requireContext(),
-                    sharedPreferences.getString("name", ""),
-                    Toast.LENGTH_SHORT
+                    requireContext(), sharedPreferences.getString("name", ""), Toast.LENGTH_SHORT
                 ).show()
 
                 //save to firebase
                 val database =
                     Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                val nameDb =
-                    database.reference.child(firebaseAuth.currentUser!!.uid)
-                        .child("name")
+                val nameDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("name")
                 nameDb.setValue(name)
 
                 bundle.putString(EXTRA_NAME, binding.tvName.text.toString())
