@@ -12,6 +12,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
@@ -28,6 +30,7 @@ class SignInFragment : Fragment() {
     ): View? {
 
         _binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
+        firebaseAuth = Firebase.auth
         return binding.root
     }
 
@@ -57,18 +60,19 @@ class SignInFragment : Fragment() {
                     email.error = null
                 }
             }
-            password.addTextChangedListener {
-//                if (it.toString().length < 8) {
-//                    password.error = "Password must be at least 8 characters"
-//                } else {
-//                    password.error = null
-//                }
-            }
         }
     }
 
     private fun signIn() {
         binding.btnSignIn.setOnClickListener {
+            val user = firebaseAuth.currentUser
+            val reference = user?.let {
+                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/").reference.child(
+                    "userId"
+                ).child(
+                    it.uid
+                )
+            }
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
@@ -82,17 +86,11 @@ class SignInFragment : Fragment() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
 
-//                            val sharedPref = activity?.getSharedPreferences("user", 0)
-//                            val editor = sharedPref?.edit()
-//                            editor?.putString("email", email)
-//                            editor?.putString("password", password)
-//                            editor?.apply()
-
-                            val database =
-                                Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                            val userId = database.reference.child("userId")
-                                .child(firebaseAuth.currentUser!!.uid)
-                            userId.setValue(firebaseAuth.currentUser!!.uid)
+//                            val database =
+//                                Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//                            val userId = database.reference.child("userId")
+//                                .child(firebaseAuth.currentUser!!.uid)
+//                            userId.setValue(firebaseAuth.currentUser!!.uid)
 
                             findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
 

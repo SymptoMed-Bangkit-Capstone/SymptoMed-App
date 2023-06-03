@@ -52,16 +52,18 @@ class AgeFragment : Fragment() {
     }
 
 
-
     private fun nextButton() {
         binding.apply {
             btnNext.setOnClickListener {
-                val database = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                val ageDatabase = database.reference.child("userId").child(firebaseAuth.currentUser!!.uid).child("age")
+                val database =
+                    Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                val ageDatabase =
+                    database.reference.child(firebaseAuth.currentUser!!.uid)
+                        .child("age")
 
                 val name = arguments?.getString(NameFragment.EXTRA_NAME)
                 val gender = arguments?.getString(GenderFragment.EXTRA_GENDER)
-                val age = fragmentArguments.getInt(EXTRA_AGE,0)
+                val age = fragmentArguments.getInt(EXTRA_AGE, 0)
 
                 //save to shared preferences
                 val editor = sharedPreferences.edit()
@@ -74,7 +76,7 @@ class AgeFragment : Fragment() {
                 ).show()
 
                 //save to firebase
-                ageDatabase.setValue(age)
+                ageDatabase.setValue(age.toString())
 
                 val intent = Intent(context, MainActivity::class.java)
                 intent.putExtra(EXTRA_AGE, age)
@@ -139,6 +141,12 @@ class AgeFragment : Fragment() {
                         animate().alpha(1f).setDuration(1000).setListener(null)
                     }
                     binding.btnCalendar.text = "$cDay/${cMonth + 1}/$cYear"
+                    val database =
+                        Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                    val dobDatabase =
+                        database.reference.child(firebaseAuth.currentUser!!.uid)
+                            .child("dateOfBirth")
+                    dobDatabase.setValue("$cDay/${cMonth + 1}/$cYear")
                 }, cYear, cMonth, cDay
             ).show()
         }

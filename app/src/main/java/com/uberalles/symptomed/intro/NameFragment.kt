@@ -3,6 +3,7 @@ package com.uberalles.symptomed.intro
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentNameBinding
+import com.uberalles.symptomed.viewmodel.UserViewModel
 
 class NameFragment : Fragment() {
 
@@ -38,7 +41,7 @@ class NameFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentNameBinding.inflate(layoutInflater, container, false)
         sharedPreferences =
-            requireActivity().getPreferences(Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -46,6 +49,7 @@ class NameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bundle = Bundle()
         firebaseAuth = FirebaseAuth.getInstance()
+
 
         nameResult()
         nextButton()
@@ -94,14 +98,14 @@ class NameFragment : Fragment() {
     private fun nextButton() {
         binding.apply {
             button.setOnClickListener {
-                val fullname = binding.tvName.text.toString()
+                val name = binding.tvName.text.toString()
                 //save to shared preferences
                 val editor = sharedPreferences.edit()
-                editor.putString("fullname", fullname)
+                editor.putString("name", name)
                 editor.apply()
                 Toast.makeText(
                     requireContext(),
-                    sharedPreferences.getString("fullname", ""),
+                    sharedPreferences.getString("name", ""),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -109,13 +113,18 @@ class NameFragment : Fragment() {
                 val database =
                     Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 val nameDb =
-                    database.reference.child("userId").child(firebaseAuth.currentUser!!.uid)
+                    database.reference.child(firebaseAuth.currentUser!!.uid)
                         .child("name")
-                nameDb.setValue(fullname)
+                nameDb.setValue(name)
 
                 bundle.putString(EXTRA_NAME, binding.tvName.text.toString())
                 findNavController().navigate(R.id.action_nameFragment_to_genderFragment, bundle)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

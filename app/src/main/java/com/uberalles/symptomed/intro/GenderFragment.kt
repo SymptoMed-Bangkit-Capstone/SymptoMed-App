@@ -51,7 +51,7 @@ class GenderFragment : Fragment() {
         binding.button.setOnClickListener {
             val gender = binding.radioGender.checkedRadioButtonId
             val database = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            val genderDatabase = database.reference.child("userId").child(firebaseAuth.currentUser!!.uid).child("gender")
+            val genderDatabase = database.reference.child(firebaseAuth.currentUser!!.uid).child("gender")
             if (gender == binding.maleRadio.id) {
                 bundle.putString(EXTRA_GENDER, binding.maleRadio.text.toString())
                 bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
@@ -108,6 +108,11 @@ class GenderFragment : Fragment() {
             visibility = View.VISIBLE
             animate().alpha(1f).setDuration(1000).setListener(null)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
