@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
-import com.uberalles.symptomed.firebase.FirebaseCallback
-import com.uberalles.symptomed.firebase.Response
 import com.uberalles.symptomed.intro.StartActivity
 import com.uberalles.symptomed.viewmodel.UserViewModel
 
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fragmentManager: FragmentManager = supportFragmentManager
-        val fragment = DetectionFragment()
+        val fragment = SymptomFragment()
         fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment)
             .commit()
 

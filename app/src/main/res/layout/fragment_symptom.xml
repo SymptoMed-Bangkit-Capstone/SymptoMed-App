@@ -5,7 +5,7 @@
     android:id="@+id/detection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DetectionFragment">
+    tools:context=".ui.SymptomFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first_layout"
@@ -15,16 +15,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/searchBar"
-            android:layout_width="match_parent"
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:hint="Look up symptoms"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="10dp"
             app:layout_constraintBottom_toTopOf="@id/guideline_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="#FFFFFF"
+                android:queryHint="Look up symptoms"
+                app:circularflow_radiusInDP="100dp" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/symptoms_recycler_view"

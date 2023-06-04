@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.Symptom
-import com.uberalles.symptomed.databinding.FragmentDetectionBinding
+import com.uberalles.symptomed.databinding.FragmentSymptomBinding
 
 class SymptomAdapter(private val symptom: ArrayList<Symptom>) :
     RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
-    private lateinit var binding: FragmentDetectionBinding
+    private lateinit var binding: FragmentSymptomBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomViewHolder {
         val itemView = View.inflate(parent.context, R.layout.symptom_item, null)
@@ -26,9 +26,10 @@ class SymptomAdapter(private val symptom: ArrayList<Symptom>) :
         val currentItem = symptom[position]
         holder.symptomName.text = currentItem.name
 
-        holder.bind(currentItem){
+        holder.bind(currentItem) {
             it.isChecked = true
-            Log.d("SymptomAdapter", "onBindViewHolder: ${it.name}")
+            Log.d("SymptomAdapter", "onBindViewHolder: ${it.name}, ${it.isChecked}")
+
         }
 
     }
