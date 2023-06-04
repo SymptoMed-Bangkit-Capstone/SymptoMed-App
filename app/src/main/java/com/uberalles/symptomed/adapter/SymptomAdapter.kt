@@ -1,17 +1,14 @@
 package com.uberalles.symptomed.adapter
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.Symptom
-import com.uberalles.symptomed.databinding.FragmentSymptomBinding
 
-class SymptomAdapter(private val symptom: ArrayList<Symptom>) :
+class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItemClick: (Symptom) -> Unit) :
     RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
-    private lateinit var binding: FragmentSymptomBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomViewHolder {
         val itemView = View.inflate(parent.context, R.layout.symptom_item, null)
@@ -26,12 +23,7 @@ class SymptomAdapter(private val symptom: ArrayList<Symptom>) :
         val currentItem = symptom[position]
         holder.symptomName.text = currentItem.name
 
-        holder.bind(currentItem) {
-            it.isChecked = true
-            Log.d("SymptomAdapter", "onBindViewHolder: ${it.name}, ${it.isChecked}")
-
-        }
-
+        holder.bind(currentItem, onItemClick)
     }
 
     class SymptomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
