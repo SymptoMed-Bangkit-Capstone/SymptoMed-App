@@ -110,11 +110,19 @@ class SymptomFragment : Fragment() {
     }
 
     private fun searchSymptom(query: String) {
-        val symptoms = SymptomNames.symptomList.filter { it.contains(query, true) }
-        val filteredSymptoms = arrayListOf<Symptom>()
-        symptoms.forEach { filteredSymptoms.add(Symptom(it)) }
-        symptomAdapter = SymptomAdapter(filteredSymptoms, onItemAdd)
-        recyclerViewSymptom.adapter = symptomAdapter
+        viewModel.getSymptomMutableLiveData()?.observe(viewLifecycleOwner) {
+            val symptoms = it.filter { it.name.contains(query, true) }
+            val filteredSymptoms = arrayListOf<Symptom>()
+            symptoms.forEach { filteredSymptoms.add(Symptom(it.name)) }
+            symptomAdapter = SymptomAdapter(filteredSymptoms, onItemAdd)
+            recyclerViewSymptom.adapter = symptomAdapter
+        }
+
+//        val symptoms = SymptomNames.symptomList.filter { it.contains(query, true) }
+//        val filteredSymptoms = arrayListOf<Symptom>()
+//        symptoms.forEach { filteredSymptoms.add(Symptom(it)) }
+//        symptomAdapter = SymptomAdapter(filteredSymptoms, onItemAdd)
+//        recyclerViewSymptom.adapter = symptomAdapter
     }
 
     private fun symptomList() {
