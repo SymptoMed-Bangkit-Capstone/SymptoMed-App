@@ -10,6 +10,9 @@ import com.uberalles.symptomed.data.Symptom
 class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItemClick: (Symptom) -> Unit) :
     RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
 
+    private var symptomArrayList: ArrayList<Symptom> = ArrayList()
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomViewHolder {
         val itemView = View.inflate(parent.context, R.layout.symptom_item, null)
         return SymptomViewHolder(itemView)

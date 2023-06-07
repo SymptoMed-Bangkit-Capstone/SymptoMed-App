@@ -3,15 +3,14 @@ package com.uberalles.symptomed.ui
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
 import com.uberalles.symptomed.data.SelectedSymptom
@@ -19,6 +18,7 @@ import com.uberalles.symptomed.data.SelectedSymptomNames
 import com.uberalles.symptomed.data.Symptom
 import com.uberalles.symptomed.data.SymptomNames
 import com.uberalles.symptomed.databinding.FragmentSymptomBinding
+import com.uberalles.symptomed.viewmodel.MainViewModel
 
 class SymptomFragment : Fragment() {
 
@@ -35,11 +35,15 @@ class SymptomFragment : Fragment() {
 
     private lateinit var selectedSymptomList: SelectedSymptomNames
 
+    private lateinit var viewModel: MainViewModel
+
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
         val selectedSymptom = SelectedSymptom(symptom.name)
         symptomArrayList.remove(symptom)
         symptomSelectedArrayList.add(selectedSymptom)
-        symptomAdapter.notifyDataSetChanged()
+        //Notify the observer
+        viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
+        viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
     }
 
     private val onItemRemove: (SelectedSymptom) -> Unit = { selectedSymptom ->
@@ -77,6 +81,8 @@ class SymptomFragment : Fragment() {
         selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemRemove)
         recyclerViewSelected.adapter = selectedSymptomAdapter
 
+        //initial mainviewmodel instance
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         symptomList()
         symptomSelected()
@@ -96,8 +102,8 @@ class SymptomFragment : Fragment() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                searchSymptom(newText)
+            override fun onQueryTextChange(query: String): Boolean {
+                searchSymptom(query)
                 return false
             }
         })
@@ -113,14 +119,25 @@ class SymptomFragment : Fragment() {
 
     private fun symptomList() {
         symptomArrayList.addAll(SymptomNames.symptomList.map { Symptom(it) })
-        symptomAdapter = SymptomAdapter(symptomArrayList, onItemAdd)
-        recyclerViewSymptom.adapter = symptomAdapter
+
+        viewModel.getSymptomMutableLiveData()?.observe(viewLifecycleOwner) {
+            recyclerViewSymptom.adapter = symptomAdapter
+        }
     }
 
     private fun symptomSelected() {
-        symptomSelectedArrayList.addAll(selectedSymptomList.selectedSymptomList.map { SelectedSymptom(it) })
+        symptomSelectedArrayList.addAll(SelectedSymptomNames.selectedSymptomList.map {
+            SelectedSymptom(
+                it
+            )
+        })
+
         selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemRemove)
         recyclerViewSelected.adapter = selectedSymptomAdapter
+
+        viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) { it ->
+            recyclerViewSelected.adapter = selectedSymptomAdapter
+        }
     }
 
 }

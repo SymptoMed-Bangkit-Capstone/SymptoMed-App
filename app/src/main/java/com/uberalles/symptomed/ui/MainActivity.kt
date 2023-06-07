@@ -11,22 +11,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
 import com.uberalles.symptomed.intro.StartActivity
-import com.uberalles.symptomed.viewmodel.UserViewModel
+import com.uberalles.symptomed.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private lateinit var alertBuilder: AlertDialog.Builder
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
-        userViewModel = ViewModelProvider(this)
-            .get(UserViewModel::class.java)
+
         setContentView(binding.root)
 
         val fragmentManager: FragmentManager = supportFragmentManager
@@ -36,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         logoutButton()
         toolbarText()
+
     }
 
     private fun logoutButton() {
