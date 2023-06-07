@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
 import com.uberalles.symptomed.data.SelectedSymptom
@@ -46,18 +48,20 @@ class SymptomFragment : Fragment() {
         viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
     }
 
-    private val onItemRemove: (SelectedSymptom) -> Unit = { selectedSymptom ->
+    private val onItemDelete: (SelectedSymptom) -> Unit = { selectedSymptom ->
         val symptom = Symptom(selectedSymptom.name)
         symptomSelectedArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
-        symptomAdapter.notifyDataSetChanged()
+        //Sort by name ascending
+        symptomArrayList.sortBy { it.name }
+        //Notify the observer
+        viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
+        viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
-        // Inflate the layout for this fragment
         _binding = FragmentSymptomBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -65,7 +69,7 @@ class SymptomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager1 = LinearLayoutManager(context)
-        val layoutManager2 = LinearLayoutManager(context)
+        val layoutManager2 = StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL)
 
         recyclerViewSymptom = binding.symptomsRecyclerView
         recyclerViewSymptom.layoutManager = layoutManager1
@@ -78,7 +82,7 @@ class SymptomFragment : Fragment() {
         recyclerViewSelected = binding.checkedSymptomsRecyclerView
         recyclerViewSelected.layoutManager = layoutManager2
         symptomSelectedArrayList = arrayListOf()
-        selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemRemove)
+        selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemDelete)
         recyclerViewSelected.adapter = selectedSymptomAdapter
 
         //initial mainviewmodel instance
@@ -117,12 +121,6 @@ class SymptomFragment : Fragment() {
             symptomAdapter = SymptomAdapter(filteredSymptoms, onItemAdd)
             recyclerViewSymptom.adapter = symptomAdapter
         }
-
-//        val symptoms = SymptomNames.symptomList.filter { it.contains(query, true) }
-//        val filteredSymptoms = arrayListOf<Symptom>()
-//        symptoms.forEach { filteredSymptoms.add(Symptom(it)) }
-//        symptomAdapter = SymptomAdapter(filteredSymptoms, onItemAdd)
-//        recyclerViewSymptom.adapter = symptomAdapter
     }
 
     private fun symptomList() {
@@ -134,16 +132,14 @@ class SymptomFragment : Fragment() {
     }
 
     private fun symptomSelected() {
+
         symptomSelectedArrayList.addAll(SelectedSymptomNames.selectedSymptomList.map {
             SelectedSymptom(
                 it
             )
         })
 
-        selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemRemove)
-        recyclerViewSelected.adapter = selectedSymptomAdapter
-
-        viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) { it ->
+        viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) {
             recyclerViewSelected.adapter = selectedSymptomAdapter
         }
     }

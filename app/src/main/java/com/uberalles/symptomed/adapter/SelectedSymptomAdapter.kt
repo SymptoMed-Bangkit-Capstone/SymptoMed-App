@@ -6,9 +6,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.SelectedSymptom
-import com.uberalles.symptomed.data.Symptom
 
-class SelectedSymptomAdapter(private val selectedSymptom: ArrayList<SelectedSymptom>, private val onItemClick: (SelectedSymptom) -> Unit) :
+class SelectedSymptomAdapter(
+    private val selectedSymptom: ArrayList<SelectedSymptom>,
+    private val onItemDelete: (SelectedSymptom) -> Unit
+) :
     RecyclerView.Adapter<SelectedSymptomAdapter.SelectedSymptomViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -19,6 +21,10 @@ class SelectedSymptomAdapter(private val selectedSymptom: ArrayList<SelectedSymp
         return SelectedSymptomViewHolder(itemView)
     }
 
+    override fun getItemCount(): Int {
+        return selectedSymptom.size
+    }
+
     override fun onBindViewHolder(
         holder: SelectedSymptomViewHolder,
         position: Int
@@ -26,20 +32,16 @@ class SelectedSymptomAdapter(private val selectedSymptom: ArrayList<SelectedSymp
         val currentItem = selectedSymptom[position]
         holder.selectedSymptomName.text = currentItem.name
 
-        holder.bind(currentItem, onItemClick)
-    }
-
-    override fun getItemCount(): Int {
-        return selectedSymptom.size
+        holder.bind(currentItem, onItemDelete)
     }
 
     class SelectedSymptomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val selectedSymptomName: TextView = itemView.findViewById(R.id.selected_symptom_name)
 
-        fun bind(selectedSymptom: SelectedSymptom, onItemClick: (SelectedSymptom) -> Unit) {
+        fun bind(selectedSymptom: SelectedSymptom, onItemDelete: (SelectedSymptom) -> Unit) {
             selectedSymptomName.text = selectedSymptom.name
             selectedSymptomName.setOnClickListener {
-                onItemClick(selectedSymptom)
+                onItemDelete(selectedSymptom)
             }
         }
     }

@@ -7,11 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.Symptom
 
-class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItemClick: (Symptom) -> Unit) :
+class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItemAdd: (Symptom) -> Unit) :
     RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
-
-    private var symptomArrayList: ArrayList<Symptom> = ArrayList()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomViewHolder {
         val itemView = View.inflate(parent.context, R.layout.symptom_item, null)
@@ -26,16 +23,16 @@ class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItem
         val currentItem = symptom[position]
         holder.symptomName.text = currentItem.name
 
-        holder.bind(currentItem, onItemClick)
+        holder.bind(currentItem, onItemAdd)
     }
 
     class SymptomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val symptomName: TextView = itemView.findViewById(R.id.symptom_name)
 
-        fun bind(symptom: Symptom, onItemClick: (Symptom) -> Unit) {
+        fun bind(symptom: Symptom, onItemAdd: (Symptom) -> Unit) {
             symptomName.text = symptom.name
             symptomName.setOnClickListener {
-                onItemClick(symptom)
+                onItemAdd(symptom)
             }
         }
     }
