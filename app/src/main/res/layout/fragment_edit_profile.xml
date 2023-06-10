@@ -6,15 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.ProfileFragment">
 
-    <ImageView
-        android:id="@+id/iv_profile"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+    <LinearLayout
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:src="@drawable/ic_account"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_account" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_edit_photo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@id/profile"
+        app:layout_constraintStart_toEndOf="@id/profile"
+        app:layout_constraintTop_toTopOf="@id/profile" />
+
 
     <LinearLayout
         android:id="@+id/name"
@@ -24,7 +44,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_profile">
+        app:layout_constraintTop_toBottomOf="@id/profile">
 
         <TextView
             android:id="@+id/tv_name"
@@ -44,14 +64,18 @@
             android:textSize="30sp"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/iv_edit_name"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_edit" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_edit_name"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@id/name"
+        app:layout_constraintStart_toEndOf="@id/name"
+        app:layout_constraintTop_toTopOf="@id/name" />
 
     <LinearLayout
         android:id="@+id/gender"
@@ -91,17 +115,18 @@
                 android:text="Female" />
 
         </RadioGroup>
-
-        <ImageView
-            android:id="@+id/iv_edit_gender"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_edit" />
-
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_edit_gender"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@id/gender"
+        app:layout_constraintStart_toEndOf="@id/gender"
+        app:layout_constraintTop_toTopOf="@id/gender" />
 
 
     <TextView
@@ -131,16 +156,18 @@
             android:layout_height="wrap_content"
             android:text="@string/dob"
             android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/iv_edit_dob"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_edit" />
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_edit_dob"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/dob"
+        app:layout_constraintTop_toTopOf="@id/dob"
+        app:layout_constraintBottom_toBottomOf="@id/dob"
+        android:src="@drawable/ic_edit" />
 
     <LinearLayout
         android:id="@+id/email"
@@ -167,9 +194,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Back"
-        app:layout_constraintTop_toBottomOf="@id/email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

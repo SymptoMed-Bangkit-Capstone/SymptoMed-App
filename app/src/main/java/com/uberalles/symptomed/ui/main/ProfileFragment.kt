@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -45,6 +46,7 @@ class ProfileFragment : Fragment() {
         val ageDatabase = firebaseReference.child("age")
         val dobDatabase = firebaseReference.child("dateOfBirth")
         val emailDatabase = firebaseReference.child("email")
+        val photoDatabase = firebaseReference.child("photo")
 
         nameDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -99,6 +101,20 @@ class ProfileFragment : Fragment() {
                 val email = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $email")
                 binding.tvEmail.text = email
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        photoDatabase.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val photo = snapshot.getValue(String::class.java)
+                Log.d("ProfileFragment", "onDataChange: $photo")
+                Glide.with(requireContext())
+                    .load(photo)
+                    .into(binding.ivProfile)
             }
 
             override fun onCancelled(error: DatabaseError) {

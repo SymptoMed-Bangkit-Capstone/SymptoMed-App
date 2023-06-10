@@ -7,35 +7,16 @@ import com.uberalles.symptomed.data.Symptom
 
 class MainViewModel : ViewModel() {
     private var symptomLiveData: MutableLiveData<ArrayList<Symptom>>? = null
-    private var SymptomSelectedLiveData: MutableLiveData<ArrayList<SelectedSymptom>>? = null
+    private var symptomSelectedLiveData: MutableLiveData<ArrayList<SelectedSymptom>>? = null
 
     var symptomArrayList: ArrayList<Symptom>? = null
     var symptomSelectedArrayList: ArrayList<SelectedSymptom>? = null
 
     init {
         symptomLiveData = MutableLiveData()
-        SymptomSelectedLiveData = MutableLiveData()
+        symptomSelectedLiveData = MutableLiveData()
 
     }
-
-//    private fun moveSymptomToSelected() {
-//        if (symptomArrayList != null && symptomSelectedArrayList != null) {
-//
-//            val copiedSymptomArrayList = symptomArrayList?.let { ArrayList(it) }
-//
-//            if (copiedSymptomArrayList != null) {
-//                for (symptom in copiedSymptomArrayList) {
-//                    val selectedSymptom = SelectedSymptom(symptom.name)
-//                    symptomSelectedArrayList!!.add(selectedSymptom)
-//                }
-//            }
-//
-//            symptomArrayList!!.clear()
-//
-//            symptomLiveData?.value = symptomArrayList
-//            SymptomSelectedLiveData?.value = symptomSelectedArrayList
-//        }
-//    }
 
 
     fun getSymptomMutableLiveData(): MutableLiveData<ArrayList<Symptom>>? {
@@ -43,7 +24,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun getSymptomSelectedMutableLiveData(): MutableLiveData<ArrayList<SelectedSymptom>>? {
-        return SymptomSelectedLiveData
+        return symptomSelectedLiveData
     }
 
 

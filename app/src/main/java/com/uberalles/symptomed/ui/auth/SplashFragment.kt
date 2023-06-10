@@ -1,6 +1,7 @@
 package com.uberalles.symptomed.ui.auth
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,10 @@ class SplashFragment : Fragment() {
         reference.child("name").get().addOnCompleteListener { nameTask ->
             val name = nameTask.result.value.toString()
             if (name.isEmpty()) {
-                findNavController().navigate(R.id.action_splashFragment_to_nameFragment)
+                //wait 3 second and go to name fragment
+                Handler().postDelayed({
+                    findNavController().navigate(R.id.action_splashFragment_to_nameFragment)
+                }, 3000)
                 Log.d("SplashFragment", "Name is empty")
                 return@addOnCompleteListener
             }
@@ -56,7 +60,9 @@ class SplashFragment : Fragment() {
             reference.child("gender").get().addOnCompleteListener { genderTask ->
                 val gender = genderTask.result.value.toString()
                 if (gender.isEmpty()) {
-                    findNavController().navigate(R.id.action_splashFragment_to_genderFragment)
+                    Handler().postDelayed({
+                        findNavController().navigate(R.id.action_splashFragment_to_genderFragment)
+                    }, 3000)
                     Log.d("SplashFragment", "Gender is empty")
                     return@addOnCompleteListener
                 }
@@ -64,7 +70,9 @@ class SplashFragment : Fragment() {
                 reference.child("age").get().addOnCompleteListener { ageTask ->
                     val age = ageTask.result.value.toString()
                     if (age.isEmpty()) {
-                        findNavController().navigate(R.id.action_splashFragment_to_ageFragment)
+                        Handler().postDelayed({
+                            findNavController().navigate(R.id.action_splashFragment_to_ageFragment)
+                        }, 3000)
                         Log.d("SplashFragment", "Age is empty")
                         return@addOnCompleteListener
                     }
@@ -72,11 +80,15 @@ class SplashFragment : Fragment() {
                     // All fields are present
                     Log.d("SplashFragment", "The field that are present \n$name, $gender, $age")
                     if (user != null) {
-                        findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                        Handler().postDelayed({
+                            findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                        }, 3000)
                         Log.d("SplashFragment", "User data is not null, goes to main activity")
                     } else {
+                        Handler().postDelayed({
+                            findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
+                        }, 3000)
                         Log.d("SplashFragment", "User is null, goes to sign in fragment")
-                        findNavController().navigate(R.id.action_splashFragment_to_signInFragment)
                     }
                 }
             }
