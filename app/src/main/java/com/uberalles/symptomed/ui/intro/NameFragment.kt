@@ -20,12 +20,11 @@ import com.uberalles.symptomed.databinding.FragmentNameBinding
 
 class NameFragment : Fragment() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+//    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentNameBinding? = null
 
     private val binding get() = _binding!!
-    private lateinit var bundle: Bundle
 
     companion object {
         const val EXTRA_NAME = "extra_name"
@@ -36,14 +35,13 @@ class NameFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentNameBinding.inflate(layoutInflater, container, false)
-        sharedPreferences =
-            requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
+//        sharedPreferences =
+//            requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bundle = Bundle()
         firebaseAuth = FirebaseAuth.getInstance()
 
         nameResult()
@@ -90,12 +88,12 @@ class NameFragment : Fragment() {
             button.setOnClickListener {
                 val name = binding.tvName.text.toString()
                 //save to shared preferences
-                val editor = sharedPreferences.edit()
-                editor.putString("name", name)
-                editor.apply()
-                Toast.makeText(
-                    requireContext(), sharedPreferences.getString("name", ""), Toast.LENGTH_SHORT
-                ).show()
+//                val editor = sharedPreferences.edit()
+//                editor.putString("name", name)
+//                editor.apply()
+//                Toast.makeText(
+//                    requireContext(), sharedPreferences.getString("name", ""), Toast.LENGTH_SHORT
+//                ).show()
 
                 //save to firebase
                 val database =
@@ -103,8 +101,7 @@ class NameFragment : Fragment() {
                 val nameDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("name")
                 nameDb.setValue(name)
 
-                bundle.putString(EXTRA_NAME, binding.tvName.text.toString())
-                findNavController().navigate(R.id.action_nameFragment_to_genderFragment, bundle)
+                findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
             }
         }
     }

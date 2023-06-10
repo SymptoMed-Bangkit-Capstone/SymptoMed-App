@@ -110,7 +110,6 @@ class SignInFragment : Fragment() {
                                                     return@addOnCompleteListener
                                                 }
 
-                                                // All fields are present
                                                 Log.d(
                                                     "Firebase",
                                                     "Name: $name, gender: $gender, age: $age"

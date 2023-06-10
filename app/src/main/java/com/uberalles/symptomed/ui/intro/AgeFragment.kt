@@ -18,7 +18,7 @@ import com.uberalles.symptomed.ui.main.MainActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {
-    private lateinit var sharedPreferences: SharedPreferences
+//    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentAgeBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +36,7 @@ class AgeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAgeBinding.inflate(layoutInflater, container, false)
-        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+//        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -66,14 +66,14 @@ class AgeFragment : Fragment() {
                 val age = fragmentArguments.getInt(EXTRA_AGE, 0)
 
                 //save to shared preferences
-                val editor = sharedPreferences.edit()
-                editor.putString("age", age.toString())
-                editor.apply()
-                Toast.makeText(
-                    requireContext(),
-                    sharedPreferences.getString("age", ""),
-                    Toast.LENGTH_SHORT
-                ).show()
+//                val editor = sharedPreferences.edit()
+//                editor.putString("age", age.toString())
+//                editor.apply()
+//                Toast.makeText(
+//                    requireContext(),
+//                    sharedPreferences.getString("age", ""),
+//                    Toast.LENGTH_SHORT
+//                ).show()
 
                 //save to firebase
                 ageDatabase.setValue(age.toString())
