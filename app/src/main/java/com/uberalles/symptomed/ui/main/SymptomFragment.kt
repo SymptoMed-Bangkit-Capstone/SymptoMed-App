@@ -31,7 +31,7 @@ class SymptomFragment : Fragment() {
     private lateinit var selectedSymptomAdapter: SelectedSymptomAdapter
 
     private lateinit var symptomArrayList: ArrayList<Symptom>
-    private lateinit var symptomSelectedArrayList: ArrayList<SelectedSymptom>
+    private lateinit var selectedSymptomArrayList: ArrayList<SelectedSymptom>
 
     private lateinit var recyclerViewSymptom: RecyclerView
     private lateinit var recyclerViewSelected: RecyclerView
@@ -41,23 +41,23 @@ class SymptomFragment : Fragment() {
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
         val selectedSymptom = SelectedSymptom(symptom.name, true)
         symptomArrayList.remove(symptom)
-        symptomSelectedArrayList.add(selectedSymptom)
+        selectedSymptomArrayList.add(selectedSymptom)
         //Notify the observer
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
-        viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
+        viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
         Log.d("SymptomFragment", "onItemAdd: ${symptom.name}, ${symptom.status}")
     }
 
     private val onItemDelete: (SelectedSymptom) -> Unit = { selectedSymptom ->
         val symptom = Symptom(selectedSymptom.name, false)
         Log.d("SymptomFragment", "onItemAdd: ${selectedSymptom.name}, ${selectedSymptom.status}")
-        symptomSelectedArrayList.remove(selectedSymptom)
+        selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
         //Sort by name ascending
         symptomArrayList.sortBy { it.name }
         //Notify the observer
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
-        viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
+        viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
     }
 
     override fun onCreateView(
@@ -70,7 +70,7 @@ class SymptomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager1 = LinearLayoutManager(context)
-        val layoutManager2 = StaggeredGridLayoutManager(4, GridLayoutManager.VERTICAL)
+        val layoutManager2 = LinearLayoutManager(context)
 
         recyclerViewSymptom = binding.symptomsRecyclerView
         recyclerViewSymptom.layoutManager = layoutManager1
@@ -80,11 +80,11 @@ class SymptomFragment : Fragment() {
 
         recyclerViewSelected = binding.checkedSymptomsRecyclerView
         recyclerViewSelected.layoutManager = layoutManager2
-        symptomSelectedArrayList = arrayListOf()
-        selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemDelete)
+        selectedSymptomArrayList = arrayListOf()
+        selectedSymptomAdapter = SelectedSymptomAdapter(selectedSymptomArrayList, onItemDelete)
         recyclerViewSelected.adapter = selectedSymptomAdapter
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         symptomList()
         symptomSelected()
@@ -112,7 +112,7 @@ class SymptomFragment : Fragment() {
     }
 
     private fun searchSymptom(query: String) {
-        viewModel.getSymptomMutableLiveData()?.observe(viewLifecycleOwner) {
+        viewModel.getSymptomMutableLiveData()?.observe(viewLifecycleOwner) { it ->
             val symptoms = it.filter { it.name.contains(query, true) }
             val filteredSymptoms = arrayListOf<Symptom>()
             symptoms.forEach { filteredSymptoms.add(Symptom(it.name)) }
@@ -130,8 +130,7 @@ class SymptomFragment : Fragment() {
     }
 
     private fun symptomSelected() {
-
-        symptomSelectedArrayList.addAll(SelectedSymptomNames.selectedSymptomList.map {
+        selectedSymptomArrayList.addAll(SelectedSymptomNames.selectedSymptomList.map {
             SelectedSymptom(
                 it
             )

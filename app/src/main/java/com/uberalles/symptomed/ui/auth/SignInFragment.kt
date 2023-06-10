@@ -26,7 +26,7 @@ class SignInFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
         firebaseAuth = Firebase.auth
@@ -81,6 +81,8 @@ class SignInFragment : Fragment() {
                                 FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
                                     user?.uid.toString()
                                 )
+                            val emailDb = reference.child("email")
+                            emailDb.setValue(email)
 
                             reference.child("name").get().addOnCompleteListener { nameTask ->
                                 val name = nameTask.result?.value?.toString()

@@ -55,8 +55,8 @@
         android:id="@+id/text_view_selected_symptoms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:background="#77BACF"
+        android:gravity="center_horizontal"
         android:text="Selected Symptoms:"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -67,8 +67,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/second_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="340dp"
         android:background="#9CC7DD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_selected_symptoms">
 
         <androidx.constraintlayout.widget.Guideline
@@ -76,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="401dp" />
+            app:layout_constraintGuide_begin="303dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checked_symptoms_recycler_view"

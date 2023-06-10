@@ -33,7 +33,7 @@ class AgeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentAgeBinding.inflate(layoutInflater, container, false)
         sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
@@ -116,7 +116,7 @@ class AgeFragment : Fragment() {
 
 
     private fun selectDate() {
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         var cDay = calendar.get(Calendar.DAY_OF_MONTH)
         var cMonth = calendar.get(Calendar.MONTH)
         var cYear = calendar.get(Calendar.YEAR)
@@ -158,7 +158,6 @@ class AgeFragment : Fragment() {
                                 alpha = 0f
                                 visibility = View.VISIBLE
                                 animate().alpha(1f).setDuration(1000).setListener(null)
-                                //put age in bundle
                             }
                         }
                     }

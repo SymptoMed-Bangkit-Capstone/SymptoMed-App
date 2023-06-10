@@ -30,9 +30,7 @@ class GenderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
+    ): View {
         _binding = FragmentGenderBinding.inflate(layoutInflater, container, false)
         sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         return binding.root

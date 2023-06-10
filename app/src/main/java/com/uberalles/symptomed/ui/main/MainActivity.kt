@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         navigation()
         logoutButton()
-        toolbarText()
-
     }
 
     private fun navigation() {
@@ -57,7 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
             btnLogout.setOnClickListener {
-
                 alertBuilder = AlertDialog.Builder(this@MainActivity)
                 alertBuilder.setTitle("Alert")
                     .setMessage("Do you want to log out?")
@@ -65,10 +62,11 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("Yes") { _, _ ->
                         FirebaseAuth.getInstance().signOut()
                         editor.clear()
+                        editor.apply()
                         startActivity(intent)
                         finish()
                     }
-                    .setNegativeButton("No") { dialogInterface, it ->
+                    .setNegativeButton("No") { dialogInterface, _ ->
                         dialogInterface.cancel()
                     }
                     .show()
@@ -76,12 +74,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toolbarText() {
-        val title = sharedPreferences.getString("name", "")
-        binding.apply {
-            toolbar.title = "Hello, $title!"
-        }
-    }
+//    private fun toolbarText() {
+//        val title = sharedPreferences.getString("name", "")
+//        binding.apply {
+//            toolbar.title = "Hello, $title!"
+//        }
+//    }
 
     override fun onBackPressed() {
         alertBuilder = AlertDialog.Builder(this@MainActivity)
@@ -91,13 +89,10 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Yes") { _, _ ->
                 finish()
             }
-            .setNegativeButton("No") { dialogInterface, it ->
+            .setNegativeButton("No") { dialogInterface, _ ->
                 dialogInterface.cancel()
             }
             .show()
     }
 
-    companion object {
-        const val TAG = "MainActivity"
-    }
 }
