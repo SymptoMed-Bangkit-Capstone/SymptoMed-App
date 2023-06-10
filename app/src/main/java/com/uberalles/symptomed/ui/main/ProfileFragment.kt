@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -114,6 +115,7 @@ class ProfileFragment : Fragment() {
                 Log.d("ProfileFragment", "onDataChange: $photo")
                 Glide.with(requireContext())
                     .load(photo)
+                    .placeholder(R.drawable.ic_account)
                     .into(binding.ivProfile)
             }
 

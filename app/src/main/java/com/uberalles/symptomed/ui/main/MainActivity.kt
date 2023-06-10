@@ -65,8 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun backToProfile(){
-        val intent = Intent(this@MainActivity, StartActivity::class.java)
-        startActivity(intent)
+        navigationFragment(SettingFragment())
     }
 
     override fun onBackPressed() {

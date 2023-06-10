@@ -157,6 +157,7 @@ class EditProfileFragment : Fragment() {
                 Log.d("ProfileFragment", "onDataChange: $photo")
                 Glide.with(requireContext())
                     .load(photo)
+                    .placeholder(R.drawable.ic_account)
                     .into(binding.ivProfile)
             }
 
