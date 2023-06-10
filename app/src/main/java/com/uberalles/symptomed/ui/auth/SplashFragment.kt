@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui
+package com.uberalles.symptomed.ui.auth
 
 import android.os.Bundle
 import android.util.Log

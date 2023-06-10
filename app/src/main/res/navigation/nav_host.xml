@@ -6,7 +6,7 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.uberalles.symptomed.ui.SplashFragment"
+        android:name="com.uberalles.symptomed.ui.auth.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/nameFragment"
-        android:name="com.uberalles.symptomed.intro.NameFragment"
+        android:name="com.uberalles.symptomed.ui.intro.NameFragment"
         android:label="fragment_name"
         tools:layout="@layout/fragment_name" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/ageFragment"
-        android:name="com.uberalles.symptomed.intro.AgeFragment"
+        android:name="com.uberalles.symptomed.ui.intro.AgeFragment"
         android:label="fragment_age"
         tools:layout="@layout/fragment_age" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/genderFragment"
-        android:name="com.uberalles.symptomed.intro.GenderFragment"
+        android:name="com.uberalles.symptomed.ui.intro.GenderFragment"
         android:label="fragment_gender"
         tools:layout="@layout/fragment_gender" >
         <action
@@ -69,12 +69,12 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.uberalles.symptomed.ui.MainActivity"
+        android:name="com.uberalles.symptomed.ui.main.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.uberalles.symptomed.auth.SignInFragment"
+        android:name="com.uberalles.symptomed.ui.auth.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.uberalles.symptomed.auth.SignUpFragment"
+        android:name="com.uberalles.symptomed.ui.auth.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action

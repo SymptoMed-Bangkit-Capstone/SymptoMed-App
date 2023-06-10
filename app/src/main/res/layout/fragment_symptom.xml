@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/detection"
+    android:id="@+id/symptom_detection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SymptomFragment">
+    tools:context=".ui.main.SymptomFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/first_layout"
@@ -20,9 +20,9 @@
             android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/white"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toTopOf="@id/guideline_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,38 +41,51 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/symptoms_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline_1"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
             tools:listitem="@layout/symptom_item" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="94dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/checked_symptoms_recycler_view"
+    <TextView
+        android:id="@+id/text_view_selected_symptoms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="#77BACF"
+        android:text="Selected Symptoms:"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_2"
-        tools:listitem="@layout/symptom_checked" />
+        app:layout_constraintTop_toBottomOf="@id/first_layout" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_2"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="398dp" />
+        android:background="#9CC7DD"
+        app:layout_constraintTop_toBottomOf="@id/text_view_selected_symptoms">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="401dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checked_symptoms_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/symptom_checked" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

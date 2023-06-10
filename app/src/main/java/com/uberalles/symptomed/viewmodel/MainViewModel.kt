@@ -18,26 +18,24 @@ class MainViewModel : ViewModel() {
 
     }
 
-    private fun moveSymptomToSelected() {
-        // Check if symptomArrayList and symptomSelectedArrayList are not null
-        if (symptomArrayList != null && symptomSelectedArrayList != null) {
-            // Create a copy of the symptomArrayList
-            val copiedSymptomArrayList = ArrayList(symptomArrayList)
-
-            // Move symptoms from copiedSymptomArrayList to symptomSelectedArrayList
-            for (symptom in copiedSymptomArrayList) {
-                val selectedSymptom = SelectedSymptom(symptom.name)
-                symptomSelectedArrayList!!.add(selectedSymptom)
-            }
-
-            // Clear the symptomArrayList
-            symptomArrayList!!.clear()
-
-            // Update the symptomLiveData and SymptomSelectedLiveData with the new lists
-            symptomLiveData?.value = symptomArrayList
-            SymptomSelectedLiveData?.value = symptomSelectedArrayList
-        }
-    }
+//    private fun moveSymptomToSelected() {
+//        if (symptomArrayList != null && symptomSelectedArrayList != null) {
+//
+//            val copiedSymptomArrayList = symptomArrayList?.let { ArrayList(it) }
+//
+//            if (copiedSymptomArrayList != null) {
+//                for (symptom in copiedSymptomArrayList) {
+//                    val selectedSymptom = SelectedSymptom(symptom.name)
+//                    symptomSelectedArrayList!!.add(selectedSymptom)
+//                }
+//            }
+//
+//            symptomArrayList!!.clear()
+//
+//            symptomLiveData?.value = symptomArrayList
+//            SymptomSelectedLiveData?.value = symptomSelectedArrayList
+//        }
+//    }
 
 
     fun getSymptomMutableLiveData(): MutableLiveData<ArrayList<Symptom>>? {

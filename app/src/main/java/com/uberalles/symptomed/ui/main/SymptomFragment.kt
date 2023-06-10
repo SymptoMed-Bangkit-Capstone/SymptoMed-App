@@ -1,8 +1,9 @@
-package com.uberalles.symptomed.ui
+package com.uberalles.symptomed.ui.main
 
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,21 +36,21 @@ class SymptomFragment : Fragment() {
     private lateinit var recyclerViewSymptom: RecyclerView
     private lateinit var recyclerViewSelected: RecyclerView
 
-    private lateinit var selectedSymptomList: SelectedSymptomNames
-
     private lateinit var viewModel: MainViewModel
 
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
-        val selectedSymptom = SelectedSymptom(symptom.name)
+        val selectedSymptom = SelectedSymptom(symptom.name, true)
         symptomArrayList.remove(symptom)
         symptomSelectedArrayList.add(selectedSymptom)
         //Notify the observer
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = symptomSelectedArrayList
+        Log.d("SymptomFragment", "onItemAdd: ${symptom.name}, ${symptom.status}")
     }
 
     private val onItemDelete: (SelectedSymptom) -> Unit = { selectedSymptom ->
-        val symptom = Symptom(selectedSymptom.name)
+        val symptom = Symptom(selectedSymptom.name, false)
+        Log.d("SymptomFragment", "onItemAdd: ${selectedSymptom.name}, ${selectedSymptom.status}")
         symptomSelectedArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
         //Sort by name ascending
@@ -69,7 +70,7 @@ class SymptomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager1 = LinearLayoutManager(context)
-        val layoutManager2 = StaggeredGridLayoutManager(3, GridLayoutManager.VERTICAL)
+        val layoutManager2 = StaggeredGridLayoutManager(4, GridLayoutManager.VERTICAL)
 
         recyclerViewSymptom = binding.symptomsRecyclerView
         recyclerViewSymptom.layoutManager = layoutManager1
@@ -77,15 +78,12 @@ class SymptomFragment : Fragment() {
         symptomAdapter = SymptomAdapter(symptomArrayList, onItemAdd)
         recyclerViewSymptom.adapter = symptomAdapter
 
-        selectedSymptomList = SelectedSymptomNames
-
         recyclerViewSelected = binding.checkedSymptomsRecyclerView
         recyclerViewSelected.layoutManager = layoutManager2
         symptomSelectedArrayList = arrayListOf()
         selectedSymptomAdapter = SelectedSymptomAdapter(symptomSelectedArrayList, onItemDelete)
         recyclerViewSelected.adapter = selectedSymptomAdapter
 
-        //initial mainviewmodel instance
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         symptomList()

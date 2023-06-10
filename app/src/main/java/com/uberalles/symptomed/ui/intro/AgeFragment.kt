@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.intro
+package com.uberalles.symptomed.ui.intro
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.databinding.FragmentAgeBinding
-import com.uberalles.symptomed.ui.MainActivity
+import com.uberalles.symptomed.ui.main.MainActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {

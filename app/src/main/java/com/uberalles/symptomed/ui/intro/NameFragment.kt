@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.intro
+package com.uberalles.symptomed.ui.intro
 
 import android.content.Context
 import android.content.SharedPreferences

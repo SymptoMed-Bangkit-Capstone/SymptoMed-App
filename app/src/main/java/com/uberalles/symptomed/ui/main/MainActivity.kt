@@ -1,17 +1,15 @@
-package com.uberalles.symptomed.ui
+package com.uberalles.symptomed.ui.main
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
-import com.uberalles.symptomed.intro.StartActivity
-import com.uberalles.symptomed.viewmodel.MainViewModel
+import com.uberalles.symptomed.ui.intro.StartActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -27,14 +25,30 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragment = SymptomFragment()
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment)
-            .commit()
+        navigationFragment(SymptomFragment())
 
+        navigation()
         logoutButton()
         toolbarText()
 
+    }
+
+    private fun navigation() {
+        binding.bottomNavView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> navigationFragment(SymptomFragment())
+                R.id.nav_profile -> navigationFragment(ProfileFragment())
+                R.id.nav_settings -> navigationFragment(SettingFragment())
+            }
+            true
+        }
+    }
+
+    private fun navigationFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction =
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment)
+        fragmentTransaction.commit()
     }
 
     private fun logoutButton() {
