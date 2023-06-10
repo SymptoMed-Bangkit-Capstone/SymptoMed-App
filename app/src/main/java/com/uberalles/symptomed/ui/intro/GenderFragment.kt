@@ -20,7 +20,7 @@ class GenderFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private var _binding: FragmentGenderBinding? = null
     private val binding get() = _binding!!
-    private lateinit var bundle: Bundle
+//    private lateinit var bundle: Bundle
 
     companion object {
         const val EXTRA_GENDER = "extra_gender"
@@ -38,7 +38,7 @@ class GenderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bundle = Bundle()
+//        bundle = Bundle()
         firebaseAuth = FirebaseAuth.getInstance()
 
         genderResult()
@@ -51,8 +51,8 @@ class GenderFragment : Fragment() {
             val database = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
             val genderDatabase = database.reference.child(firebaseAuth.currentUser!!.uid).child("gender")
             if (gender == binding.maleRadio.id) {
-                bundle.putString(EXTRA_GENDER, binding.maleRadio.text.toString())
-                bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
+//                bundle.putString(EXTRA_GENDER, binding.maleRadio.text.toString())
+//                bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
                 //save to shared preferences
 //                val editor = sharedPreferences.edit()
 //                editor.putString("gender", binding.maleRadio.text.toString())
@@ -64,10 +64,10 @@ class GenderFragment : Fragment() {
 //                ).show()
                 //save to firebase
                 genderDatabase.setValue(binding.maleRadio.text.toString())
-                findNavController().navigate(R.id.action_genderFragment_to_ageFragment, bundle)
+                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
             } else {
-                bundle.putString(EXTRA_GENDER, binding.femaleRadio.text.toString())
-                bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
+//                bundle.putString(EXTRA_GENDER, binding.femaleRadio.text.toString())
+//                bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
                 //save to shared preferences
 //                val editor = sharedPreferences.edit()
 //                editor.putString("gender", binding.femaleRadio.text.toString())
@@ -79,7 +79,7 @@ class GenderFragment : Fragment() {
 //                ).show()
                 //save to firebase
                 genderDatabase.setValue(binding.femaleRadio.text.toString())
-                findNavController().navigate(R.id.action_genderFragment_to_ageFragment, bundle)
+                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
             }
         }
     }

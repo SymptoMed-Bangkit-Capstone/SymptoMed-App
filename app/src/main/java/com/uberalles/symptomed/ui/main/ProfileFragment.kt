@@ -23,7 +23,6 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var firebaseReference: DatabaseReference
     private lateinit var firebaseDb: FirebaseDatabase
     private lateinit var firebaseAuth: FirebaseAuth
@@ -32,7 +31,6 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        sharedPreferences = requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDb = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app")
         firebaseReference = firebaseDb.getReference("${firebaseAuth.currentUser?.uid}")

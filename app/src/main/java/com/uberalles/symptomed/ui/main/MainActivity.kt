@@ -13,7 +13,6 @@ import com.uberalles.symptomed.ui.intro.NameFragment
 import com.uberalles.symptomed.ui.intro.StartActivity
 
 class MainActivity : AppCompatActivity() {
-//    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     private lateinit var alertBuilder: AlertDialog.Builder
     private lateinit var firebaseAuth: FirebaseAuth
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-//        sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         firebaseAuth = FirebaseAuth.getInstance()
 
         setContentView(binding.root)
@@ -29,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         navigationFragment(SymptomFragment())
 
         navigation()
-//        logoutButton()
     }
 
     private fun navigation() {
@@ -67,38 +64,10 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-
-//    private fun logoutButton() {
-////        val editor = sharedPreferences.edit()
-//        val intent = Intent(this@MainActivity, StartActivity::class.java)
-//
-//        binding.apply {
-//            btnLogout.setOnClickListener {
-//                alertBuilder = AlertDialog.Builder(this@MainActivity)
-//                alertBuilder.setTitle("Alert")
-//                    .setMessage("Do you want to log out?")
-//                    .setCancelable(true)
-//                    .setPositiveButton("Yes") { _, _ ->
-//                        FirebaseAuth.getInstance().signOut()
-////                        editor.clear()
-////                        editor.apply()
-//                        startActivity(intent)
-//                        finish()
-//                    }
-//                    .setNegativeButton("No") { dialogInterface, _ ->
-//                        dialogInterface.cancel()
-//                    }
-//                    .show()
-//            }
-//        }
-//    }
-
-//    private fun toolbarText() {
-//        val title = sharedPreferences.getString("name", "")
-//        binding.apply {
-//            toolbar.title = "Hello, $title!"
-//        }
-//    }
+    fun backToProfile(){
+        val intent = Intent(this@MainActivity, StartActivity::class.java)
+        startActivity(intent)
+    }
 
     override fun onBackPressed() {
         alertBuilder = AlertDialog.Builder(this@MainActivity)

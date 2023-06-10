@@ -16,4 +16,8 @@
     <string name="logout">Logout</string>
     <string name="clear_preferences">Clear Preferences</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="gender">Gender</string>
+    <string name="const_age">Age</string>
+    <string name="dob">DOB</string>
+    <string name="email_address">Email address</string>
 </resources>
