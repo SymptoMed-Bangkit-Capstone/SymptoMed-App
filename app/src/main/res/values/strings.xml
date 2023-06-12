@@ -27,4 +27,6 @@
     <string name="hasil_diagnosa">Hasil Diagnosa</string>
     <string name="probabilitas">Probabilitas</string>
     <string name="saran">Saran</string>
+    <string name="wikipedia">Penjelasan terkait penyakit ini lebih lanjut dapat mengunjungi <u>halaman ini.</u></string>
+    <string name="peringatan">Perlu diketahui bahwa meskipun aplikasi dirancang untuk membantu pengambilan keputusan medis dan memeriksa gejala, diagnosis akhir harus dilakukan oleh profesional medis berlisensi. Kami merekomendasikan untuk mencari evaluasi dan pendapat tambahan sebelum membuat keputusan perawatan apa pun.</string>
 </resources>

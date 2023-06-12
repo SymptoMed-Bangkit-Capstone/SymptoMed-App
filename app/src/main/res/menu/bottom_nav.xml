@@ -10,7 +10,13 @@
         android:icon="@drawable/ic_faq"
         android:title="FAQ" />
     <item
+        android:id="@+id/nav_about_us"
+        android:icon="@drawable/ic_people"
+        android:title="Team" />
+
+    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_account"
         android:title="Profile" />
+
 </menu>

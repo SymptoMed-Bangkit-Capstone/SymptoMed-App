@@ -21,8 +21,8 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="70dp"
         app:cardBackgroundColor="@color/secondary_blue"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,9 +64,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginHorizontal="5dp"
+                    android:background="@color/white"
                     android:focusableInTouchMode="true"
+                    android:fontFamily="monospace"
                     android:gravity="top|left"
-                    android:hint="@string/example_gejala"
+                    android:hint="Saya merasakan gejala kedinginan, \ndemam, dan batuk berdahak..."
                     android:inputType="text"
                     android:maxLines="5" />
 
@@ -80,7 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/main_blue"
-        android:text="@string/prediksi"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="PREDIKSI"
         android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="visible"
@@ -88,15 +92,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView" />
 
-    <TextView
-        android:id="@+id/tv_hasil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="30dp"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/btn_prediksi"
-        android:text="Hasil Prediksi"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_prediksi" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

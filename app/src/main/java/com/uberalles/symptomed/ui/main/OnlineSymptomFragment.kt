@@ -51,7 +51,9 @@ class OnlineSymptomFragment : Fragment() {
                 Toast.makeText(activity, "Gejala tidak boleh kosong", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.getDisease(symptom).observe(viewLifecycleOwner) { disease ->
+                    binding.progressBar.visibility = View.VISIBLE
                     if (disease != null) {
+                        binding.progressBar.visibility = View.INVISIBLE
                         bundle.putString(DIAGNOSA, disease.kelas)
                         bundle.putString(PROBABILITAS, disease.probabilitas)
                         bundle.putString(SARAN, disease.rekomendasi)

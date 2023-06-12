@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> navigationFragment(HomeFragment())
                 R.id.nav_faq -> navigationFragment(FaqFragment())
+                R.id.nav_about_us -> navigationFragment(AboutUsFragment())
                 R.id.nav_profile -> navigationFragment(ProfileFragment())
             }
             true
