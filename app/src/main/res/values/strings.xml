@@ -24,4 +24,7 @@
     <string name="prediksi">Prediksi</string>
     <string name="back">Back</string>
     <string name="example_gejala">Saya merasakan pusing, demam, \ndan batuk</string>
+    <string name="hasil_diagnosa">Hasil Diagnosa</string>
+    <string name="probabilitas">Probabilitas</string>
+    <string name="saran">Saran</string>
 </resources>

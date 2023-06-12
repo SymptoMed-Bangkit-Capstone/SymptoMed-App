@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.intro.AgeFragment">
 
-
     <TextView
         android:id="@+id/tv_hello"
         android:layout_width="wrap_content"
@@ -25,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Date of birth"
+        android:backgroundTint="@color/main_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_hello" />

@@ -12,15 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
-import com.uberalles.symptomed.data.SelectedSymptom
-import com.uberalles.symptomed.data.SelectedSymptomNames
-import com.uberalles.symptomed.data.Symptom
-import com.uberalles.symptomed.data.SymptomNames
+import com.uberalles.symptomed.data.symptom.SelectedSymptom
+import com.uberalles.symptomed.data.symptom.SelectedSymptomNames
+import com.uberalles.symptomed.data.symptom.Symptom
+import com.uberalles.symptomed.data.symptom.SymptomNames
 import com.uberalles.symptomed.databinding.FragmentOfflineSymptomBinding
 import com.uberalles.symptomed.viewmodel.MainViewModel
+import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 
 class OfflineSymptomFragment : Fragment() {
 
@@ -83,9 +83,10 @@ class OfflineSymptomFragment : Fragment() {
         selectedSymptomAdapter = SelectedSymptomAdapter(selectedSymptomArrayList, onItemDelete)
         recyclerViewSelected.adapter = selectedSymptomAdapter
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
+        val factory = MainViewModelFactory.getInstance(requireContext())
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         (activity as MainActivity).hideNavBottom(true)
+
         backToHome()
         symptomList()
         symptomSelected()

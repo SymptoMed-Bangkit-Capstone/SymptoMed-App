@@ -6,16 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.HomeFragment">
 
-    <TextView
-        android:id="@+id/tv_prediction"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Pilih prediksi gejala"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:backgroundTint="@color/main_blue"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_prediction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Pilih prediksi gejala"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/tv_offline_prediction"
@@ -24,10 +40,10 @@
         android:layout_marginTop="20dp"
         app:cardBackgroundColor="#257EBF"
         app:cardCornerRadius="10dp"
-        app:cardElevation="20dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_prediction">
+        app:layout_constraintTop_toBottomOf="@id/card_view_title">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +82,7 @@
         android:layout_marginTop="30dp"
         app:cardBackgroundColor="#257EBF"
         app:cardCornerRadius="10dp"
-        app:cardElevation="20dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_offline_prediction">
@@ -91,12 +107,12 @@
                 android:layout_width="300dp"
                 android:layout_height="180dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:padding="10dp"
                 android:src="@drawable/symptom_online"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_prediction"
-                android:focusable="true" />
+                app:layout_constraintTop_toBottomOf="@id/tv_prediction" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -105,9 +121,9 @@
         android:id="@+id/iv_emergency_call"
         android:layout_width="198dp"
         android:layout_height="104dp"
-        android:layout_marginTop="40dp"
         android:clickable="true"
         android:src="@drawable/emergency_call"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_online_prediction" />

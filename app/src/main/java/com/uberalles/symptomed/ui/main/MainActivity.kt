@@ -72,6 +72,10 @@ class MainActivity : AppCompatActivity() {
         navigationFragment(HomeFragment())
     }
 
+    fun onlineFragment(){
+        navigationFragment(OnlineSymptomFragment())
+    }
+
     fun hideNavBottom(boolean: Boolean) {
         val navBottom = binding.bottomNavView
         if (boolean) {

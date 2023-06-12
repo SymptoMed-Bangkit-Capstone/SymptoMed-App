@@ -1,17 +1,24 @@
 package com.uberalles.symptomed.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.uberalles.symptomed.R
+import com.uberalles.symptomed.data.remote.api.ApiConfig
 import com.uberalles.symptomed.databinding.FragmentOnlineSymptomBinding
+import com.uberalles.symptomed.viewmodel.MainViewModel
+import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 
 class OnlineSymptomFragment : Fragment() {
-    private var _binding : FragmentOnlineSymptomBinding? = null
+    private var _binding: FragmentOnlineSymptomBinding? = null
     private val binding get() = _binding!!
+    private lateinit var apiConfig: ApiConfig
+    private lateinit var viewModel: MainViewModel
+    private lateinit var bundle: Bundle
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +26,13 @@ class OnlineSymptomFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentOnlineSymptomBinding.inflate(layoutInflater, container, false)
+        apiConfig = ApiConfig()
+
+        val factory = MainViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
+        bundle = Bundle()
+
         return binding.root
     }
 
@@ -33,7 +47,31 @@ class OnlineSymptomFragment : Fragment() {
     private fun predictSymptom() {
         binding.btnPrediksi.setOnClickListener {
             val symptom = binding.etGejala.text.toString()
-            Toast.makeText(requireContext(), symptom, Toast.LENGTH_SHORT).show()
+            if (symptom.isEmpty()) {
+                Toast.makeText(activity, "Gejala tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.getDisease(symptom).observe(viewLifecycleOwner) { disease ->
+                    if (disease != null) {
+                        bundle.putString(DIAGNOSA, disease.kelas)
+                        bundle.putString(PROBABILITAS, disease.probabilitas)
+                        bundle.putString(SARAN, disease.rekomendasi)
+                        bundle.putString(WIKI, disease.link)
+
+                        val diseaseFragment = DiseaseFragment()
+                        diseaseFragment.arguments = bundle
+
+                        val fragment = requireActivity().supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_container_main, diseaseFragment)
+                            .addToBackStack(null)
+                        fragment.commit()
+
+                    } else {
+                        Toast.makeText(activity, "Gagal mendapatkan hasil", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
         }
     }
 
@@ -42,6 +80,13 @@ class OnlineSymptomFragment : Fragment() {
             (activity as MainActivity).backToHome()
             (activity as MainActivity).hideNavBottom(false)
         }
+    }
+
+    companion object {
+        const val DIAGNOSA = "diagnosa"
+        const val PROBABILITAS = "probabilitas"
+        const val SARAN = "saran"
+        const val WIKI = "wiki"
     }
 
 }

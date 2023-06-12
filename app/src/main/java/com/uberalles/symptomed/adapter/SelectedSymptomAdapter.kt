@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
-import com.uberalles.symptomed.data.SelectedSymptom
+import com.uberalles.symptomed.data.symptom.SelectedSymptom
 
 class SelectedSymptomAdapter(
     private val selectedSymptom: ArrayList<SelectedSymptom>,

@@ -34,6 +34,7 @@
         android:layout_marginTop="10dp"
         android:text="Name"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_profile" />

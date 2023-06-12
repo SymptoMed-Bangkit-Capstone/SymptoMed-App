@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.uberalles.symptomed.R
-import com.uberalles.symptomed.data.Symptom
+import com.uberalles.symptomed.data.symptom.Symptom
 
 class SymptomAdapter(private val symptom: ArrayList<Symptom>, private val onItemAdd: (Symptom) -> Unit) :
     RecyclerView.Adapter<SymptomAdapter.SymptomViewHolder>() {
