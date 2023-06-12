@@ -1,7 +1,5 @@
 package com.uberalles.symptomed.ui.main
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentProfileBinding
+import com.uberalles.symptomed.ui.auth.SignInFragment
 
 class ProfileFragment : Fragment() {
 
@@ -34,13 +33,17 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseDb = Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app")
+        firebaseDb =
+            Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app")
         firebaseReference = firebaseDb.getReference("${firebaseAuth.currentUser?.uid}")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        editProfile()
+        logout()
 
         val nameDatabase = firebaseReference.child("name")
         val genderDatabase = firebaseReference.child("gender")
@@ -65,7 +68,11 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val gender = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $gender")
-                binding.tvGender.text = gender
+                if (gender == "Male"){
+                    binding.tvGender.text = "Laki-laki"
+                } else {
+                    binding.tvGender.text = "Perempuan"
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -77,7 +84,7 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val age = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $age")
-                binding.tvAge.text = "$age years old"
+                binding.tvAge.text = "$age tahun"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -109,7 +116,7 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        photoDatabase.addValueEventListener(object: ValueEventListener{
+        photoDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val photo = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $photo")
@@ -123,5 +130,20 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun logout() {
+        binding.btnLogout.setOnClickListener {
+            (activity as MainActivity).logout()
+        }
+    }
+
+    private fun editProfile() {
+        binding.btnEditProfile.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_main, EditProfileFragment())
+            fragmentTransaction.commit()
+        }
     }
 }

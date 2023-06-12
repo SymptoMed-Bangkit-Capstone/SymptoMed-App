@@ -2,17 +2,13 @@ package com.uberalles.symptomed.ui.main
 
 import android.Manifest
 import android.app.DatePickerDialog
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -36,12 +32,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentEditProfileBinding
-import com.uberalles.symptomed.utilities.createCustomTempFile
 import com.uberalles.symptomed.utilities.uriToFile
 import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import java.util.Calendar
 
 
@@ -57,7 +49,7 @@ class EditProfileFragment : Fragment() {
     private var getFile: File? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
@@ -67,14 +59,6 @@ class EditProfileFragment : Fragment() {
         firebaseStorage = FirebaseStorage.getInstance()
         photoUri = Uri.EMPTY
         photoPath = ""
-
-        if (Build.VERSION.SDK_INT >= 30) {
-            if (!Environment.isExternalStorageManager()) {
-                val getpermission = Intent()
-                getpermission.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-                startActivity(getpermission)
-            }
-        }
 
         return binding.root
     }
@@ -119,7 +103,7 @@ class EditProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val age = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $age")
-                binding.tvAge.text = "$age years old"
+                binding.tvAge.text = "$age tahun"
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -204,7 +188,7 @@ class EditProfileFragment : Fragment() {
 
             ivEditGender.setOnClickListener {
                 val gender = tvGender
-                var genderEdit = radioGroupGender
+                val genderEdit = radioGroupGender
                 if (edit) {
                     ivEditGender.setImageResource(R.drawable.ic_edit)
                     gender.visibility = View.VISIBLE
@@ -330,19 +314,18 @@ class EditProfileFragment : Fragment() {
             if (it.resultCode == AppCompatActivity.RESULT_OK) {
                 it.data?.data?.let { uri ->
                     val file = uriToFile(uri, requireContext())
-                    if (file != null) {
+                    run {
                         photoUri = uri
                         photoPath = file.absolutePath
                         Glide.with(requireContext())
                             .load(photoUri)
                             .into(binding.ivProfile)
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to load selected image", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

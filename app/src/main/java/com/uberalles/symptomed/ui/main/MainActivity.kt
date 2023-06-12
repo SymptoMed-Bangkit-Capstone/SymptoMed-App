@@ -3,6 +3,7 @@ package com.uberalles.symptomed.ui.main
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,17 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        navigationFragment(SymptomFragment())
-
+        navigationFragment(HomeFragment())
         navigation()
     }
 
     private fun navigation() {
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home -> navigationFragment(SymptomFragment())
+                R.id.nav_home -> navigationFragment(HomeFragment())
+                R.id.nav_faq -> navigationFragment(FaqFragment())
                 R.id.nav_profile -> navigationFragment(ProfileFragment())
-                R.id.nav_settings -> navigationFragment(SettingFragment())
             }
             true
         }
@@ -65,7 +65,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun backToProfile(){
-        navigationFragment(SettingFragment())
+        navigationFragment(ProfileFragment())
+    }
+
+    fun backToHome(){
+        navigationFragment(HomeFragment())
+    }
+
+    fun hideNavBottom(boolean: Boolean) {
+        val navBottom = binding.bottomNavView
+        if (boolean) {
+            navBottom.visibility = View.GONE
+        } else {
+            navBottom.visibility = View.VISIBLE
+        }
     }
 
     override fun onBackPressed() {

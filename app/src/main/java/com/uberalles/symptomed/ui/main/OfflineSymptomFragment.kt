@@ -10,22 +10,21 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
 import com.uberalles.symptomed.data.SelectedSymptom
 import com.uberalles.symptomed.data.SelectedSymptomNames
 import com.uberalles.symptomed.data.Symptom
 import com.uberalles.symptomed.data.SymptomNames
-import com.uberalles.symptomed.databinding.FragmentSymptomBinding
+import com.uberalles.symptomed.databinding.FragmentOfflineSymptomBinding
 import com.uberalles.symptomed.viewmodel.MainViewModel
 
-class SymptomFragment : Fragment() {
+class OfflineSymptomFragment : Fragment() {
 
-    private var _binding: FragmentSymptomBinding? = null
+    private var _binding: FragmentOfflineSymptomBinding? = null
     private val binding get() = _binding!!
     private lateinit var symptomAdapter: SymptomAdapter
     private lateinit var selectedSymptomAdapter: SelectedSymptomAdapter
@@ -63,7 +62,7 @@ class SymptomFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSymptomBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentOfflineSymptomBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -86,9 +85,18 @@ class SymptomFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+        (activity as MainActivity).hideNavBottom(true)
+        backToHome()
         symptomList()
         symptomSelected()
         searchView()
+    }
+
+    private fun backToHome() {
+        binding.btnBack.setOnClickListener {
+            (activity as MainActivity).backToHome()
+            (activity as MainActivity).hideNavBottom(false)
+        }
     }
 
     private fun searchView() {
@@ -97,7 +105,7 @@ class SymptomFragment : Fragment() {
         val searchView = binding.searchView
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.queryHint = "Search Symptoms"
+        searchView.queryHint = "Cari gejala"
         searchView.setIconifiedByDefault(false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

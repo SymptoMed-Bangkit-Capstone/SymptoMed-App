@@ -50,7 +50,6 @@ class AgeFragment : Fragment() {
         }
     }
 
-
     private fun helloUser() {
         val name = arguments?.getString(GenderFragment.EXTRA_NAME)
         val database =

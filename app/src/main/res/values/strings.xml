@@ -20,4 +20,8 @@
     <string name="const_age">Age</string>
     <string name="dob">DOB</string>
     <string name="email_address">Email address</string>
+    <string name="masukkan_gejala">Masukkan Gejala</string>
+    <string name="prediksi">Prediksi</string>
+    <string name="back">Back</string>
+    <string name="example_gejala">Saya merasakan pusing, demam, \ndan batuk</string>
 </resources>
