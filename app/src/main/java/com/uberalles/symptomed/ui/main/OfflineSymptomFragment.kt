@@ -139,8 +139,6 @@ class OfflineSymptomFragment : Fragment() {
                 println("Indeks referensi tidak ditemukan.")
             }
 
-//            val dataRekomendasiLoad = DataRekomendasi.Rekomendasi(19)
-//            println(dataRekomendasiLoad)
         }
     }
 
