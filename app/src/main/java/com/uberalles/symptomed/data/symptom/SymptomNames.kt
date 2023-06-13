@@ -133,6 +133,6 @@ object SymptomNames {
         "Ucapan Cadel",
         "Urin Gelap",
         "Urin Kuning",
-        "Wajah dan Mata Sembab",
+        "Wajah dan Mata Sembab"
         )
 }

@@ -126,8 +126,9 @@ class OfflineSymptomFragment : Fragment() {
                 }
             }
 
-            println(prediction[maxIndex])
+            val formattedPercentage = String.format("%.2f%%", (prediction[maxIndex] * 100))
             println("Indeks Prediksi: $maxIndex")
+            println("Probabilitas: $formattedPercentage")
 
             val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
 
