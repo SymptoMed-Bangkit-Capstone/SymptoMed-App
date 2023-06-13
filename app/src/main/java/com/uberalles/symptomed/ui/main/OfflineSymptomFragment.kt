@@ -1,5 +1,6 @@
 package com.uberalles.symptomed.ui.main
 
+import DataRekomendasi
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -19,8 +20,11 @@ import com.uberalles.symptomed.data.symptom.SelectedSymptomNames
 import com.uberalles.symptomed.data.symptom.Symptom
 import com.uberalles.symptomed.data.symptom.SymptomNames
 import com.uberalles.symptomed.databinding.FragmentOfflineSymptomBinding
+import com.uberalles.symptomed.ml.Ds
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
 class OfflineSymptomFragment : Fragment() {
 
@@ -87,10 +91,57 @@ class OfflineSymptomFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         (activity as MainActivity).hideNavBottom(true)
 
+        predict()
         backToHome()
         symptomList()
         symptomSelected()
         searchView()
+    }
+
+    private fun predict() {
+        binding.btnPrediksi.setOnClickListener{
+            val selectedSymptom = selectedSymptomArrayList.map { it.name }
+            SelectedSymptomNames.selectedSymptomList = selectedSymptom
+            val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
+            println(SelectedSymptomNames.selectedSymptomList)
+            println(getSymptomArray.contentToString())
+
+            val model = Ds.newInstance(requireContext())
+
+            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
+            inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
+
+            val outputs = model.process(inputFeature0)
+            val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+            val prediction = outputFeature0.floatArray
+            model.close()
+
+            var maxIndex = 0
+            var maxValue = Float.MIN_VALUE
+
+            for (i in prediction.indices) {
+                if (prediction[i] > maxValue) {
+                    maxValue = prediction[i]
+                    maxIndex = i
+                }
+            }
+
+            println(prediction[maxIndex])
+            println("Indeks Prediksi: $maxIndex")
+
+            val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
+
+            if (rekomendasi != null) {
+                println("Symptom: ${rekomendasi.Symptom}")
+                println("Detail: ${rekomendasi.Detail}")
+                println("Saran: ${rekomendasi.Saran}")
+            } else {
+                println("Indeks referensi tidak ditemukan.")
+            }
+
+//            val dataRekomendasiLoad = DataRekomendasi.Rekomendasi(19)
+//            println(dataRekomendasiLoad)
+        }
     }
 
     private fun backToHome() {
@@ -143,8 +194,8 @@ class OfflineSymptomFragment : Fragment() {
             SelectedSymptom(
                 it
             )
-        })
 
+        })
         viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) {
             recyclerViewSelected.adapter = selectedSymptomAdapter
         }

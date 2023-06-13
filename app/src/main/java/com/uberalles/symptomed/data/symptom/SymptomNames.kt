@@ -134,6 +134,5 @@ object SymptomNames {
         "Urin Gelap",
         "Urin Kuning",
         "Wajah dan Mata Sembab",
-
         )
 }
