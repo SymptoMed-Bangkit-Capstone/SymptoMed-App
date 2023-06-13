@@ -12,13 +12,9 @@ class MainViewModel (private val mSymptoMedRepository: SymptoMedRepository) : Vi
     private var symptomLiveData: MutableLiveData<ArrayList<Symptom>>? = null
     private var symptomSelectedLiveData: MutableLiveData<ArrayList<SelectedSymptom>>? = null
 
-    var symptomArrayList: ArrayList<Symptom>? = null
-    var symptomSelectedArrayList: ArrayList<SelectedSymptom>? = null
-
     init {
         symptomLiveData = MutableLiveData()
         symptomSelectedLiveData = MutableLiveData()
-
     }
 
 

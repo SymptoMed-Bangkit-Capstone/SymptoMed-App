@@ -36,6 +36,7 @@ class OfflineResultFragment : Fragment() {
     private fun backToOfflineSymptomFragment() {
         binding.btnBack.setOnClickListener {
             (activity as MainActivity).offlineFragment()
+
         }
     }
 
@@ -61,11 +62,6 @@ class OfflineResultFragment : Fragment() {
             urlIntent.data = Uri.parse(wiki)
             startActivity(urlIntent)
         }
-
-        Log.d("Diagnosa", diagnosa.toString())
-        Log.d("Probabilitas", probabilitas.toString())
-        Log.d("Saran", saran.toString())
-        Log.d("Wiki", wiki.toString())
     }
 
 }

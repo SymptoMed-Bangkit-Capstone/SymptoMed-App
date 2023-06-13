@@ -3,7 +3,7 @@ package com.uberalles.symptomed.data.local.symptom
 object SelectedSymptomNames{
     var selectedSymptomList = listOf<String>()
 
-    private val symptomListSave = listOf(
+    val symptomListSave = listOf(
         "Gatal",
         "Ruam Kulit",
         "Erupsi Kulit Nodal",

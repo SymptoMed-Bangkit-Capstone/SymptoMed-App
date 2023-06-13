@@ -47,21 +47,22 @@ class OfflineSymptomFragment : Fragment() {
     private lateinit var bundle: Bundle
 
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
-        val selectedSymptom = SelectedSymptom(symptom.name, true)
+        val selectedSymptom = SelectedSymptom(symptom.name)
         symptomArrayList.remove(symptom)
         selectedSymptomArrayList.add(selectedSymptom)
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
-        Log.d("SymptomFragment", "onItemAdd: ${symptom.name}, ${symptom.status}")
+
     }
 
     private val onItemDelete: (SelectedSymptom) -> Unit = { selectedSymptom ->
-        val symptom = Symptom(selectedSymptom.name, false)
-        Log.d("SymptomFragment", "onItemAdd: ${selectedSymptom.name}, ${selectedSymptom.status}")
+        val symptom = Symptom(selectedSymptom.name)
         selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
+
+        Log.d("TAG", "onItemDelete: ${symptom.name}")
     }
 
     override fun onCreateView(
@@ -102,42 +103,45 @@ class OfflineSymptomFragment : Fragment() {
 
     private fun predict() {
         binding.btnPrediksi.setOnClickListener {
-            val selectedSymptom = selectedSymptomArrayList.map { it.name }
-            SelectedSymptomNames.selectedSymptomList = selectedSymptom
-
-            val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
-
-            val model = Model.newInstance(requireContext())
-
-            val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
-            inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
-
-            val outputs = model.process(inputFeature0)
-            val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-            val prediction = outputFeature0.floatArray
-            model.close()
-
-            var maxIndex = 0
-            var maxValue = Float.MIN_VALUE
-
-            for (i in prediction.indices) {
-                if (prediction[i] > maxValue) {
-                    maxValue = prediction[i]
-                    maxIndex = i
-                }
-            }
-
-            val formattedPercentage = String.format("%.2f%%", (prediction[maxIndex] * 100))
-            val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
-
-            val diagnosa = rekomendasi?.Symptom
-            val probabilitas = formattedPercentage
-            val saran = rekomendasi?.Saran
-            val wiki = rekomendasi?.Detail
-
-            if (selectedSymptom.isEmpty()){
-                Toast.makeText(context, "Silahkan pilih gejala minimal 1", Toast.LENGTH_SHORT).show()
+            if (selectedSymptomArrayList.isEmpty()) {
+                Toast.makeText(context, "Pilih gejala terlebih dahulu", Toast.LENGTH_SHORT).show()
             } else {
+                val selectedSymptom = selectedSymptomArrayList.map { it.name }
+                SelectedSymptomNames.selectedSymptomList = selectedSymptom
+
+                val symptom = symptomArrayList.map { it.name }
+                SymptomNames.symptomList = symptom
+
+                val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
+
+                val model = Model.newInstance(requireContext())
+
+                val inputFeature0 =
+                    TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
+                inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
+
+                val outputs = model.process(inputFeature0)
+                val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+                val prediction = outputFeature0.floatArray
+                model.close()
+
+                var maxIndex = 0
+                var maxValue = Float.MIN_VALUE
+
+                for (i in prediction.indices) {
+                    if (prediction[i] > maxValue) {
+                        maxValue = prediction[i]
+                        maxIndex = i
+                    }
+                }
+
+                val probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
+                val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
+
+                val diagnosa = rekomendasi?.Symptom
+                val saran = rekomendasi?.Saran
+                val wiki = rekomendasi?.Detail
+
                 bundle.putString(DIAGNOSA, diagnosa)
                 bundle.putString(PROBABILITAS, probabilitas)
                 bundle.putString(SARAN, saran)
@@ -146,8 +150,7 @@ class OfflineSymptomFragment : Fragment() {
                 val offlineResultFragment = OfflineResultFragment()
                 offlineResultFragment.arguments = bundle
 
-                val fragment = requireActivity().supportFragmentManager
-                    .beginTransaction()
+                val fragment = requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container_main, offlineResultFragment)
                     .addToBackStack(null)
                 fragment.commit()
@@ -210,6 +213,7 @@ class OfflineSymptomFragment : Fragment() {
         viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) {
             recyclerViewSelected.adapter = selectedSymptomAdapter
         }
+
     }
 
     companion object {
