@@ -52,7 +52,6 @@ class OfflineSymptomFragment : Fragment() {
         selectedSymptomArrayList.add(selectedSymptom)
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
-
     }
 
     private val onItemDelete: (SelectedSymptom) -> Unit = { selectedSymptom ->
@@ -61,8 +60,6 @@ class OfflineSymptomFragment : Fragment() {
         symptomArrayList.add(symptom)
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
-
-        Log.d("TAG", "onItemDelete: ${symptom.name}")
     }
 
     override fun onCreateView(
@@ -114,6 +111,8 @@ class OfflineSymptomFragment : Fragment() {
 
                 val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
 
+                //get model from room database and predict
+
                 val model = Model.newInstance(requireContext())
 
                 val inputFeature0 =
@@ -147,6 +146,8 @@ class OfflineSymptomFragment : Fragment() {
                 bundle.putString(SARAN, saran)
                 bundle.putString(WIKI, wiki)
 
+                Log.d("TAG", "predict: $diagnosa")
+
                 val offlineResultFragment = OfflineResultFragment()
                 offlineResultFragment.arguments = bundle
 
@@ -154,6 +155,7 @@ class OfflineSymptomFragment : Fragment() {
                     .replace(R.id.fragment_container_main, offlineResultFragment)
                     .addToBackStack(null)
                 fragment.commit()
+
             }
         }
     }

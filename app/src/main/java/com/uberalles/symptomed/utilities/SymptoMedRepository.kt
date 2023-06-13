@@ -37,4 +37,5 @@ class SymptoMedRepository private constructor(private val remoteDataSource: Remo
         )
         return diseaseResult
     }
+
 }

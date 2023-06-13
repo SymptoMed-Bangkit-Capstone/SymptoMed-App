@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
+import com.uberalles.symptomed.data.local.DataRekomendasi
 import com.uberalles.symptomed.databinding.ActivityMainBinding
 import com.uberalles.symptomed.ui.intro.StartActivity
 import com.uberalles.symptomed.ui.main.navigation.AboutUsFragment
@@ -16,7 +17,6 @@ import com.uberalles.symptomed.ui.main.navigation.HomeFragment
 import com.uberalles.symptomed.ui.main.navigation.ProfileFragment
 import com.uberalles.symptomed.ui.main.prediction.OfflineSymptomFragment
 import com.uberalles.symptomed.ui.main.prediction.OnlineSymptomFragment
-import com.uberalles.symptomed.ui.result.OfflineResultFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    fun logout(){
+    fun logout() {
         val intent = Intent(this@MainActivity, StartActivity::class.java)
         alertBuilder = AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("Alert")
@@ -70,19 +70,19 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    fun backToProfile(){
+    fun backToProfile() {
         navigationFragment(ProfileFragment())
     }
 
-    fun backToHome(){
+    fun backToHome() {
         navigationFragment(HomeFragment())
     }
 
-    fun onlineFragment(){
+    fun onlineFragment() {
         navigationFragment(OnlineSymptomFragment())
     }
 
-    fun offlineFragment(){
+    fun offlineFragment() {
         navigationFragment(OfflineSymptomFragment())
     }
 
