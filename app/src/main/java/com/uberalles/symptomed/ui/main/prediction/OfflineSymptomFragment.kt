@@ -1,5 +1,6 @@
 package com.uberalles.symptomed.ui.main.prediction
 
+//import com.uberalles.symptomed.data.local.DataRekomendasi
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -13,10 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
-import com.uberalles.symptomed.data.local.DataRekomendasi
+import com.uberalles.symptomed.data.local.DiseaseResult
 import com.uberalles.symptomed.data.local.symptom.SelectedSymptom
 import com.uberalles.symptomed.data.local.symptom.SelectedSymptomNames
 import com.uberalles.symptomed.data.local.symptom.Symptom
@@ -27,6 +29,7 @@ import com.uberalles.symptomed.ui.main.MainActivity
 import com.uberalles.symptomed.ui.result.OfflineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
+import org.json.JSONObject
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
@@ -111,7 +114,13 @@ class OfflineSymptomFragment : Fragment() {
 
                 val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
 
-                //get model from room database and predict
+                val jsonData = requireContext().resources.openRawResource(
+                    requireContext().resources.getIdentifier(
+                        "disease",
+                        "raw",
+                        requireContext().packageName
+                    )
+                ).bufferedReader().use { it.readText() }.trimIndent()
 
                 val model = Model.newInstance(requireContext())
 
@@ -134,19 +143,23 @@ class OfflineSymptomFragment : Fragment() {
                     }
                 }
 
-                val probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
-                val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
+                val gson = Gson()
+                val recommendationList =
+                    gson.fromJson(jsonData, Array<DiseaseResult>::class.java).toList()
 
-                val diagnosa = rekomendasi?.Symptom
-                val saran = rekomendasi?.Saran
-                val wiki = rekomendasi?.Detail
+                val recommendation = recommendationList.find { it.Index == maxIndex }
+
+                Log.d("TAG", "predict: ${recommendation?.Symptom}")
+
+                val probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
+                val diagnosa = recommendation?.Symptom
+                val saran = recommendation?.Saran
+                val wiki = recommendation?.Detail
 
                 bundle.putString(DIAGNOSA, diagnosa)
                 bundle.putString(PROBABILITAS, probabilitas)
                 bundle.putString(SARAN, saran)
                 bundle.putString(WIKI, wiki)
-
-                Log.d("TAG", "predict: $diagnosa")
 
                 val offlineResultFragment = OfflineResultFragment()
                 offlineResultFragment.arguments = bundle
@@ -164,6 +177,12 @@ class OfflineSymptomFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             (activity as MainActivity).backToHome()
             (activity as MainActivity).hideNavBottom(false)
+
+            val selectedSymptom = selectedSymptomArrayList.map { it.name }
+            SelectedSymptomNames.selectedSymptomList = selectedSymptom
+
+            val symptom = symptomArrayList.map { it.name }
+            SymptomNames.symptomList = symptom
         }
     }
 

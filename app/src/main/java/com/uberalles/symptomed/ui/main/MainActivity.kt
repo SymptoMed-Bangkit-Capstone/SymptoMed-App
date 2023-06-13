@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
-import com.uberalles.symptomed.data.local.DataRekomendasi
 import com.uberalles.symptomed.databinding.ActivityMainBinding
 import com.uberalles.symptomed.ui.intro.StartActivity
 import com.uberalles.symptomed.ui.main.navigation.AboutUsFragment
