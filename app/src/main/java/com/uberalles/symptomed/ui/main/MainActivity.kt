@@ -1,7 +1,6 @@
 package com.uberalles.symptomed.ui.main
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -10,8 +9,14 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
-import com.uberalles.symptomed.ui.intro.NameFragment
 import com.uberalles.symptomed.ui.intro.StartActivity
+import com.uberalles.symptomed.ui.main.navigation.AboutUsFragment
+import com.uberalles.symptomed.ui.main.navigation.FaqFragment
+import com.uberalles.symptomed.ui.main.navigation.HomeFragment
+import com.uberalles.symptomed.ui.main.navigation.ProfileFragment
+import com.uberalles.symptomed.ui.main.prediction.OfflineSymptomFragment
+import com.uberalles.symptomed.ui.main.prediction.OnlineSymptomFragment
+import com.uberalles.symptomed.ui.result.OfflineResultFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -77,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         navigationFragment(OnlineSymptomFragment())
     }
 
+    fun offlineFragment(){
+        navigationFragment(OfflineSymptomFragment())
+    }
+
     fun hideNavBottom(boolean: Boolean) {
         val navBottom = binding.bottomNavView
         if (boolean) {
@@ -93,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             .setCancelable(true)
             .setPositiveButton("Yes") { _, _ ->
                 finish()
+                android.os.Process.killProcess(android.os.Process.myPid())
             }
             .setNegativeButton("No") { dialogInterface, _ ->
                 dialogInterface.cancel()

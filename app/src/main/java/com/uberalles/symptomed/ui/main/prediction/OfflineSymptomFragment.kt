@@ -1,6 +1,5 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.prediction
 
-import DataRekomendasi
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -8,19 +7,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
-import com.uberalles.symptomed.data.symptom.SelectedSymptom
-import com.uberalles.symptomed.data.symptom.SelectedSymptomNames
-import com.uberalles.symptomed.data.symptom.Symptom
-import com.uberalles.symptomed.data.symptom.SymptomNames
+import com.uberalles.symptomed.data.local.DataRekomendasi
+import com.uberalles.symptomed.data.local.symptom.SelectedSymptom
+import com.uberalles.symptomed.data.local.symptom.SelectedSymptomNames
+import com.uberalles.symptomed.data.local.symptom.Symptom
+import com.uberalles.symptomed.data.local.symptom.SymptomNames
 import com.uberalles.symptomed.databinding.FragmentOfflineSymptomBinding
-import com.uberalles.symptomed.ml.Ds
+import com.uberalles.symptomed.ml.Model
+import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.result.OfflineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 import org.tensorflow.lite.DataType
@@ -40,12 +44,12 @@ class OfflineSymptomFragment : Fragment() {
     private lateinit var recyclerViewSelected: RecyclerView
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var bundle: Bundle
 
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
         val selectedSymptom = SelectedSymptom(symptom.name, true)
         symptomArrayList.remove(symptom)
         selectedSymptomArrayList.add(selectedSymptom)
-        //Notify the observer
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
         Log.d("SymptomFragment", "onItemAdd: ${symptom.name}, ${symptom.status}")
@@ -56,9 +60,6 @@ class OfflineSymptomFragment : Fragment() {
         Log.d("SymptomFragment", "onItemAdd: ${selectedSymptom.name}, ${selectedSymptom.status}")
         selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
-        //Sort by name ascending
-        symptomArrayList.sortBy { it.name }
-        //Notify the observer
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
     }
@@ -67,6 +68,7 @@ class OfflineSymptomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOfflineSymptomBinding.inflate(layoutInflater, container, false)
+        bundle = Bundle()
         return binding.root
     }
 
@@ -99,14 +101,13 @@ class OfflineSymptomFragment : Fragment() {
     }
 
     private fun predict() {
-        binding.btnPrediksi.setOnClickListener{
+        binding.btnPrediksi.setOnClickListener {
             val selectedSymptom = selectedSymptomArrayList.map { it.name }
             SelectedSymptomNames.selectedSymptomList = selectedSymptom
-            val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
-            println(SelectedSymptomNames.selectedSymptomList)
-            println(getSymptomArray.contentToString())
 
-            val model = Ds.newInstance(requireContext())
+            val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
+
+            val model = Model.newInstance(requireContext())
 
             val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
             inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
@@ -126,19 +127,31 @@ class OfflineSymptomFragment : Fragment() {
                 }
             }
 
-            println(prediction[maxIndex])
-            println("Indeks Prediksi: $maxIndex")
-
+            val formattedPercentage = String.format("%.2f%%", (prediction[maxIndex] * 100))
             val rekomendasi = DataRekomendasi.rekomendasiList.find { it.Index == maxIndex }
 
-            if (rekomendasi != null) {
-                println("Symptom: ${rekomendasi.Symptom}")
-                println("Detail: ${rekomendasi.Detail}")
-                println("Saran: ${rekomendasi.Saran}")
-            } else {
-                println("Indeks referensi tidak ditemukan.")
-            }
+            val diagnosa = rekomendasi?.Symptom
+            val probabilitas = formattedPercentage
+            val saran = rekomendasi?.Saran
+            val wiki = rekomendasi?.Detail
 
+            if (selectedSymptom.isEmpty()){
+                Toast.makeText(context, "Silahkan pilih gejala minimal 1", Toast.LENGTH_SHORT).show()
+            } else {
+                bundle.putString(DIAGNOSA, diagnosa)
+                bundle.putString(PROBABILITAS, probabilitas)
+                bundle.putString(SARAN, saran)
+                bundle.putString(WIKI, wiki)
+
+                val offlineResultFragment = OfflineResultFragment()
+                offlineResultFragment.arguments = bundle
+
+                val fragment = requireActivity().supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_main, offlineResultFragment)
+                    .addToBackStack(null)
+                fragment.commit()
+            }
         }
     }
 
@@ -155,7 +168,7 @@ class OfflineSymptomFragment : Fragment() {
         val searchView = binding.searchView
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.queryHint = "Cari gejala"
+        searchView.queryHint = "Cari Gejala"
         searchView.setIconifiedByDefault(false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -197,6 +210,13 @@ class OfflineSymptomFragment : Fragment() {
         viewModel.getSymptomSelectedMutableLiveData()?.observe(viewLifecycleOwner) {
             recyclerViewSelected.adapter = selectedSymptomAdapter
         }
+    }
+
+    companion object {
+        const val DIAGNOSA = "diagnosa"
+        const val PROBABILITAS = "probabilitas"
+        const val SARAN = "saran"
+        const val WIKI = "wiki"
     }
 
 }

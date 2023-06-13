@@ -3,10 +3,10 @@ package com.uberalles.symptomed.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.uberalles.symptomed.data.DiseaseEntity
-import com.uberalles.symptomed.data.SymptoMedRepository
-import com.uberalles.symptomed.data.symptom.SelectedSymptom
-import com.uberalles.symptomed.data.symptom.Symptom
+import com.uberalles.symptomed.data.remote.entity.DiseaseEntity
+import com.uberalles.symptomed.utilities.SymptoMedRepository
+import com.uberalles.symptomed.data.local.symptom.SelectedSymptom
+import com.uberalles.symptomed.data.local.symptom.Symptom
 
 class MainViewModel (private val mSymptoMedRepository: SymptoMedRepository) : ViewModel() {
     private var symptomLiveData: MutableLiveData<ArrayList<Symptom>>? = null
@@ -30,7 +30,7 @@ class MainViewModel (private val mSymptoMedRepository: SymptoMedRepository) : Vi
         return symptomSelectedLiveData
     }
 
-    fun getDisease(query: String): LiveData<DiseaseEntity> =mSymptoMedRepository.getDisease(query)
+    fun getDisease(query: String): LiveData<DiseaseEntity> = mSymptoMedRepository.getDisease(query)
 
 
 

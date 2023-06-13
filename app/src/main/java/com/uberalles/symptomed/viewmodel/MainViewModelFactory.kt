@@ -3,7 +3,7 @@ package com.uberalles.symptomed.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.uberalles.symptomed.data.SymptoMedRepository
+import com.uberalles.symptomed.utilities.SymptoMedRepository
 import com.uberalles.symptomed.utilities.Injection
 
 class MainViewModelFactory private constructor(private val mSymptoMedRepository: SymptoMedRepository) :

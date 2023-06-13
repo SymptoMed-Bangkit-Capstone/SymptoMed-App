@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.result
 
 import android.content.Intent
 import android.net.Uri
@@ -8,31 +8,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.uberalles.symptomed.databinding.FragmentDiseaseBinding
+import com.uberalles.symptomed.databinding.FragmentOfflineResultBinding
+import com.uberalles.symptomed.ui.main.MainActivity
 
-class DiseaseFragment : Fragment() {
 
-    private var _binding: FragmentDiseaseBinding? = null
+class OfflineResultFragment : Fragment() {
+
+    private var _binding: FragmentOfflineResultBinding? = null
     private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDiseaseBinding.inflate(layoutInflater, container, false)
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentOfflineResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getData()
-        backToOnlineSymptomFragment()
+        getResult()
+        backToOfflineSymptomFragment()
     }
 
-    private fun getData() {
+    private fun backToOfflineSymptomFragment() {
+        binding.btnBack.setOnClickListener {
+            (activity as MainActivity).offlineFragment()
+        }
+    }
+
+    private fun getResult() {
         val diagnosa = arguments?.getString("diagnosa")
         val probabilitas = arguments?.getString("probabilitas")
         val saran = arguments?.getString("saran")
@@ -59,12 +66,6 @@ class DiseaseFragment : Fragment() {
         Log.d("Probabilitas", probabilitas.toString())
         Log.d("Saran", saran.toString())
         Log.d("Wiki", wiki.toString())
-    }
-
-    private fun backToOnlineSymptomFragment() {
-        binding.btnBack.setOnClickListener {
-            (activity as MainActivity).onlineFragment()
-        }
     }
 
 }

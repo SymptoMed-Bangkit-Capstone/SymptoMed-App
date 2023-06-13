@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.navigation
 
 import android.Manifest
 import android.app.DatePickerDialog
@@ -32,6 +32,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentEditProfileBinding
+import com.uberalles.symptomed.ui.main.MainActivity
 import com.uberalles.symptomed.utilities.uriToFile
 import java.io.File
 import java.util.Calendar

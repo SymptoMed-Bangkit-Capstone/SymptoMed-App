@@ -1,8 +1,9 @@
-package com.uberalles.symptomed.data
+package com.uberalles.symptomed.utilities
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.uberalles.symptomed.data.remote.RemoteDataSource
+import com.uberalles.symptomed.data.remote.entity.DiseaseEntity
 import com.uberalles.symptomed.data.remote.response.DiseaseResponse
 
 class SymptoMedRepository private constructor(private val remoteDataSource: RemoteDataSource) :

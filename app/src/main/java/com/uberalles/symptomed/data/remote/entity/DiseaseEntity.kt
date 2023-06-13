@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.data
+package com.uberalles.symptomed.data.remote.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

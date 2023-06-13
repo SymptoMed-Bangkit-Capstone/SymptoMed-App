@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.data.symptom
+package com.uberalles.symptomed.data.local.symptom
 
 data class SelectedSymptom(
     val name: String,

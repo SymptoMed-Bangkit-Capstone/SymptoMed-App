@@ -1,5 +1,6 @@
+package com.uberalles.symptomed.data.local
+
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 object DataRekomendasi {
 

@@ -7,4 +7,9 @@
     <color name="main_red">#C2485E</color>
     <color name="secondary_red">#4DBF5366</color>
     <color name="third_red">#EAB9C2</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

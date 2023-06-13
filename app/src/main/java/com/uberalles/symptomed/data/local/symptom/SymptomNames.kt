@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.data.symptom
+package com.uberalles.symptomed.data.local.symptom
 
 object SymptomNames {
     val symptomList = listOf(
@@ -133,6 +133,6 @@ object SymptomNames {
         "Ucapan Cadel",
         "Urin Gelap",
         "Urin Kuning",
-        "Wajah dan Mata Sembab",
-        )
+        "Wajah dan Mata Sembab"
+    )
 }

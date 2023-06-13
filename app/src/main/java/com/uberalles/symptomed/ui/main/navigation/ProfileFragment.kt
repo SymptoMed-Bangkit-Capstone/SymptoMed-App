@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.navigation
 
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentProfileBinding
-import com.uberalles.symptomed.ui.auth.SignInFragment
+import com.uberalles.symptomed.ui.main.MainActivity
 
 class ProfileFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.prediction
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.remote.api.ApiConfig
 import com.uberalles.symptomed.databinding.FragmentOnlineSymptomBinding
+import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.result.OnlineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 
@@ -59,12 +61,12 @@ class OnlineSymptomFragment : Fragment() {
                         bundle.putString(SARAN, disease.rekomendasi)
                         bundle.putString(WIKI, disease.link)
 
-                        val diseaseFragment = DiseaseFragment()
-                        diseaseFragment.arguments = bundle
+                        val onlineResultFragment = OnlineResultFragment()
+                        onlineResultFragment.arguments = bundle
 
                         val fragment = requireActivity().supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container_main, diseaseFragment)
+                            .replace(R.id.fragment_container_main, onlineResultFragment)
                             .addToBackStack(null)
                         fragment.commit()
 

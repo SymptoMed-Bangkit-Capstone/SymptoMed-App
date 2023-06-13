@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

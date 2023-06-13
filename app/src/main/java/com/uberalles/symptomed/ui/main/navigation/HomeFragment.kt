@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main.navigation
 
 import android.Manifest
 import android.content.Intent
@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentHomeBinding
+import com.uberalles.symptomed.ui.main.prediction.OfflineSymptomFragment
+import com.uberalles.symptomed.ui.main.prediction.OnlineSymptomFragment
 
 
 class HomeFragment : Fragment() {
