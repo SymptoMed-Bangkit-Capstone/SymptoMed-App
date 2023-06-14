@@ -41,7 +41,7 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -49,9 +49,12 @@
         android:layout_marginVertical="10dp"
         app:cardBackgroundColor="@color/secondary_blue"
         app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView_search">
+        app:layout_constraintTop_toBottomOf="@id/cardView_search"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,9 +86,9 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="280dp"
@@ -93,9 +96,12 @@
         android:layout_marginVertical="10dp"
         app:cardBackgroundColor="@color/secondary_blue"
         app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView">
+        app:layout_constraintTop_toBottomOf="@id/cardView"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,7 +131,7 @@
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/symptom_checked" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <Button
         android:id="@+id/btn_prediksi"

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignUpBinding
+import com.uberalles.symptomed.ui.intro.StartActivity
 
 class SignUpFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -71,7 +72,7 @@ class SignUpFragment : Fragment() {
                         if (task.isSuccessful) {
                             Toast.makeText(context, "Signed Up Successfully", Toast.LENGTH_SHORT)
                                 .show()
-                            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+                            (activity as StartActivity).navigationFragment(SignInFragment())
                         } else {
                             Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT)
                                 .show()
@@ -85,7 +86,7 @@ class SignUpFragment : Fragment() {
 
     private fun signIn() {
         binding.tvSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+            (activity as StartActivity).navigationFragment(SignInFragment())
         }
     }
 

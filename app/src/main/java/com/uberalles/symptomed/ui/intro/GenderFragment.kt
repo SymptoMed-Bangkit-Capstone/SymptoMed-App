@@ -64,7 +64,7 @@ class GenderFragment : Fragment() {
 //                ).show()
                 //save to firebase
                 genderDatabase.setValue(binding.maleRadio.text.toString())
-                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
+                (activity as StartActivity).navigationFragment(AgeFragment())
             } else {
 //                bundle.putString(EXTRA_GENDER, binding.femaleRadio.text.toString())
 //                bundle.putString(EXTRA_NAME, arguments?.getString(EXTRA_NAME))
@@ -79,7 +79,7 @@ class GenderFragment : Fragment() {
 //                ).show()
                 //save to firebase
                 genderDatabase.setValue(binding.femaleRadio.text.toString())
-                findNavController().navigate(R.id.action_genderFragment_to_ageFragment)
+                (activity as StartActivity).navigationFragment(AgeFragment())
             }
         }
     }

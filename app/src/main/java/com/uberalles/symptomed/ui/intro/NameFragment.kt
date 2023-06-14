@@ -101,7 +101,8 @@ class NameFragment : Fragment() {
                 val nameDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("name")
                 nameDb.setValue(name)
 
-                findNavController().navigate(R.id.action_nameFragment_to_genderFragment)
+                (activity as StartActivity).navigationFragment(GenderFragment())
+
             }
         }
     }

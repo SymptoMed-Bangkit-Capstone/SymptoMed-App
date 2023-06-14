@@ -9,9 +9,9 @@ object TeamData {
 
         members.add(
             TeamEntity(
-                R.drawable.ic_account,
+                R.drawable.photo_anugrah_cahya,
                 "Anugrah Cahya Kautsar",
-            "Machine Learning",
+                "Machine Learning",
                 "",
                 ""
             )

@@ -1,10 +1,11 @@
 package com.uberalles.symptomed.ui.main
-import androidx.core.content.ContextCompat
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
@@ -50,9 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigationFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-        val fragmentTransaction =
-            fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment)
-        fragmentTransaction.commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment).commit()
     }
 
     fun logout() {

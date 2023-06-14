@@ -1,5 +1,6 @@
 package com.uberalles.symptomed.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -17,6 +18,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignInBinding
+import com.uberalles.symptomed.ui.intro.AgeFragment
+import com.uberalles.symptomed.ui.intro.GenderFragment
+import com.uberalles.symptomed.ui.intro.NameFragment
+import com.uberalles.symptomed.ui.intro.StartActivity
+import com.uberalles.symptomed.ui.main.MainActivity
 
 class SignInFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -87,7 +93,7 @@ class SignInFragment : Fragment() {
                             reference.child("name").get().addOnCompleteListener { nameTask ->
                                 val name = nameTask.result?.value?.toString()
                                 if (name.isNullOrEmpty()) {
-                                    findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                                    (activity as StartActivity).navigationFragment(NameFragment())
                                     Log.d("SignInFragment", "Name is empty")
                                     return@addOnCompleteListener
                                 }
@@ -96,7 +102,7 @@ class SignInFragment : Fragment() {
                                     .addOnCompleteListener { genderTask ->
                                         val gender = genderTask.result?.value?.toString()
                                         if (gender.isNullOrEmpty()) {
-                                            findNavController().navigate(R.id.action_signInFragment_to_genderFragment)
+                                            (activity as StartActivity).navigationFragment(GenderFragment())
                                             Log.d("SignInFragment", "Gender is empty")
                                             return@addOnCompleteListener
                                         }
@@ -105,7 +111,7 @@ class SignInFragment : Fragment() {
                                             .addOnCompleteListener { ageTask ->
                                                 val age = ageTask.result?.value?.toString()
                                                 if (age.isNullOrEmpty()) {
-                                                    findNavController().navigate(R.id.action_signInFragment_to_ageFragment)
+                                                    (activity as StartActivity).navigationFragment(AgeFragment())
                                                     Log.d("SignInFragment", "Age is empty")
                                                     return@addOnCompleteListener
                                                 }
@@ -115,10 +121,15 @@ class SignInFragment : Fragment() {
                                                     "Name: $name, gender: $gender, age: $age"
                                                 )
                                                 if (user != null) {
-                                                    findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
-                                                    Log.d("SignInFragment", "User data is not null")
+                                                    val intent = Intent(
+                                                        requireContext(),
+                                                        MainActivity::class.java
+                                                    )
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                    startActivity(intent)
+                                                    activity?.finish()
                                                 } else {
-                                                    findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
+                                                    (activity as StartActivity).navigationFragment(NameFragment())
                                                     Log.d("SignInFragment", "User data is null")
                                                 }
                                                 Log.d("SignInFragment", "$email $password")
@@ -168,7 +179,7 @@ class SignInFragment : Fragment() {
 
     private fun signUp() {
         binding.tvSignUp.setOnClickListener {
-            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
+            (activity as StartActivity).navigationFragment(SignUpFragment())
         }
     }
 
