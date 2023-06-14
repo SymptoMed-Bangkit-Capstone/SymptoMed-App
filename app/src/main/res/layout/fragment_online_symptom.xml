@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
+        app:strokeColor="@color/secondary_blue"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -72,7 +72,7 @@
                     android:gravity="start|top"
                     android:hint="Saya merasakan gejala kedinginan, demam, dan batuk berdahak..."
                     android:inputType="textMultiLine"
-                    android:maxLines="5"
+                    android:maxLines="10"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false" />
 
