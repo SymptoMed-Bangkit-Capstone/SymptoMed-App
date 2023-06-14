@@ -163,6 +163,7 @@
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
                         android:textStyle="normal"
+                        android:layout_marginBottom="10dp"
                         android:autoSizeTextType="uniform"
                         android:autoSizeMinTextSize="12sp"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel hendrerit massa. Fusce sed mi urna. Etiam tortor lorem, gravida quis diam non, pharetra fringilla augue. Ut et diam ut leo ultricies egestas id sit amet ipsum. Maecenas scelerisque elementum ultrices. Aenean laoreet elementum auctor." />
