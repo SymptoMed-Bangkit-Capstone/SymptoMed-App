@@ -118,7 +118,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView_rekomendasi"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="12dp"
             app:cardBackgroundColor="@color/secondary_blue"
@@ -134,14 +134,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     app:cardBackgroundColor="@color/main_blue"
                     app:cardCornerRadius="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/saran"
                         android:textAlignment="center"
                         android:textColor="@color/white"
@@ -152,7 +152,7 @@
                 <ScrollView
                     android:id="@+id/rv_saran"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp">
 
                     <TextView
@@ -163,6 +163,8 @@
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
                         android:textStyle="normal"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="12sp"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel hendrerit massa. Fusce sed mi urna. Etiam tortor lorem, gravida quis diam non, pharetra fringilla augue. Ut et diam ut leo ultricies egestas id sit amet ipsum. Maecenas scelerisque elementum ultrices. Aenean laoreet elementum auctor." />
                 </ScrollView>
 

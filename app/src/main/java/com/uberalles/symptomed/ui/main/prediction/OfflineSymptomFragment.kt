@@ -1,6 +1,7 @@
 package com.uberalles.symptomed.ui.main.prediction
 
 //import com.uberalles.symptomed.data.local.DataRekomendasi
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -29,7 +30,6 @@ import com.uberalles.symptomed.ui.main.MainActivity
 import com.uberalles.symptomed.ui.result.OfflineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
-import org.json.JSONObject
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 
@@ -61,6 +61,9 @@ class OfflineSymptomFragment : Fragment() {
         val symptom = Symptom(selectedSymptom.name)
         selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
+
+        symptomArrayList.sortBy { it.name }
+
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
     }
@@ -101,6 +104,7 @@ class OfflineSymptomFragment : Fragment() {
         searchView()
     }
 
+    @SuppressLint("DiscouragedApi")
     private fun predict() {
         binding.btnPrediksi.setOnClickListener {
             if (selectedSymptomArrayList.isEmpty()) {
@@ -168,21 +172,25 @@ class OfflineSymptomFragment : Fragment() {
                     .replace(R.id.fragment_container_main, offlineResultFragment)
                     .addToBackStack(null)
                 fragment.commit()
-
             }
+            refreshList()
         }
+    }
+
+    private fun refreshList() {
+        symptomArrayList.addAll(selectedSymptomArrayList.map { Symptom(it.name) })
+        symptomArrayList.sortBy { it.name }
+        selectedSymptomArrayList.clear()
+        SelectedSymptomNames.selectedSymptomList = emptyList()
+        val symptom = symptomArrayList.map { it.name }
+        SymptomNames.symptomList = symptom
     }
 
     private fun backToHome() {
         binding.btnBack.setOnClickListener {
             (activity as MainActivity).backToHome()
             (activity as MainActivity).hideNavBottom(false)
-
-            val selectedSymptom = selectedSymptomArrayList.map { it.name }
-            SelectedSymptomNames.selectedSymptomList = selectedSymptom
-
-            val symptom = symptomArrayList.map { it.name }
-            SymptomNames.symptomList = symptom
+            refreshList()
         }
     }
 

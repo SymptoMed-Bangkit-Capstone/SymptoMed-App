@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="text_color">#454545</color>
+    <color name="bg_daftar">#A2CCEB</color>
+    <color name="bg_pick">#9FDFCF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#257EBF</color>
     <color name="secondary_blue">#A9D8FA</color>

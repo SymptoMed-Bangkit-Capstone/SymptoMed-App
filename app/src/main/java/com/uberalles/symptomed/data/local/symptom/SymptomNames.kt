@@ -135,5 +135,5 @@ object SymptomNames {
         "Melepuh",
         "Sakit Merah di Sekitar Hidung",
         "Kerak Kuning Keluar"
-    )
+    ).sorted()
 }

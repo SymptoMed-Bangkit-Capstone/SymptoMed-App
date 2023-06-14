@@ -17,6 +17,9 @@
             android:id="@+id/symptom_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/text_color"
+            android:background="@color/bg_daftar"
+            android:textStyle="bold"
             android:padding="8dp"
             tools:text="Symptom" />
     </com.google.android.material.card.MaterialCardView>
