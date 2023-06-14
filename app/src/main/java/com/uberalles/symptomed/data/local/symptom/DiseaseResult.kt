@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.data.local
+package com.uberalles.symptomed.data.local.symptom
 
 data class DiseaseResult(
     val Index: Int,

@@ -1,7 +1,5 @@
 package com.uberalles.symptomed.ui.main.prediction
 
-//import com.uberalles.symptomed.data.local.DataRekomendasi
-import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
@@ -19,7 +17,7 @@ import com.google.gson.Gson
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
 import com.uberalles.symptomed.adapter.SymptomAdapter
-import com.uberalles.symptomed.data.local.DiseaseResult
+import com.uberalles.symptomed.data.local.symptom.DiseaseResult
 import com.uberalles.symptomed.data.local.symptom.SelectedSymptom
 import com.uberalles.symptomed.data.local.symptom.SelectedSymptomNames
 import com.uberalles.symptomed.data.local.symptom.Symptom
@@ -47,6 +45,8 @@ class OfflineSymptomFragment : Fragment() {
     private lateinit var recyclerViewSelected: RecyclerView
 
     private lateinit var viewModel: MainViewModel
+
+
     private lateinit var bundle: Bundle
 
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
@@ -61,9 +61,6 @@ class OfflineSymptomFragment : Fragment() {
         val symptom = Symptom(selectedSymptom.name)
         selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
-
-        symptomArrayList.sortBy { it.name }
-
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
     }
@@ -104,7 +101,6 @@ class OfflineSymptomFragment : Fragment() {
         searchView()
     }
 
-    @SuppressLint("DiscouragedApi")
     private fun predict() {
         binding.btnPrediksi.setOnClickListener {
             if (selectedSymptomArrayList.isEmpty()) {
@@ -172,8 +168,8 @@ class OfflineSymptomFragment : Fragment() {
                     .replace(R.id.fragment_container_main, offlineResultFragment)
                     .addToBackStack(null)
                 fragment.commit()
+
             }
-            refreshList()
         }
     }
 

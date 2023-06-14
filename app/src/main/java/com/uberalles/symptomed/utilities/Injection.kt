@@ -9,4 +9,5 @@ object Injection {
 
         return SymptoMedRepository.getInstance(remoteDataSource)
     }
+
 }

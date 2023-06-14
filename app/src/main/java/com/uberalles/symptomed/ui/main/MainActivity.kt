@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         navigation()
     }
 
+
     private fun navigation() {
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
