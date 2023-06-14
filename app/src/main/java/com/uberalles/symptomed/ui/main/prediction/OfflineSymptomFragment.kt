@@ -93,11 +93,11 @@ class OfflineSymptomFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         (activity as MainActivity).hideNavBottom(true)
 
-        predict()
         backToHome()
+        searchView()
         symptomList()
         symptomSelected()
-        searchView()
+        predict()
     }
 
     private fun predict() {
@@ -159,7 +159,7 @@ class OfflineSymptomFragment : Fragment() {
                         val saran: String
                         val wiki: String
 
-                        if (prediction[maxIndex] < 50) {
+                        if (prediction[maxIndex] < 0.50) {
                             diagnosa = "Tidak Ada Kecocokan"
                             probabilitas = ""
                             saran = "Cobalah masukkan gejala yang lebih spesifik"
@@ -229,6 +229,7 @@ class OfflineSymptomFragment : Fragment() {
     }
 
     private fun searchSymptom(query: String) {
+        viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomMutableLiveData()?.observe(viewLifecycleOwner) { it ->
             val symptoms = it.filter { it.name.contains(query, true) }
             val filteredSymptoms = arrayListOf<Symptom>()
