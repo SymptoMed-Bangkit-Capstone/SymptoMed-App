@@ -8,8 +8,11 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/symptom_card"
         android:layout_width="wrap_content"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        app:cardBackgroundColor="@color/bg_daftar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -18,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="@color/text_color"
-            android:background="@color/bg_daftar"
             android:textStyle="bold"
             android:padding="8dp"
             tools:text="Symptom" />

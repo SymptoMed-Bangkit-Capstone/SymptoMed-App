@@ -9,7 +9,10 @@
         android:id="@+id/symptom_checked_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black"
         android:layout_margin="4dp"
+        app:cardBackgroundColor="#93E38D"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,10 +20,9 @@
             android:id="@+id/selected_symptom_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/text_color"
-            android:background="@color/bg_pick"
-            android:textStyle="bold"
             android:padding="8dp"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
             tools:text="Symptom" />
     </com.google.android.material.card.MaterialCardView>
 
