@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.gson.Gson
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
@@ -34,7 +31,6 @@ import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.JustifyContent
 
 class OfflineSymptomFragment : Fragment() {
 
@@ -42,16 +38,11 @@ class OfflineSymptomFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var symptomAdapter: SymptomAdapter
     private lateinit var selectedSymptomAdapter: SelectedSymptomAdapter
-
     private lateinit var symptomArrayList: ArrayList<Symptom>
     private lateinit var selectedSymptomArrayList: ArrayList<SelectedSymptom>
-
     private lateinit var recyclerViewSymptom: RecyclerView
     private lateinit var recyclerViewSelected: RecyclerView
-
     private lateinit var viewModel: MainViewModel
-
-
     private lateinit var bundle: Bundle
 
     private val onItemAdd: (Symptom) -> Unit = { symptom ->
@@ -114,71 +105,89 @@ class OfflineSymptomFragment : Fragment() {
             if (selectedSymptomArrayList.isEmpty()) {
                 Toast.makeText(context, "Pilih gejala terlebih dahulu", Toast.LENGTH_SHORT).show()
             } else {
-                val selectedSymptom = selectedSymptomArrayList.map { it.name }
-                SelectedSymptomNames.selectedSymptomList = selectedSymptom
+                if (selectedSymptomArrayList.size > 6) {
+                    Toast.makeText(context, "Mohon maaf, Anda tidak dapat memilih lebih dari 6 gejala", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (selectedSymptomArrayList.size < 3) {
+                        Toast.makeText(context, "Anda perlu memilih setidaknya 3 gejala", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val selectedSymptom = selectedSymptomArrayList.map { it.name }
+                        SelectedSymptomNames.selectedSymptomList = selectedSymptom
 
-                val symptom = symptomArrayList.map { it.name }
-                SymptomNames.symptomList = symptom
+                        val symptom = symptomArrayList.map { it.name }
+                        SymptomNames.symptomList = symptom
 
-                val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
+                        val getSymptomArray = SelectedSymptomNames.getSelectedSymptomList()
 
-                val jsonData = requireContext().resources.openRawResource(
-                    requireContext().resources.getIdentifier(
-                        "disease",
-                        "raw",
-                        requireContext().packageName
-                    )
-                ).bufferedReader().use { it.readText() }.trimIndent()
+                        val jsonData = requireContext().resources.openRawResource(
+                            requireContext().resources.getIdentifier(
+                                "disease",
+                                "raw",
+                                requireContext().packageName
+                            )
+                        ).bufferedReader().use { it.readText() }.trimIndent()
 
-                val model = Model.newInstance(requireContext())
+                        val model = Model.newInstance(requireContext())
 
-                val inputFeature0 =
-                    TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
-                inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
+                        val inputFeature0 =
+                            TensorBuffer.createFixedSize(intArrayOf(1, 132), DataType.FLOAT32)
+                        inputFeature0.loadArray(getSymptomArray.map { it.toFloat() }.toFloatArray())
 
-                val outputs = model.process(inputFeature0)
-                val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-                val prediction = outputFeature0.floatArray
-                model.close()
+                        val outputs = model.process(inputFeature0)
+                        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+                        val prediction = outputFeature0.floatArray
+                        model.close()
 
-                var maxIndex = 0
-                var maxValue = Float.MIN_VALUE
+                        var maxIndex = 0
+                        var maxValue = Float.MIN_VALUE
 
-                for (i in prediction.indices) {
-                    if (prediction[i] > maxValue) {
-                        maxValue = prediction[i]
-                        maxIndex = i
+                        for (i in prediction.indices) {
+                            if (prediction[i] > maxValue) {
+                                maxValue = prediction[i]
+                                maxIndex = i
+                            }
+                        }
+
+                        val gson = Gson()
+                        val recommendationList =
+                            gson.fromJson(jsonData, Array<DiseaseResult>::class.java).toList()
+
+                        val recommendation = recommendationList.find { it.Index == maxIndex }
+
+                        val diagnosa: String
+                        val probabilitas: String
+                        val saran: String
+                        val wiki: String
+
+                        if (prediction[maxIndex] < 50) {
+                            diagnosa = "Tidak Ada Kecocokan"
+                            probabilitas = ""
+                            saran = "Cobalah masukkan gejala yang lebih spesifik"
+                            wiki = ""
+                        } else {
+                            Log.d("TAG", "predict: ${recommendation?.Symptom}")
+                            probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
+                            diagnosa = recommendation?.Symptom ?: ""
+                            saran = recommendation?.Saran ?: ""
+                            wiki = recommendation?.Detail ?: ""
+                        }
+
+                        bundle.putString(DIAGNOSA, diagnosa)
+                        bundle.putString(PROBABILITAS, probabilitas)
+                        bundle.putString(SARAN, saran)
+                        bundle.putString(WIKI, wiki)
+
+                        val offlineResultFragment = OfflineResultFragment()
+                        offlineResultFragment.arguments = bundle
+
+                        val fragment = requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container_main, offlineResultFragment)
+                            .addToBackStack(null)
+                        fragment.commit()
+                        refreshList()
                     }
                 }
-
-                val gson = Gson()
-                val recommendationList =
-                    gson.fromJson(jsonData, Array<DiseaseResult>::class.java).toList()
-
-                val recommendation = recommendationList.find { it.Index == maxIndex }
-
-                Log.d("TAG", "predict: ${recommendation?.Symptom}")
-
-                val probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
-                val diagnosa = recommendation?.Symptom
-                val saran = recommendation?.Saran
-                val wiki = recommendation?.Detail
-
-                bundle.putString(DIAGNOSA, diagnosa)
-                bundle.putString(PROBABILITAS, probabilitas)
-                bundle.putString(SARAN, saran)
-                bundle.putString(WIKI, wiki)
-
-                val offlineResultFragment = OfflineResultFragment()
-                offlineResultFragment.arguments = bundle
-
-                val fragment = requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container_main, offlineResultFragment)
-                    .addToBackStack(null)
-                fragment.commit()
-
             }
-            refreshList()
         }
     }
 

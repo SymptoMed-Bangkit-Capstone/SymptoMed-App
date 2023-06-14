@@ -10,11 +10,11 @@ object Data {
 
         members.add(
             TeamEntity(
-                R.drawable.photo_anugrah_cahya,
+                R.drawable.photo_anugrah,
                 "Anugrah Cahya Kautsar",
                 "Machine Learning",
-                "",
-                ""
+                "https://github.com/anugrahck",
+                "https://www.linkedin.com/in/anugrahck/"
             )
         )
 
@@ -23,8 +23,8 @@ object Data {
                 R.drawable.photo_fauzan,
                 "Fauzan Nauvally",
                 "Machine Learning",
-                "",
-                ""
+                "https://github.com/faunrm",
+                "https://www.linkedin.com/in/fauzannrm/"
             )
         )
 
@@ -33,18 +33,18 @@ object Data {
                 R.drawable.photo_rio,
                 "Rio Bastian",
                 "Machine Learning",
-                "",
-                ""
+                "https://github.com/riobastian09",
+                "https://www.linkedin.com/in/rio-bastian09/"
             )
         )
 
         members.add(
             TeamEntity(
-                R.drawable.ic_account,
+                R.drawable.photo_ilmi,
                 "Ilmi Fatha Nur Ihsan",
                 "Cloud Computing",
-                "",
-                ""
+                "https://github.com/fatha1",
+                "https://www.linkedin.com/in/ilmifatha/"
             )
         )
 
@@ -53,21 +53,20 @@ object Data {
                 R.drawable.photo_jhonson_2,
                 "Jhonson Saputra",
                 "Cloud Computing",
-                "",
-                ""
+                "https://github.com/JhonSptr",
+                "https://www.linkedin.com/in/jhonson-saputra-3a4a10271/"
             )
         )
 
         members.add(
             TeamEntity(
-                R.drawable.photo_arizona,
+                R.drawable.photo_ari,
                 "Arizona Adi Pradana",
                 "Mobile Development",
                 "https://github.com/arizonaadipradana/",
                 "https://www.linkedin.com/in/arizonapradana/"
             )
         )
-
         return members
     }
 
@@ -129,7 +128,6 @@ object Data {
                 "SymptoMed mempunyai batas umur dari remaja hingga dewasa. Untuk saat ini data untuk balita hingga anak-anak belum sempurna sehingga bisa mengurangi akurasi prediksi diagnosis."
             )
         )
-
         return faq
     }
 }

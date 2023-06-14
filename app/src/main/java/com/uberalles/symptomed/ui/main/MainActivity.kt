@@ -58,14 +58,14 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, StartActivity::class.java)
         alertBuilder = AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("Alert")
-            .setMessage("Do you want to log out?")
+            .setMessage("Apakah Anda ingin keluar dari aplikasi?")
             .setCancelable(true)
-            .setPositiveButton("Yes") { _, _ ->
+            .setPositiveButton("Ya") { _, _ ->
                 FirebaseAuth.getInstance().signOut()
                 startActivity(intent)
                 finish()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.cancel()
             }
             .show()
@@ -99,13 +99,13 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         alertBuilder = AlertDialog.Builder(this@MainActivity)
         alertBuilder.setTitle("Alert")
-            .setMessage("Do you want to exit the app?")
+            .setMessage("Apakah Anda ingin keluar dari aplikasi?")
             .setCancelable(true)
-            .setPositiveButton("Yes") { _, _ ->
+            .setPositiveButton("Ya") { _, _ ->
                 finish()
                 android.os.Process.killProcess(android.os.Process.myPid())
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.cancel()
             }
             .show()

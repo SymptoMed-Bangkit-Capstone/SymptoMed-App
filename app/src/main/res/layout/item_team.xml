@@ -14,7 +14,7 @@
         android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/team_bg"
+        android:background="@drawable/bg_faq"
         android:padding="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
