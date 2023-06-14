@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.gson.Gson
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.adapter.SelectedSymptomAdapter
@@ -30,6 +32,9 @@ import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.JustifyContent
 
 class OfflineSymptomFragment : Fragment() {
 
@@ -61,6 +66,7 @@ class OfflineSymptomFragment : Fragment() {
         val symptom = Symptom(selectedSymptom.name)
         selectedSymptomArrayList.remove(selectedSymptom)
         symptomArrayList.add(symptom)
+        symptomArrayList.sortBy { it.name }
         viewModel.getSymptomMutableLiveData()?.value = symptomArrayList
         viewModel.getSymptomSelectedMutableLiveData()?.value = selectedSymptomArrayList
     }
@@ -75,8 +81,10 @@ class OfflineSymptomFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager1 = LinearLayoutManager(context)
-        val layoutManager2 = LinearLayoutManager(context)
+        val layoutManager1 = FlexboxLayoutManager(context)
+        val layoutManager2 = FlexboxLayoutManager(context)
+        layoutManager1.flexDirection = FlexDirection.ROW
+        layoutManager2.flexDirection = FlexDirection.ROW
 
         recyclerViewSymptom = binding.symptomsRecyclerView
         recyclerViewSymptom.layoutManager = layoutManager1
@@ -170,6 +178,7 @@ class OfflineSymptomFragment : Fragment() {
                 fragment.commit()
 
             }
+            refreshList()
         }
     }
 

@@ -72,9 +72,16 @@
                     android:gravity="start|top"
                     android:hint="Saya merasakan gejala kedinginan, demam, dan batuk berdahak..."
                     android:inputType="textMultiLine"
+<<<<<<< HEAD
                     android:maxLines="10"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false" />
+=======
+                    android:gravity="start|top"
+                    android:maxLines="10"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"/>
+>>>>>>> updateUI
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
