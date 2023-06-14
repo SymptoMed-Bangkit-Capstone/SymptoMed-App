@@ -70,7 +70,7 @@
                     android:hint="Saya merasakan gejala kedinginan, demam, dan batuk berdahak..."
                     android:inputType="textMultiLine"
                     android:gravity="start|top"
-                    android:maxLines="5"
+                    android:maxLines="10"
                     android:scrollHorizontally="false"
                     android:scrollbars="vertical"/>
 

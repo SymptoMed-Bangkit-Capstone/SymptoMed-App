@@ -108,40 +108,4 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/signInFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/offlineResultFragment"
-        android:name="com.uberalles.symptomed.ui.result.OfflineResultFragment"
-        android:label="fragment_offline_result"
-        tools:layout="@layout/fragment_offline_result" >
-        <action
-            android:id="@+id/action_offlineResultFragment_to_offlineSymptomFragment"
-            app:destination="@id/offlineSymptomFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/offlineSymptomFragment"
-        android:name="com.uberalles.symptomed.ui.main.prediction.OfflineSymptomFragment"
-        android:label="fragment_offline_symptom"
-        tools:layout="@layout/fragment_offline_symptom" >
-        <action
-            android:id="@+id/action_offlineSymptomFragment_to_offlineResultFragment"
-            app:destination="@id/offlineResultFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/onlineSymptomFragment"
-        android:name="com.uberalles.symptomed.ui.main.prediction.OnlineSymptomFragment"
-        android:label="fragment_online_symptom"
-        tools:layout="@layout/fragment_online_symptom" >
-        <action
-            android:id="@+id/action_onlineSymptomFragment_to_onlineResultFragment"
-            app:destination="@id/onlineResultFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/onlineResultFragment"
-        android:name="com.uberalles.symptomed.ui.result.OnlineResultFragment"
-        android:label="fragment_online_result"
-        tools:layout="@layout/fragment_online_result" >
-        <action
-            android:id="@+id/action_onlineResultFragment_to_onlineSymptomFragment"
-            app:destination="@id/onlineSymptomFragment" />
-    </fragment>
 </navigation>

@@ -78,7 +78,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/symptoms_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
                 tools:listitem="@layout/symptom_item" />
 
         </LinearLayout>
@@ -123,6 +126,9 @@
                 android:id="@+id/checked_symptoms_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
                 tools:listitem="@layout/symptom_checked" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
