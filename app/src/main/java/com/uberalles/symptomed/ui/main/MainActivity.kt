@@ -1,5 +1,5 @@
 package com.uberalles.symptomed.ui.main
-
+import androidx.core.content.ContextCompat
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
         navigationFragment(HomeFragment())
         navigation()

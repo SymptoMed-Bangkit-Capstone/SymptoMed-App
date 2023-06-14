@@ -9,8 +9,13 @@
     <string name="email">Type your email</string>
     <string name="password">Type your password</string>
     <string name="signup">Don\'t have an account? Sign Up here!</string>
+    <string name="signin">Already have an account? Sign In here!</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_in_a">Hello!</string>
+    <string name="sign_in_b">Welcome to SymptoMed</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up_a">Welcome!</string>
+    <string name="sign_up_b">Create your account</string>
     <string name="already_signed_up">Already have an account? Sign in!</string>
     <string name="logged_out">You\'re logged out</string>
     <string name="logout">Logout</string>

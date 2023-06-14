@@ -12,8 +12,10 @@
         android:layout_width="409dp"
         android:layout_height="729dp"
         app:defaultNavHost="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:navGraph="@navigation/nav_host"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_host" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

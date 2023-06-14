@@ -67,10 +67,12 @@
                     android:background="@drawable/input_text"
                     android:focusableInTouchMode="true"
                     android:fontFamily="monospace"
-                    android:gravity="top|left"
-                    android:hint="Saya merasakan gejala kedinginan, \ndemam, dan batuk berdahak..."
-                    android:inputType="text"
-                    android:maxLines="5"/>
+                    android:hint="Saya merasakan gejala kedinginan, demam, dan batuk berdahak..."
+                    android:inputType="textMultiLine"
+                    android:gravity="start|top"
+                    android:maxLines="5"
+                    android:scrollHorizontally="false"
+                    android:scrollbars="vertical"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
