@@ -21,10 +21,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="30dp"
-                android:text="Pilih prediksi gejala"
+                android:text="Prediksi Gejala"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Prediksi secara offline"
+                        android:text="Prediksi secara Offline"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Prediksi secara online"
+                        android:text="Prediksi secara Online"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />

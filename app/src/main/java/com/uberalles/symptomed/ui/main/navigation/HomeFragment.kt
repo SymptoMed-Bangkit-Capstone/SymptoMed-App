@@ -41,13 +41,13 @@ class HomeFragment : Fragment() {
 
     private fun emergencyCall() {
         binding.ivEmergencyCall.setOnClickListener {
-            val options = arrayOf<CharSequence>("Yes", "No")
+            val options = arrayOf<CharSequence>("Ya", "Tidak")
             val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Are you sure you want to call 122?")
+            builder.setTitle("Apakah Anda yakin ingin menghubungi 122?")
             builder.setItems(options) { dialog, item ->
-                if (options[item] == "Yes") {
+                if (options[item] == "Ya") {
                     callEmergency()
-                } else if (options[item] == "No") {
+                } else if (options[item] == "Tidak") {
                     dialog.dismiss()
                 }
             }

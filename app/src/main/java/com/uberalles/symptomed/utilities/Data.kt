@@ -11,7 +11,7 @@ object Data {
         members.add(
             TeamEntity(
                 R.drawable.photo_anugrah,
-                "Anugrah Cahya Kautsar",
+                "Anugrah Cahya K.",
                 "Machine Learning",
                 "https://github.com/anugrahck",
                 "https://www.linkedin.com/in/anugrahck/"
@@ -41,7 +41,7 @@ object Data {
         members.add(
             TeamEntity(
                 R.drawable.photo_ilmi,
-                "Ilmi Fatha Nur Ihsan",
+                "Ilmi Fatha N. I.",
                 "Cloud Computing",
                 "https://github.com/fatha1",
                 "https://www.linkedin.com/in/ilmifatha/"
@@ -61,7 +61,7 @@ object Data {
         members.add(
             TeamEntity(
                 R.drawable.photo_ari,
-                "Arizona Adi Pradana",
+                "Arizona Adi P.",
                 "Mobile Development",
                 "https://github.com/arizonaadipradana/",
                 "https://www.linkedin.com/in/arizonapradana/"

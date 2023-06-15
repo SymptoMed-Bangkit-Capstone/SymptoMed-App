@@ -214,7 +214,7 @@ class OfflineSymptomFragment : Fragment() {
         val searchView = binding.searchView
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.queryHint = "Cari Gejala"
+        searchView.queryHint = "Cari gejala..."
         searchView.setIconifiedByDefault(false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
