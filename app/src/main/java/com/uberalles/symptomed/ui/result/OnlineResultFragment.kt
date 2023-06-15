@@ -48,6 +48,7 @@ class OnlineResultFragment : Fragment() {
             paramsCardViewProbabilitas.height = 0
             paramsCardViewProbabilitas.topMargin = 0
             paramsCardViewRekomendasi.topToBottom = binding.cardViewDiagnosa.id
+            binding.cardViewSpace.visibility = View.INVISIBLE
             binding.cardViewProbabilitas.visibility = View.GONE
             binding.tvWikipedia.visibility = View.GONE
             binding.cardViewDisclaimer.visibility = View.GONE
