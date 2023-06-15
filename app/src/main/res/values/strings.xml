@@ -36,4 +36,30 @@
     <string name="peringatan">Perlu diketahui bahwa meskipun aplikasi dirancang untuk membantu pengambilan keputusan medis dan memeriksa gejala, diagnosis akhir harus dilakukan oleh profesional medis berlisensi. Kami merekomendasikan untuk mencari evaluasi dan pendapat tambahan sebelum membuat keputusan perawatan apa pun.</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="terms_of_service">
+        \nPLEASE READ THIS TERMS OF SERVICE AGREEMENT CAREFULLY. BY USING THE SYMPTOM APPLICATION ("THE APPLICATION"), YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS STATED BELOW. IF YOU DO NOT AGREE TO THESE TERMS AND CONDITIONS, DO NOT USE THE APPLICATION.\n
+        \nIntroduction\n
+        \n1.1 The SymptoMed Application ("the Application") is designed to provide general information and guidance on common symptoms and health conditions. However, it is important to note that the Application is not intended to be a substitute for professional medical advice, diagnosis, or treatment.\n
+        \n1.2 By using the Application, you acknowledge that the information provided is not comprehensive and may not cover all possible symptoms, diseases, or conditions. The Application should not be considered a substitute for consulting with a qualified healthcare professional.\n
+
+        \nLimitations of the Application\n
+        \n2.1 The Application is intended to provide general information and educational content on health-related topics. It may offer suggestions or recommendations based on the symptoms or information provided by the user, but it cannot provide a definitive diagnosis or replace professional medical judgment.\n
+        \n2.2 The Application is not designed to provide emergency medical assistance. If you are experiencing a medical emergency, you should immediately seek professional medical help or contact your local emergency services.\n
+        \n2.3 The Application does not take into account individual medical history, allergies, drug interactions, or other personal factors that could affect a diagnosis or treatment plan. Therefore, the Application should not be solely relied upon for making medical decisions.\n
+
+        \nUser Responsibilities\n
+        \n3.1 You understand and acknowledge that the Application is not a substitute for professional medical advice. You should always consult a qualified healthcare professional for diagnosis, treatment, and guidance regarding your specific symptoms or conditions.\n
+        \n3.2You agree to use the Application responsibly and for informational purposes only. You will not rely solely on the Application for medical advice or treatment decisions.\n
+        \n3.3 You acknowledge that any use of the Application is at your own risk, and SymptoMed and its affiliates shall not be held liable for any damages or harm arising from your use of the Application.\n
+
+        \nIntellectual Property\n
+        \n4.1 The SymptoMed Application, including all content, text, graphics, images, logos, and software, is the property of SymptoMed or its licensors and is protected by copyright and other intellectual property laws.\n
+        \n4.2 You agree not to copy, modify, distribute, or create derivative works of the Application or its content without prior written consent from SymptoMed.\n
+
+        \nPrivacy
+        \n5.1 SymptoMed is committed to protecting your privacy and will handle your personal information in accordance with its Privacy Policy.\n
+        \n5.2 By using the Application, you consent to the collection, use, and disclosure of your personal information as described in the Privacy Policy\n\n.
+    </string>
+    <string name="symptomed_terms_of_service">SYMPTOMED\n TERMS OF SERVICE</string>
+    <string name="lanjut">Lanjut</string>
 </resources>

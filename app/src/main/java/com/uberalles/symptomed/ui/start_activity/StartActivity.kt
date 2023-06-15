@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.intro
+package com.uberalles.symptomed.ui.start_activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,9 +14,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityStartBinding
-import com.uberalles.symptomed.ui.auth.SignInFragment
-import com.uberalles.symptomed.ui.auth.SplashFragment
-import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.main_activity.MainActivity
+import com.uberalles.symptomed.ui.start_activity.auth.SignInFragment
+import com.uberalles.symptomed.ui.start_activity.intro.AgeFragment
+import com.uberalles.symptomed.ui.start_activity.intro.AgreementFragment
+import com.uberalles.symptomed.ui.start_activity.intro.GenderFragment
+import com.uberalles.symptomed.ui.start_activity.intro.NameFragment
+import com.uberalles.symptomed.ui.start_activity.splash.SplashFragment
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
@@ -109,20 +113,31 @@ class StartActivity : AppCompatActivity() {
                         return@addOnCompleteListener
                     }
 
-                    Log.d("SplashFragment", "The field that are present \n$name, $gender, $age")
-                    if (user != null) {
-                        Handler().postDelayed({
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            finish()
-                        }, 3000)
-                        Log.d("SplashFragment", "User data is not null, goes to main activity")
-                    } else {
-                        Handler().postDelayed({
-                            navigationFragment(SignInFragment())
-                        }, 3000)
-                        Log.d("SplashFragment", "User is null, goes to sign in fragment")
+                    reference.child("tos").get().addOnCompleteListener { tosTask ->
+                        val tos = tosTask.result.value.toString()
+                        if (tos == "null") {
+                            Handler().postDelayed({
+                                navigationFragment(AgreementFragment())
+                            }, 3000)
+                            Log.d("SplashFragment", "ToS is empty")
+                            return@addOnCompleteListener
+                        }
+
+                        Log.d("SplashFragment", "The field that are present \n$name, $gender, $age")
+                        if (user != null) {
+                            Handler().postDelayed({
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                finish()
+                            }, 3000)
+                            Log.d("SplashFragment", "User data is not null, goes to main activity")
+                        } else {
+                            Handler().postDelayed({
+                                navigationFragment(SignInFragment())
+                            }, 3000)
+                            Log.d("SplashFragment", "User is null, goes to sign in fragment")
+                        }
                     }
                 }
             }

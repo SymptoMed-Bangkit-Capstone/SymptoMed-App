@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.intro.AgeFragment">
+    tools:context=".ui.start_activity.intro.AgeFragment">
 
     <TextView
         android:id="@+id/tv_hello"
@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:text="Hello"
-        android:textStyle="bold"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Pilih tanggal lahir kamu"
         android:backgroundTint="@color/main_blue"
+        android:text="Pilih tanggal lahir kamu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_hello" />
@@ -33,24 +33,23 @@
         android:id="@+id/age_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:textStyle="bold"
         android:text="You are ... years old!"
         android:textSize="30sp"
-        android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/btn_calendar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_calendar"
         tools:layout_editor_absoluteY="369dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/third_blue"
         android:text="@string/next"
-        android:background="@color/main_blue"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

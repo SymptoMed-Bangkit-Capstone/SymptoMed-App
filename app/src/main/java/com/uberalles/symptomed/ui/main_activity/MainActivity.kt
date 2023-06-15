@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main
+package com.uberalles.symptomed.ui.main_activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
-import com.uberalles.symptomed.ui.intro.StartActivity
-import com.uberalles.symptomed.ui.main.navigation.AboutUsFragment
-import com.uberalles.symptomed.ui.main.navigation.FaqFragment
-import com.uberalles.symptomed.ui.main.navigation.HomeFragment
-import com.uberalles.symptomed.ui.main.navigation.ProfileFragment
-import com.uberalles.symptomed.ui.main.prediction.OfflineSymptomFragment
-import com.uberalles.symptomed.ui.main.prediction.OnlineSymptomFragment
+import com.uberalles.symptomed.ui.start_activity.StartActivity
+import com.uberalles.symptomed.ui.main_activity.navigation.AboutUsFragment
+import com.uberalles.symptomed.ui.main_activity.navigation.FaqFragment
+import com.uberalles.symptomed.ui.main_activity.navigation.HomeFragment
+import com.uberalles.symptomed.ui.main_activity.navigation.ProfileFragment
+import com.uberalles.symptomed.ui.main_activity.prediction.OfflineSymptomFragment
+import com.uberalles.symptomed.ui.main_activity.prediction.OnlineSymptomFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

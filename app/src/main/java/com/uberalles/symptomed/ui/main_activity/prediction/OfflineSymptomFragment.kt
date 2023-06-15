@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main.prediction
+package com.uberalles.symptomed.ui.main_activity.prediction
 
 import android.app.SearchManager
 import android.content.Context
@@ -24,8 +24,8 @@ import com.uberalles.symptomed.data.local.symptom.Symptom
 import com.uberalles.symptomed.data.local.symptom.SymptomNames
 import com.uberalles.symptomed.databinding.FragmentOfflineSymptomBinding
 import com.uberalles.symptomed.ml.Model
-import com.uberalles.symptomed.ui.main.MainActivity
-import com.uberalles.symptomed.ui.result.OfflineResultFragment
+import com.uberalles.symptomed.ui.main_activity.MainActivity
+import com.uberalles.symptomed.ui.main_activity.result.OfflineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 import org.tensorflow.lite.DataType

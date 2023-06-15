@@ -1,22 +1,18 @@
-package com.uberalles.symptomed.ui.intro
+package com.uberalles.symptomed.ui.start_activity.intro
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentAgeBinding
-import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.main_activity.MainActivity
+import com.uberalles.symptomed.ui.start_activity.StartActivity
 import java.util.Calendar
 
 class AgeFragment : Fragment() {
@@ -42,17 +38,21 @@ class AgeFragment : Fragment() {
 
     }
 
-
-    private fun nextButton() {
-        binding.apply {
-            btnNext.setOnClickListener {
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                activity?.finish()
-            }
+    private fun nextButton(){
+        binding.btnNext.setOnClickListener {
+            (activity as StartActivity).navigationFragment(AgreementFragment())
         }
     }
+//    private fun nextButton() {
+//        binding.apply {
+//            btnNext.setOnClickListener {
+//                val intent = Intent(activity, MainActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(intent)
+//                activity?.finish()
+//            }
+//        }
+//    }
 
     private fun helloUser() {
         val name = arguments?.getString(GenderFragment.EXTRA_NAME)

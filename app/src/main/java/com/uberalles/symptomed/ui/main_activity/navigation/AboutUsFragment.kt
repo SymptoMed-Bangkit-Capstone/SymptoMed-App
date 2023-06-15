@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main.navigation
+package com.uberalles.symptomed.ui.main_activity.navigation
 
 import android.os.Bundle
 import android.view.LayoutInflater

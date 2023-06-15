@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.auth
+package com.uberalles.symptomed.ui.start_activity.auth
 
 import android.os.Bundle
 import android.util.Patterns
@@ -9,12 +9,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignUpBinding
-import com.uberalles.symptomed.ui.intro.StartActivity
-import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.start_activity.StartActivity
 
 class SignUpFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth

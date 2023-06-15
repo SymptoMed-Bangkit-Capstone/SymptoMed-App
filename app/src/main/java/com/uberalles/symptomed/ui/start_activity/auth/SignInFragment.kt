@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.auth
+package com.uberalles.symptomed.ui.start_activity.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,11 +15,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.databinding.FragmentSignInBinding
-import com.uberalles.symptomed.ui.intro.AgeFragment
-import com.uberalles.symptomed.ui.intro.GenderFragment
-import com.uberalles.symptomed.ui.intro.NameFragment
-import com.uberalles.symptomed.ui.intro.StartActivity
-import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.start_activity.intro.AgeFragment
+import com.uberalles.symptomed.ui.start_activity.intro.GenderFragment
+import com.uberalles.symptomed.ui.start_activity.intro.NameFragment
+import com.uberalles.symptomed.ui.start_activity.StartActivity
+import com.uberalles.symptomed.ui.main_activity.MainActivity
 
 class SignInFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth

@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.result
+package com.uberalles.symptomed.ui.main_activity.result
 
 import android.content.Intent
 import android.net.Uri
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.uberalles.symptomed.databinding.FragmentOnlineResultBinding
-import com.uberalles.symptomed.ui.main.MainActivity
+import com.uberalles.symptomed.ui.main_activity.MainActivity
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 
 class OnlineResultFragment : Fragment() {
@@ -36,7 +36,6 @@ class OnlineResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         getResult()
         backToOnlineSymptomFragment()

@@ -1,4 +1,4 @@
-package com.uberalles.symptomed.ui.main.prediction
+package com.uberalles.symptomed.ui.main_activity.prediction
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.data.remote.api.ApiConfig
 import com.uberalles.symptomed.databinding.FragmentOnlineSymptomBinding
-import com.uberalles.symptomed.ui.main.MainActivity
-import com.uberalles.symptomed.ui.result.OnlineResultFragment
+import com.uberalles.symptomed.ui.main_activity.MainActivity
+import com.uberalles.symptomed.ui.main_activity.result.OnlineResultFragment
 import com.uberalles.symptomed.viewmodel.MainViewModel
 import com.uberalles.symptomed.viewmodel.MainViewModelFactory
 

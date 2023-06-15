@@ -1,23 +1,11 @@
-package com.uberalles.symptomed.ui.auth
+package com.uberalles.symptomed.ui.start_activity.splash
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
-import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSplashBinding
-import com.uberalles.symptomed.ui.main.MainActivity
 
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
