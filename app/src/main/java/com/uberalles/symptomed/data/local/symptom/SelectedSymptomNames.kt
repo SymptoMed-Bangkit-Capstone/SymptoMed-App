@@ -138,11 +138,30 @@ object SelectedSymptomNames{
         "Kerak Kuning Keluar"
     )
 
-    fun getSelectedSymptomList(): IntArray  {
-        val dataArray = IntArray (132)
+    fun getSelectedSymptomList(): IntArray {
+        val dataArray = IntArray(132)
+        val symptomsListProcess = selectedSymptomList.toMutableList()
+
+        for (h in symptomsListProcess.indices) {
+            if (symptomsListProcess[h] == "Sakit Perut") {
+                symptomsListProcess.add(h + 1, "Sakit Perut 1")
+                symptomsListProcess.add(h + 2, "Sakit Perut 2")
+                break
+            }
+        }
+
+        for (h in symptomsListProcess.indices) {
+            if (symptomsListProcess[h] == "Kelebihan Cairan") {
+                symptomsListProcess.add(h + 1, "Kelebihan Cairan 1")
+                break
+            }
+        }
+
+        println(symptomsListProcess)
+
         for (i in symptomListSave.indices) {
-            for (j in selectedSymptomList.indices) {
-                if (selectedSymptomList[j] == symptomListSave[i]) {
+            for (j in symptomsListProcess.indices) {
+                if (symptomsListProcess[j] == symptomListSave[i]) {
                     dataArray[i] = 1
                     break
                 }

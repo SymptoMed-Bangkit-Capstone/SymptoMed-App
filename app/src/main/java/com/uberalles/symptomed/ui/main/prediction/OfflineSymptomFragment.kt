@@ -161,9 +161,9 @@ class OfflineSymptomFragment : Fragment() {
 
                         if (prediction[maxIndex] < 0.50) {
                             diagnosa = "Tidak Ada Kecocokan"
-                            probabilitas = ""
+                            probabilitas = "-"
                             saran = "Cobalah masukkan gejala yang lebih spesifik"
-                            wiki = ""
+                            wiki = "https://www.google.com/"
                         } else {
                             Log.d("TAG", "predict: ${recommendation?.Symptom}")
                             probabilitas = String.format("%.2f%%", (prediction[maxIndex] * 100))
