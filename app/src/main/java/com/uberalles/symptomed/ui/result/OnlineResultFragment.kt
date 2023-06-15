@@ -52,6 +52,7 @@ class OnlineResultFragment : Fragment() {
             binding.tvWikipedia.visibility = View.GONE
             binding.cardViewDisclaimer.visibility = View.GONE
         } else {
+            binding.cardViewSpace.visibility = View.INVISIBLE
             binding.tvWikipedia.visibility = View.VISIBLE
             binding.tvProbabilitas.text = probabilitas
         }
