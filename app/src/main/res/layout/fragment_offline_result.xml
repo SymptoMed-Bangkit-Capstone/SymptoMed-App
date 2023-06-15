@@ -224,10 +224,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     android:justificationMode="inter_word"
                     android:text="@string/peringatan"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textSize="15sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
