@@ -105,11 +105,11 @@ class OfflineSymptomFragment : Fragment() {
             if (selectedSymptomArrayList.isEmpty()) {
                 Toast.makeText(context, "Pilih gejala terlebih dahulu", Toast.LENGTH_SHORT).show()
             } else {
-                if (selectedSymptomArrayList.size > 6) {
-                    Toast.makeText(context, "Mohon maaf, Anda tidak dapat memilih lebih dari 6 gejala", Toast.LENGTH_SHORT).show()
+                if (selectedSymptomArrayList.size > 15) {
+                    Toast.makeText(context, "Mohon maaf, Anda tidak dapat memilih lebih dari 15 gejala", Toast.LENGTH_SHORT).show()
                 } else {
-                    if (selectedSymptomArrayList.size < 3) {
-                        Toast.makeText(context, "Anda perlu memilih setidaknya 3 gejala", Toast.LENGTH_SHORT).show()
+                    if (selectedSymptomArrayList.size < 4) {
+                        Toast.makeText(context, "Anda perlu memilih setidaknya 4 gejala", Toast.LENGTH_SHORT).show()
                     } else {
                         val selectedSymptom = selectedSymptomArrayList.map { it.name }
                         SelectedSymptomNames.selectedSymptomList = selectedSymptom

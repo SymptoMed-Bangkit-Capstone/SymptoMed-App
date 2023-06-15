@@ -83,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start"
                 tools:listitem="@layout/symptom_item" />
@@ -133,6 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start"
                 tools:listitem="@layout/symptom_checked" />

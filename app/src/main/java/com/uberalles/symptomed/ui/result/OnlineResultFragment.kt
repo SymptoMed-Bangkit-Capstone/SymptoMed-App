@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.uberalles.symptomed.databinding.FragmentOnlineResultBinding
 import com.uberalles.symptomed.ui.main.MainActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 
 class OnlineResultFragment : Fragment() {
 
@@ -39,13 +41,23 @@ class OnlineResultFragment : Fragment() {
         binding.tvPenyakit.text = diagnosa
         binding.tvSaran.text = saran
 
-        if (diagnosa == "Karakter terlalu sedikit"){
-            binding.tvWikipedia.visibility = View.INVISIBLE
-            binding.tvProbabilitas.text = "Tidak diketahui"
+        val paramsCardViewProbabilitas = binding.cardViewProbabilitas.layoutParams as ConstraintLayout.LayoutParams
+        val paramsCardViewRekomendasi = binding.cardViewRekomendasi.layoutParams as ConstraintLayout.LayoutParams
+
+        if (diagnosa == "Karakter terlalu sedikit" || diagnosa == "Tidak Ada Kecocokan") {
+            paramsCardViewProbabilitas.height = 0
+            paramsCardViewProbabilitas.topMargin = 0
+            paramsCardViewRekomendasi.topToBottom = binding.cardViewDiagnosa.id
+            binding.cardViewProbabilitas.visibility = View.GONE
+            binding.tvWikipedia.visibility = View.GONE
+            binding.cardViewDisclaimer.visibility = View.GONE
         } else {
             binding.tvWikipedia.visibility = View.VISIBLE
             binding.tvProbabilitas.text = probabilitas
         }
+
+        binding.cardViewProbabilitas.layoutParams = paramsCardViewProbabilitas
+        binding.cardViewRekomendasi.layoutParams = paramsCardViewRekomendasi
 
         binding.tvWikipedia.setOnClickListener {
             val urlIntent = Intent(Intent.ACTION_VIEW)
