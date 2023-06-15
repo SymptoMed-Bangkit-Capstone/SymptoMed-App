@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.uberalles.symptomed.databinding.FragmentOnlineResultBinding
 import com.uberalles.symptomed.ui.main.MainActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 
 class OnlineResultFragment : Fragment() {
@@ -25,8 +25,18 @@ class OnlineResultFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as MainActivity).onlineFragment()
+            }
+        })
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         getResult()
         backToOnlineSymptomFragment()
@@ -41,8 +51,8 @@ class OnlineResultFragment : Fragment() {
         binding.tvPenyakit.text = diagnosa
         binding.tvSaran.text = saran
 
-        val paramsCardViewProbabilitas = binding.cardViewProbabilitas.layoutParams as ConstraintLayout.LayoutParams
-        val paramsCardViewRekomendasi = binding.cardViewRekomendasi.layoutParams as ConstraintLayout.LayoutParams
+        val paramsCardViewProbabilitas = binding.cardViewProbabilitas.layoutParams as LayoutParams
+        val paramsCardViewRekomendasi = binding.cardViewRekomendasi.layoutParams as LayoutParams
 
         if (diagnosa == "Karakter terlalu sedikit" || diagnosa == "Tidak Ada Kecocokan") {
             paramsCardViewProbabilitas.height = 0

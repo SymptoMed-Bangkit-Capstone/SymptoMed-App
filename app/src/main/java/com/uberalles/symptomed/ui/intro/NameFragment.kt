@@ -26,17 +26,10 @@ class NameFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    companion object {
-        const val EXTRA_NAME = "extra_name"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentNameBinding.inflate(layoutInflater, container, false)
-//        sharedPreferences =
-//            requireActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -53,11 +46,11 @@ class NameFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    AlertDialog.Builder(requireContext()).setTitle("Are you sure?")
-                        .setMessage("Do you want to exit the app?")
-                        .setPositiveButton("Yes") { _, _ ->
+                    AlertDialog.Builder(requireContext()).setTitle("Apakah anda yakin untuk keluar?")
+                        .setMessage("Proses pendaftaran masih dapat dilanjutkan")
+                        .setPositiveButton("Ya") { _, _ ->
                             activity?.finish()
-                        }.setNegativeButton("No") { dialog, _ ->
+                        }.setNegativeButton("Tidak") { dialog, _ ->
                             dialog.dismiss()
                         }.create().show()
                 }

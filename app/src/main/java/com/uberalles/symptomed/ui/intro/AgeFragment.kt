@@ -116,7 +116,7 @@ class AgeFragment : Fragment() {
                         if (it.exists()) {
                             binding.ageResult.apply {
                                 visibility = View.VISIBLE
-                                text = "You are $age years old ${it.value}!"
+                                text = "Kamu adalah ${it.value} berumur $age!"
                                 alpha = 0f
                                 visibility = View.VISIBLE
                                 animate().alpha(1f).setDuration(1000).setListener(null)

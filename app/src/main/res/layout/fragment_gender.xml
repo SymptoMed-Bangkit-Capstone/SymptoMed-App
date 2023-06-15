@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="Choose your gender"
+        android:text="Pilih jenis kelamin kamu"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             android:elevation="2dp"
             android:gravity="center"
             android:paddingHorizontal="24dp"
-            android:text="Male"
+            android:text="Laki-laki"
             android:textColor="@drawable/radio_text_selector" />
 
         <RadioButton
@@ -52,7 +52,7 @@
             android:elevation="2dp"
             android:gravity="center"
             android:paddingHorizontal="24dp"
-            android:text="Female"
+            android:text="Perempuan"
             android:textColor="@drawable/radio_text_selector" />
     </RadioGroup>
 

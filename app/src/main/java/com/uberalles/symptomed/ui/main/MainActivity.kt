@@ -3,6 +3,7 @@ package com.uberalles.symptomed.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -32,6 +33,27 @@ class MainActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.bottomNavView.selectedItemId == R.id.nav_home) {
+                    alertBuilder = AlertDialog.Builder(this@MainActivity)
+                    alertBuilder.setTitle("Alert")
+                        .setMessage("Apakah Anda ingin keluar dari aplikasi?")
+                        .setCancelable(true)
+                        .setPositiveButton("Ya") { _, _ ->
+                            finish()
+                            android.os.Process.killProcess(android.os.Process.myPid())
+                        }
+                        .setNegativeButton("Tidak") { dialogInterface, _ ->
+                            dialogInterface.cancel()
+                        }
+                        .show()
+                } else {
+                    binding.bottomNavView.selectedItemId = R.id.nav_home
+                }
+            }
+        })
+
         navigationFragment(HomeFragment())
         navigation()
     }
@@ -51,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigationFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment).commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment).disallowAddToBackStack().commit()
     }
 
     fun logout() {
@@ -94,21 +116,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             navBottom.visibility = View.VISIBLE
         }
-    }
-
-    override fun onBackPressed() {
-        alertBuilder = AlertDialog.Builder(this@MainActivity)
-        alertBuilder.setTitle("Alert")
-            .setMessage("Apakah Anda ingin keluar dari aplikasi?")
-            .setCancelable(true)
-            .setPositiveButton("Ya") { _, _ ->
-                finish()
-                android.os.Process.killProcess(android.os.Process.myPid())
-            }
-            .setNegativeButton("Tidak") { dialogInterface, _ ->
-                dialogInterface.cancel()
-            }
-            .show()
     }
 
 }

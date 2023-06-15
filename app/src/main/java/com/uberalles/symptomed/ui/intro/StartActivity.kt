@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import com.uberalles.symptomed.ui.main.MainActivity
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
+    private lateinit var alertBuilder: AlertDialog.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +29,36 @@ class StartActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //if current fragment is SignInFragment, then exit the app
+                alertBuilder = AlertDialog.Builder(this@StartActivity)
+                alertBuilder.setTitle("Alert")
+                    .setMessage("Apakah Anda ingin keluar dari aplikasi?")
+                    .setCancelable(true)
+                    .setPositiveButton("Ya") { _, _ ->
+                        finish()
+                        android.os.Process.killProcess(android.os.Process.myPid())
+                    }
+                    .setNegativeButton("Tidak") { dialogInterface, _ ->
+                        dialogInterface.cancel()
+                    }
+                    .show()
+            }
+        })
+
         checkStatus()
         navigationFragment(SplashFragment())
     }
 
     fun navigationFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_start, fragment).addToBackStack(null).commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_start, fragment)
+            .addToBackStack(null).commit()
+    }
+
+    fun backToSignInFragment() {
+        navigationFragment(SignInFragment())
     }
 
     private fun checkStatus() {

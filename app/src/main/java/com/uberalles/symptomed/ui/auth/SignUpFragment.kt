@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignUpBinding
 import com.uberalles.symptomed.ui.intro.StartActivity
+import com.uberalles.symptomed.ui.main.MainActivity
 
 class SignUpFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -33,6 +35,15 @@ class SignUpFragment : Fragment() {
         formatError()
         signIn()
         signUp()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as StartActivity).backToSignInFragment()
+            }
+        })
     }
 
     private fun formatError() {

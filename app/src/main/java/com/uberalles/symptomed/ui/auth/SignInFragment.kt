@@ -8,15 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.FragmentSignInBinding
 import com.uberalles.symptomed.ui.intro.AgeFragment
 import com.uberalles.symptomed.ui.intro.GenderFragment
@@ -42,12 +39,12 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activity?.finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//        val callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                activity?.finish()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         formatError()
         signIn()
@@ -102,7 +99,9 @@ class SignInFragment : Fragment() {
                                     .addOnCompleteListener { genderTask ->
                                         val gender = genderTask.result?.value?.toString()
                                         if (gender.isNullOrEmpty()) {
-                                            (activity as StartActivity).navigationFragment(GenderFragment())
+                                            (activity as StartActivity).navigationFragment(
+                                                GenderFragment()
+                                            )
                                             Log.d("SignInFragment", "Gender is empty")
                                             return@addOnCompleteListener
                                         }
@@ -111,7 +110,9 @@ class SignInFragment : Fragment() {
                                             .addOnCompleteListener { ageTask ->
                                                 val age = ageTask.result?.value?.toString()
                                                 if (age.isNullOrEmpty()) {
-                                                    (activity as StartActivity).navigationFragment(AgeFragment())
+                                                    (activity as StartActivity).navigationFragment(
+                                                        AgeFragment()
+                                                    )
                                                     Log.d("SignInFragment", "Age is empty")
                                                     return@addOnCompleteListener
                                                 }
@@ -129,7 +130,9 @@ class SignInFragment : Fragment() {
                                                     startActivity(intent)
                                                     activity?.finish()
                                                 } else {
-                                                    (activity as StartActivity).navigationFragment(NameFragment())
+                                                    (activity as StartActivity).navigationFragment(
+                                                        NameFragment()
+                                                    )
                                                     Log.d("SignInFragment", "User data is null")
                                                 }
                                                 Log.d("SignInFragment", "$email $password")
@@ -143,35 +146,6 @@ class SignInFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
-//                        if (task.isSuccessful) {
-//                            val user = Firebase.auth.currentUser
-//                            val reference =
-//                                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
-//                                    user?.uid.toString()
-//                                )
-//
-//                            val name = reference.child("name").get()
-//                            val gender = reference.child("gender").get()
-//                            val age = reference.child("age").get()
-//
-//                            Log.d("Firebase", "Name: $name, gender: $gender, age: $age")
-//
-//                            if (user != null) {
-//
-//                                Log.d("SignInFragment", "User data is not null")
-//                            } else {
-//                                findNavController().navigate(R.id.action_signInFragment_to_nameFragment)
-//                                Log.d("SignInFragment", "User data is null")
-//                            }
-//                            Log.d("SignInFragment", "$email $password")
-//                        } else {
-//                            Toast.makeText(
-//                                requireContext(),
-//                                "Sign in failed. Please try again.",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
                     }
             }
         }
@@ -182,6 +156,7 @@ class SignInFragment : Fragment() {
             (activity as StartActivity).navigationFragment(SignUpFragment())
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
