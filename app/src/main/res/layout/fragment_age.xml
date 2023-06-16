@@ -48,7 +48,7 @@
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/third_blue"
+        android:backgroundTint="@color/light_blue_900"
         android:text="@string/next"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"

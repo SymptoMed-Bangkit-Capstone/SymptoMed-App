@@ -157,7 +157,7 @@ object SelectedSymptomNames{
             }
         }
 
-        println(symptomsListProcess)
+        // println(symptomsListProcess)
 
         for (i in symptomListSave.indices) {
             for (j in symptomsListProcess.indices) {
