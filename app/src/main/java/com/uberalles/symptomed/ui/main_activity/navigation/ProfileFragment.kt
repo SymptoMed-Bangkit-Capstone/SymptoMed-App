@@ -122,10 +122,12 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val photo = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $photo")
-                Glide.with(requireActivity())
-                    .load(photo)
-                    .placeholder(R.drawable.ic_account)
-                    .into(binding.ivProfile)
+                context?.let {
+                    Glide.with(it.applicationContext)
+                        .load(photo)
+                        .placeholder(R.drawable.ic_account)
+                        .into(binding.ivProfile)
+                }
 
             }
 
@@ -133,6 +135,7 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
             }
         })
+
     }
 
 

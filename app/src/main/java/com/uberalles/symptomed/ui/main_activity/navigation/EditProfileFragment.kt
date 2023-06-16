@@ -151,10 +151,12 @@ class EditProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val photo = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $photo")
-                Glide.with(requireContext())
-                    .load(photo)
-                    .placeholder(R.drawable.ic_account)
-                    .into(binding.ivProfile)
+                context?.let {
+                    Glide.with(it.applicationContext)
+                        .load(photo)
+                        .placeholder(R.drawable.ic_account)
+                        .into(binding.ivProfile)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -257,6 +259,7 @@ class EditProfileFragment : Fragment() {
                 uploadTask.addOnSuccessListener {
                     photoRef.downloadUrl.addOnSuccessListener { uri ->
                         firebaseReference.child("photo").setValue(uri.toString())
+                        (activity as MainActivity).backToProfile()
                     }
                     Toast.makeText(requireContext(), "Photo uploaded", Toast.LENGTH_SHORT).show()
                 }
@@ -358,6 +361,7 @@ class EditProfileFragment : Fragment() {
             it
         ) == PackageManager.PERMISSION_GRANTED
     }
+
 
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
