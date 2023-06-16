@@ -1,10 +1,5 @@
-<br/>
-<p align="center">
-  <a href="https://github.com/SymptoMed-Bangkit-Capstone">
-    <img src="profile/media/SymptoMed Panjang.png" width='750dp' alt="Logo" >
-  </a>
-</p>
-<br/>
+
+![Logo](https://raw.githubusercontent.com/SymptoMed-Bangkit-Capstone/.github/main/profile/media/SymptoMed%20Panjang.png)
 
 
 # SymptoMed
