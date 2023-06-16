@@ -44,3 +44,7 @@ The research questions will focus on the effectiveness of the app in accurately 
     <img src="https://raw.githubusercontent.com/SymptoMed-Bangkit-Capstone/.github/main/profile/media/dua.png" alt= "" height="75%">
     <img src="https://raw.githubusercontent.com/SymptoMed-Bangkit-Capstone/.github/main/profile/media/tiga.png" alt= "" height="75%">
 </h3>
+
+ <p>&nbsp;&nbsp;</p>
+
+<h1 align="center">Thanks!</h1>
