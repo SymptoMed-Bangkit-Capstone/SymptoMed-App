@@ -93,6 +93,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_sign_in"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

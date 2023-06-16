@@ -5,7 +5,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Berikutnya</string>
-    <string name="who">Halo, Siapa Namamu?</string>
+    <string name="who">Halo, Siapa namamu?</string>
     <string name="email">Type your email</string>
     <string name="password">Type your password</string>
     <string name="signup">Don\'t have an account? Sign Up here!</string>
@@ -62,4 +62,19 @@
     </string>
     <string name="symptomed_terms_of_service">SYMPTOMED\n TERMS OF SERVICE</string>
     <string name="lanjut">Lanjut</string>
+    <string name="prediksi_secara_offline">Prediksi secara Offline</string>
+    <string name="prediksi_gejala">Prediksi Gejala</string>
+    <string name="prediksi_secara_online">Prediksi secara Online</string>
+    <string name="home">Home</string>
+    <string name="faq">FAQ</string>
+    <string name="profile">Profile</string>
+    <string name="team">Team</string>
+    <string name="profil">Profil</string>
+    <string name="name_profile">Name</string>
+    <string name="informasi_anda">Informasi Anda</string>
+    <string name="umur">Umur</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="ketentuan_layanan">Ketentuan Layanan</string>
+    <string name="agree">Ya, saya setuju dengan perjanjian diatas</string>
 </resources>

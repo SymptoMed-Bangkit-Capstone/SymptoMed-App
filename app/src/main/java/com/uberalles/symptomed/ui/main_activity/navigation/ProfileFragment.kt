@@ -27,6 +27,7 @@ class ProfileFragment : Fragment() {
     private lateinit var firebaseReference: DatabaseReference
     private lateinit var firebaseDb: FirebaseDatabase
     private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +37,8 @@ class ProfileFragment : Fragment() {
         firebaseDb =
             Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app")
         firebaseReference = firebaseDb.getReference("${firebaseAuth.currentUser?.uid}")
+
+
         return binding.root
     }
 
@@ -68,7 +71,7 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val gender = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $gender")
-                if (gender == "Male"){
+                if (gender == "Male") {
                     binding.tvGender.text = "Laki-laki"
                 } else {
                     binding.tvGender.text = "Perempuan"
@@ -120,7 +123,7 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val photo = snapshot.getValue(String::class.java)
                 Log.d("ProfileFragment", "onDataChange: $photo")
-                Glide.with(requireContext())
+                Glide.with(requireActivity())
                     .load(photo)
                     .placeholder(R.drawable.ic_account)
                     .into(binding.ivProfile)
@@ -131,6 +134,7 @@ class ProfileFragment : Fragment() {
             }
         })
     }
+
 
     private fun logout() {
         binding.btnLogout.setOnClickListener {
@@ -146,4 +150,5 @@ class ProfileFragment : Fragment() {
             fragmentTransaction.commit()
         }
     }
+
 }

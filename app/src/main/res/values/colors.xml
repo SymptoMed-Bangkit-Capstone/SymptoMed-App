@@ -2,12 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="colorPrimaryDark">#FF000000</color>
-    <color name="text_color">#454545</color>
     <color name="bg_daftar">#A2CCEB</color>
     <color name="bg_pick">#9FDFCF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#257EBF</color>
     <color name="secondary_blue">#A9D8FA</color>
+    <color name="third_blue">#79C0F3</color>
     <color name="main_red">#C2485E</color>
     <color name="secondary_red">#4DBF5366</color>
     <color name="third_red">#EAB9C2</color>
@@ -16,4 +16,5 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="light_mode">#FFFFFF</color>
 </resources>

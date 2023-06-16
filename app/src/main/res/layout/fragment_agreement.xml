@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:text="Perjanjian"
+                android:text="@string/ketentuan_layanan"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center|start"
-                    android:text="Ya, saya setuju dengan perjanjian diatas"
+                    android:text="@string/agree"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
@@ -91,6 +91,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/light_blue_900"

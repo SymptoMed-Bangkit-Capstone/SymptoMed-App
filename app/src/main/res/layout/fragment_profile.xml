@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Profil"
+        android:text="@string/profil"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Name"
+        android:text="@string/name_profile"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:text="Informasi Anda"
+            android:text="@string/informasi_anda"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
@@ -99,24 +99,27 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:text="Umur"
+                    android:text="@string/umur"
                     android:textSize="16sp" />
 
                 <TextView
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:text="Tanggal Lahir"
+                    android:text="@string/tanggal_lahir"
                     android:textSize="16sp" />
 
                 <TextView
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
-                    android:text="Jenis Kelamin"
+                    android:text="@string/jenis_kelamin"
                     android:textSize="16sp" />
 
 
@@ -131,6 +134,7 @@
 
                 <TextView
                     android:id="@+id/tv_age"
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
@@ -139,6 +143,7 @@
 
                 <TextView
                     android:id="@+id/tv_dob"
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
@@ -147,6 +152,7 @@
 
                 <TextView
                     android:id="@+id/tv_gender"
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
@@ -158,6 +164,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_edit_profile"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -170,6 +177,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

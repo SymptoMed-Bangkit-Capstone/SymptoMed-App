@@ -9,31 +9,46 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.R
 import com.uberalles.symptomed.databinding.ActivityMainBinding
-import com.uberalles.symptomed.ui.start_activity.StartActivity
 import com.uberalles.symptomed.ui.main_activity.navigation.AboutUsFragment
 import com.uberalles.symptomed.ui.main_activity.navigation.FaqFragment
 import com.uberalles.symptomed.ui.main_activity.navigation.HomeFragment
 import com.uberalles.symptomed.ui.main_activity.navigation.ProfileFragment
 import com.uberalles.symptomed.ui.main_activity.prediction.OfflineSymptomFragment
 import com.uberalles.symptomed.ui.main_activity.prediction.OnlineSymptomFragment
+import com.uberalles.symptomed.ui.start_activity.StartActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var alertBuilder: AlertDialog.Builder
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseDb: FirebaseDatabase
+    private lateinit var firebaseReference: DatabaseReference
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseDb =
+            Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app")
+        firebaseReference = firebaseDb.getReference("${firebaseAuth.currentUser?.uid}")
+
+
 
         setContentView(binding.root)
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.bottomNavView.selectedItemId == R.id.nav_home) {
                     alertBuilder = AlertDialog.Builder(this@MainActivity)
@@ -73,7 +88,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigationFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment).disallowAddToBackStack().commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container_main, fragment)
+            .disallowAddToBackStack().commit()
     }
 
     fun logout() {

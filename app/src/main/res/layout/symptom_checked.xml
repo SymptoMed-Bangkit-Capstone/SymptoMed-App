@@ -18,10 +18,10 @@
 
         <TextView
             android:id="@+id/selected_symptom_name"
+            style="@style/Text_Sympto_Black"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:textColor="@color/text_color"
             android:textStyle="bold"
             tools:text="Symptom" />
     </com.google.android.material.card.MaterialCardView>

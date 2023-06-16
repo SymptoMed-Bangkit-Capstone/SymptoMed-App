@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:theme="@style/Base.Theme.SymptoMed">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +19,13 @@
 
             <TextView
                 android:id="@+id/tv_prediction"
+                style="@style/Text_Sympto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="30dp"
-                android:text="Prediksi Gejala"
+                android:text="@string/prediksi_gejala"
                 android:textAlignment="center"
-                android:textColor="@color/text_color"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,12 +49,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text_Sympto_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Prediksi secara Offline"
-                        android:textColor="@color/white"
+                        android:text="@string/prediksi_secara_offline"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -89,12 +91,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/Text_Sympto_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:text="Prediksi secara Online"
-                        android:textColor="@color/white"
+                        android:text="@string/prediksi_secara_online"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -117,10 +119,11 @@
                 android:id="@+id/iv_emergency_call"
                 android:layout_width="198dp"
                 android:layout_height="104dp"
-                android:clickable="true"
-                android:src="@drawable/emergency_call"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/emergency_call"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

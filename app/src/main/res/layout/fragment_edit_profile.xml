@@ -164,10 +164,10 @@
         android:layout_height="30dp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/dob"
-        app:layout_constraintTop_toTopOf="@id/dob"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@id/dob"
-        android:src="@drawable/ic_edit" />
+        app:layout_constraintStart_toEndOf="@id/dob"
+        app:layout_constraintTop_toTopOf="@id/dob" />
 
     <LinearLayout
         android:id="@+id/email"
@@ -190,6 +190,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_back"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -201,6 +202,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
+        style="@style/Button_Sympto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Simpan"

@@ -12,6 +12,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_back"
+            style="@style/Button_Sympto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -57,6 +58,7 @@
 
                 <TextView
                     android:id="@+id/tv_penyakit"
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
@@ -104,6 +106,7 @@
 
                 <TextView
                     android:id="@+id/tv_probabilitas"
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
@@ -157,15 +160,16 @@
 
                     <TextView
                         android:id="@+id/tv_saran"
+                        style="@style/Text_Sympto_Black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeTextType="uniform"
                         android:justificationMode="inter_word"
                         android:textAlignment="viewStart"
                         android:textSize="20sp"
                         android:textStyle="normal"
-                        android:layout_marginBottom="10dp"
-                        android:autoSizeTextType="uniform"
-                        android:autoSizeMinTextSize="12sp"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel hendrerit massa. Fusce sed mi urna. Etiam tortor lorem, gravida quis diam non, pharetra fringilla augue. Ut et diam ut leo ultricies egestas id sit amet ipsum. Maecenas scelerisque elementum ultrices. Aenean laoreet elementum auctor." />
                 </ScrollView>
 
@@ -221,6 +225,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    style="@style/Text_Sympto_Black"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
@@ -239,13 +244,15 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toBottomOf="@id/cardView_disclaimer">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <View
                     android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_height="20dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
