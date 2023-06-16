@@ -45,6 +45,11 @@ android {
 }
 
 dependencies {
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    // If you want to use the GPU Filters
+    implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
+
+    implementation 'com.airbnb.android:lottie:6.0.1'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
     implementation 'com.google.android.material:material:1.9.0'

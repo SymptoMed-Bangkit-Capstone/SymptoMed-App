@@ -47,7 +47,6 @@ class ProfileFragment : Fragment() {
 
         editProfile()
         logout()
-
         val nameDatabase = firebaseReference.child("name")
         val genderDatabase = firebaseReference.child("gender")
         val ageDatabase = firebaseReference.child("age")
@@ -127,6 +126,7 @@ class ProfileFragment : Fragment() {
                     .load(photo)
                     .placeholder(R.drawable.ic_account)
                     .into(binding.ivProfile)
+
             }
 
             override fun onCancelled(error: DatabaseError) {

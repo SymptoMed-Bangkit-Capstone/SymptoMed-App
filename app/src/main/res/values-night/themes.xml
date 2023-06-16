@@ -33,6 +33,15 @@
     </style>
 
     <style name="HintTextColorBlack">
+        <item name="android:textColorHint">#2E2D2D</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="SearchViewBlack">
         <item name="android:textColorHint">#000000</item>
+    </style>
+
+    <style name="AccountPhotoDarkMode">
+        <item name="android:src">@drawable/ic_account_white</item>
     </style>
 </resources>

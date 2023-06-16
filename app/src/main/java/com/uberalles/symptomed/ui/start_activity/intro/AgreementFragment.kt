@@ -54,18 +54,30 @@ class AgreementFragment : Fragment() {
     }
 
     private fun nextButton() {
-
+        val showBg = binding.clLoading
         binding.btnNext.setOnClickListener {
             if (binding.cbAgreement.isChecked) {
-                val database =
-                    Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                val tosDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("tos")
-                tosDb.setValue(true)
+                //animate show alpha background
+                showBg.apply {
+                    alpha = 0f
+                    visibility = View.VISIBLE
+                    animate().alpha(1f).setDuration(1000).setListener(null)
 
-                val intent = Intent(activity, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-                activity?.finish()
+                    binding.animationView.playAnimation()
+                    binding.animationView.speed = 0.5f
+
+                    postDelayed({
+                        val database =
+                            Firebase.database("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                        val tosDb = database.reference.child(firebaseAuth.currentUser!!.uid).child("tos")
+                        tosDb.setValue(true)
+                        val intent = Intent(activity, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                        activity?.finish()
+                    }, 3500)
+                }
+
             }
         }
     }
