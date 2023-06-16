@@ -55,6 +55,7 @@ class AboutUsAdapter : RecyclerView.Adapter<AboutUsAdapter.AboutUsViewHolder>() 
                 }
                 Glide.with(itemView.context)
                     .load(member.memberPhoto)
+                    .circleCrop()
                     .into(ivPhoto)
             }
         }

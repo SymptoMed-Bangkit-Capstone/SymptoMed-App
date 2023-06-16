@@ -50,7 +50,7 @@ object Data {
 
         members.add(
             TeamEntity(
-                R.drawable.photo_jhonson_2,
+                R.drawable.photo_jhonson,
                 "Jhonson Saputra",
                 "Cloud Computing",
                 "https://github.com/JhonSptr",

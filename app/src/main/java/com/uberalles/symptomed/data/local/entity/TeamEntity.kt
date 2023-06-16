@@ -6,4 +6,5 @@ data class TeamEntity(
     var memberPath: String?,
     var memberGithub: String?,
     var memberLinkedIn: String?
+
 )

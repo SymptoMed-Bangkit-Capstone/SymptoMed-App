@@ -15,11 +15,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.uberalles.symptomed.databinding.FragmentSignInBinding
+import com.uberalles.symptomed.ui.main_activity.MainActivity
+import com.uberalles.symptomed.ui.start_activity.StartActivity
 import com.uberalles.symptomed.ui.start_activity.intro.AgeFragment
 import com.uberalles.symptomed.ui.start_activity.intro.GenderFragment
 import com.uberalles.symptomed.ui.start_activity.intro.NameFragment
-import com.uberalles.symptomed.ui.start_activity.StartActivity
-import com.uberalles.symptomed.ui.main_activity.MainActivity
 
 class SignInFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
@@ -38,13 +38,6 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        val callback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                activity?.finish()
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         formatError()
         signIn()
@@ -67,7 +60,7 @@ class SignInFragment : Fragment() {
 
     private fun signIn() {
         binding.btnSignIn.setOnClickListener {
-
+            val showBg = binding.clLoading
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
@@ -75,78 +68,105 @@ class SignInFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please fill out all fields", Toast.LENGTH_SHORT)
                     .show()
             } else {
+                showBg.apply {
 
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val user = Firebase.auth.currentUser
-                            val reference =
-                                FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
-                                    user?.uid.toString()
-                                )
-                            val emailDb = reference.child("email")
-                            emailDb.setValue(email)
 
-                            reference.child("name").get().addOnCompleteListener { nameTask ->
-                                val name = nameTask.result?.value?.toString()
-                                if (name.isNullOrEmpty()) {
-                                    (activity as StartActivity).navigationFragment(NameFragment())
-                                    Log.d("SignInFragment", "Name is empty")
-                                    return@addOnCompleteListener
-                                }
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val user = Firebase.auth.currentUser
+                                val reference =
+                                    FirebaseDatabase.getInstance("https://symptomed-bf727-default-rtdb.asia-southeast1.firebasedatabase.app").reference.child(
+                                        user?.uid.toString()
+                                    )
+                                val emailDb = reference.child("email")
+                                emailDb.setValue(email)
 
-                                reference.child("gender").get()
-                                    .addOnCompleteListener { genderTask ->
-                                        val gender = genderTask.result?.value?.toString()
-                                        if (gender.isNullOrEmpty()) {
-                                            (activity as StartActivity).navigationFragment(
-                                                GenderFragment()
-                                            )
-                                            Log.d("SignInFragment", "Gender is empty")
-                                            return@addOnCompleteListener
-                                        }
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate().alpha(1f).setDuration(1000).setListener(null)
 
-                                        reference.child("age").get()
-                                            .addOnCompleteListener { ageTask ->
-                                                val age = ageTask.result?.value?.toString()
-                                                if (age.isNullOrEmpty()) {
-                                                    (activity as StartActivity).navigationFragment(
-                                                        AgeFragment()
-                                                    )
-                                                    Log.d("SignInFragment", "Age is empty")
-                                                    return@addOnCompleteListener
-                                                }
+                                binding.animationView.playAnimation()
+                                binding.animationView.speed = 1f
 
-                                                Log.d(
-                                                    "Firebase",
-                                                    "Name: $name, gender: $gender, age: $age"
+                                postDelayed({
+                                    reference.child("name").get()
+                                        .addOnCompleteListener { nameTask ->
+                                            val name = nameTask.result?.value?.toString()
+                                            if (name.isNullOrEmpty()) {
+                                                (activity as StartActivity).navigationFragment(
+                                                    NameFragment()
                                                 )
-                                                if (user != null) {
-                                                    val intent = Intent(
-                                                        requireContext(),
-                                                        MainActivity::class.java
-                                                    )
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                                    startActivity(intent)
-                                                    activity?.finish()
-                                                } else {
-                                                    (activity as StartActivity).navigationFragment(
-                                                        NameFragment()
-                                                    )
-                                                    Log.d("SignInFragment", "User data is null")
-                                                }
-                                                Log.d("SignInFragment", "$email $password")
+                                                Log.d("SignInFragment", "Name is empty")
+                                                return@addOnCompleteListener
                                             }
-                                    }
+
+                                            reference.child("gender").get()
+                                                .addOnCompleteListener { genderTask ->
+                                                    val gender =
+                                                        genderTask.result?.value?.toString()
+                                                    if (gender.isNullOrEmpty()) {
+                                                        (activity as StartActivity).navigationFragment(
+                                                            GenderFragment()
+                                                        )
+                                                        Log.d("SignInFragment", "Gender is empty")
+                                                        return@addOnCompleteListener
+                                                    }
+
+                                                    reference.child("age").get()
+                                                        .addOnCompleteListener { ageTask ->
+                                                            val age =
+                                                                ageTask.result?.value?.toString()
+                                                            if (age.isNullOrEmpty()) {
+                                                                (activity as StartActivity).navigationFragment(
+                                                                    AgeFragment()
+                                                                )
+                                                                Log.d(
+                                                                    "SignInFragment",
+                                                                    "Age is empty"
+                                                                )
+                                                                return@addOnCompleteListener
+                                                            }
+
+                                                            Log.d(
+                                                                "Firebase",
+                                                                "Name: $name, gender: $gender, age: $age"
+                                                            )
+                                                            if (user != null) {
+                                                                val intent = Intent(
+                                                                    requireContext(),
+                                                                    MainActivity::class.java
+                                                                )
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                                startActivity(intent)
+                                                                activity?.finish()
+                                                            } else {
+                                                                (activity as StartActivity).navigationFragment(
+                                                                    NameFragment()
+                                                                )
+                                                                Log.d(
+                                                                    "SignInFragment",
+                                                                    "User data is null"
+                                                                )
+                                                            }
+                                                            Log.d(
+                                                                "SignInFragment",
+                                                                "$email $password"
+                                                            )
+                                                        }
+                                                }
+                                        }
+                                }, 2000)
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Sign in failed. Please try again.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-                        } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Sign in failed. Please try again.",
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
-                    }
+
+                }
             }
         }
     }
