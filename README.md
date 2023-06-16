@@ -4,6 +4,7 @@
     <img src="profile/media/SymptoMed Panjang.png" width='750dp' alt="Logo" >
   </a>
 </p>
+<br/>
 
 
 # SymptoMed
